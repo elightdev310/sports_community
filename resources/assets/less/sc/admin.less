@@ -1,0 +1,74 @@
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins.less";
+@import "variables.less";
+@import "font.less";
+@import "component.less";
+@import "common.less";
+
+.wrapper {
+    .content-wrapper{
+        background-color: #ecf0f5;
+    }
+}
+
+.main-header {
+  background: #fff;
+  .logo {
+    height: auto;
+    padding: 0px 10px;
+    .logo-lg {
+      display: inline-block; 
+    }
+  }
+}
+
+.color-inherited {
+  color: inherit !important;
+}
+
+/* smaller than Extra small screen */
+@media (max-width: (@screen-xs-max)) {
+  .navbar-brand {
+    padding: 5px 10px;
+    img.site-logo {
+      height: 60px;
+    }
+  }
+
+  .main-header .logo {
+    padding: 5px 10px;
+    img.site-logo {
+      height: 60px;
+    }
+  }
+  .fixed .content-wrapper, .fixed .right-side,
+  .main-sidebar, .left-side {
+    padding-top: 120px;
+  }
+}
+
+.sidebar-menu .treeview-menu {
+  padding-left: 15px;
+}
+
+.application-list {
+  li span.text > a{
+    color: inherit;
+  }
+}
+
+.row-action a.action-link {
+  .fa {
+    font-size: 1.2em;
+    margin: 2px 5px;
+  }
+}
+
+.bulk-action-section {
+  margin: 20px 0px;
+  .action-name {
+    float: left;
+    width: auto;
+    margin-right: 10px;
+  }
+}

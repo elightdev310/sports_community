@@ -1,0 +1,12 @@
+/_backup
+/config
+/public/uploads
+/database
+/vendor
+/node_modules
+/storage
+Homestead.yaml
+Homestead.json
+.env
+access.log
+error.log

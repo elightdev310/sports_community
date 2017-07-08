@@ -1,0 +1,127 @@
+@import "../bootstrap/variables.less";
+@import "../bootstrap/mixins.less";
+@import "variables.less";
+@import "font.less";
+@import "component.less";
+@import "common.less";
+
+/****** Dashboard *********/
+.dashboard-page .icon-block{
+    padding-top:30px;padding-bottom:30px;
+    ul{
+        margin: 0;padding:0;list-style:none;clear:both;
+        li {
+            float:left;
+            text-align:center;
+            width:150px;
+            height:180px;
+            a {
+                display:inline-block;
+                color:#fff;
+                font-family: 'Gotham-bold';
+                font-size: 12px;
+                letter-spacing:1px;
+                text-decoration:none;
+                text-transform:uppercase;
+                
+            }
+            img{width:90px;}
+            a span{display:block;transform: none !important;}
+            &.hvr-grow:hover span, 
+            &.hvr-grow:focus span, 
+            &.hvr-grow:active span {
+                transform: none !important;
+            }
+        }
+    }
+}
+
+
+
+
+@media only screen and (min-width : 1440px) and (max-width : 1680px) {
+    .dashboard-page {
+        .icon-block ul li{width:110px;height:130px;}
+        .icon-block ul li img{width:65px;}
+    }
+    div.color-block-top h1{font-size:60px;}
+    
+    div.color-section ul li{line-height:60px;}
+    div.user-block {padding-top:20px;padding-bottom:20px;}
+    div.user-block h2{font-size:25px;}
+    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
+}
+
+@media only screen and (min-width : 1280px) and (max-width : 1441px) {
+    .dashboard-page {
+        .icon-block ul li{width:95px;height:115px;}
+        .icon-block ul li img{width:55px;}
+        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
+    }
+    div.color-block-top h1{font-size:50px;}
+    div.color-section ul li{line-height:60px;}
+    div.user-block {padding-top:20px;padding-bottom:20px;}
+    div.user-block h2{font-size:25px;}
+    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
+}
+
+@media only screen and (min-width : 1024px) and (max-width : 1155px) {
+    .dashboard-page {
+        .icon-block ul li{width:95px;height:115px;}
+        .icon-block ul li img{width:55px;}
+        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
+    }
+    div.color-block-top h1{font-size:50px;}
+    div.user-block {padding-top:20px;padding-bottom:20px;}
+    div.header{padding:10px 20px;}
+    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
+    div.color-dock ul li a {
+        border-radius:10px;
+        height:43px;line-height:43px;width:43px;
+    }
+    div.color-dock ul li span.mirror{width:43px;}
+    div.color-section ul li{line-height:60px;}
+}
+@media only screen and (min-width : 768px) and (max-width : 1023px) {
+    .dashboard-page {
+        .icon-block ul li{width:95px;height:115px;}
+        .icon-block ul li img{width:55px;}
+        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
+    }
+    div.header{padding:10px 20px;}
+    div.color-dock ul li a
+      {
+        border-radius:10px;
+        height:40px;line-height:40px;width:40px;
+        margin-right:5px;
+        margin-left:5px;
+      }
+    div.color-dock ul li span.mirror{width:40px;height:15px;}
+    div.color-section ul li{line-height:60px;}
+    div.user-block {padding-top:20px;padding-bottom:20px;}
+    div.user-block h2{font-size:25px;}
+    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
+}
+
+@media only screen and (min-width : 1px) and (max-width : 767px) {
+    .dashboard-page {
+        .icon-block ul{clear:inherit;}
+        .icon-block ul li{width:95px;height:115px;}
+        .icon-block ul li img{width:55px;}
+        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
+    }
+
+    header{height:auto;width:100%;}
+    div.user-block{padding-bottom:10px;padding-top:10px;}
+    div.user-block h2{font-size:20px;padding:10px 0 5px;}
+    div.color-section ul li{line-height:50px;}
+    div.warper{width:100%; height:auto;}
+    div.warper.is-up{height:100%; position:fixed;}
+    div.header{padding:5px 15px;}
+    div.color-block-middle, div.color-block-bottom, div.icon-bar{line-height:60px;}
+    div.color-block-top h1{font-size:30px;}
+    div.color-dock{width:100%;left:0;right:0;}
+    div.color-dock:before, div.color-dock:after{content:inherit;}
+    div.color-dock ul li a{height:43px;line-height:43px;width:43px;border-radius:10px;margin-left:5px;margin-right:0;margin-bottom:5px;}
+    div.shade-bank-details{height:100%}
+}
