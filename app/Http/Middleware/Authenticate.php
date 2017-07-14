@@ -30,8 +30,15 @@ class Authenticate
         else {
             // Check Pending User ( Prompt Activation Code )
             $current_user = SCUserLib::currentUser();
-            if ($current_user && $current_user->status == config('sc.user_status.pending')) {
-                return redirect()->route('user.activate');
+            if ($current_user) {
+                if ($current_user->status == config('sc.user_status.pending')) {
+                    return redirect()->route('user.activate');
+                }
+                else if ($current_user->status == config('sc.user_status.active')) {
+                    if ($current_user->password == '') {
+                        return redirect()->route('user.password.set');
+                    }
+                }
             }
         }
 

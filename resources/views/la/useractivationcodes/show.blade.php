@@ -109,6 +109,7 @@
 					<div class="panel-body">
 						@la_display($module, 'user_id')
 						@la_display($module, 'code')
+						@la_display($module, 'expiration')
 					</div>
 				</div>
 			</div>

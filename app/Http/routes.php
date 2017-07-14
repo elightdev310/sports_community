@@ -40,6 +40,11 @@ Route::post('activate', [
 Route::get('send-activation', [
     'as' => 'user.activate.send', 'uses' => 'Auth\SCActivationController@sendActivationCode' ]);
 
+Route::get('password/set', [
+    'as' => 'user.password.set', 'uses' => 'Auth\SCAuthController@setPasswordPage' ]);
+Route::post('password/set', [
+    'as' => 'user.password.set.post', 'uses' => 'Auth\SCAuthController@setPasswordPost' ]);
+
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\SCAuthController@redirectToProvider');

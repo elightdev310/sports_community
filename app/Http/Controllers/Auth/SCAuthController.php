@@ -18,6 +18,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Str;
 
 use Dwij\Laraadmin\Models\Module;
 use Dwij\Laraadmin\Models\ModuleFields;
@@ -45,7 +46,8 @@ class SCAuthController extends Controller
     {
         $this->middleware($this->guestMiddleware(), 
                           ['except' => array( 'logout', 
-                                              'activateUser' )] );
+                                              'setPasswordPage', 
+                                              'setPasswordPost' )] );
     }
 
     /**
@@ -140,5 +142,52 @@ class SCAuthController extends Controller
         Auth::login($authUser, true);
         $request->session()->flash('redirect', '_parent');
         return view('sc.commons.reload_parent');
+    }
+
+    /**
+     * Set password after social login since password is blank
+     * (password/set)
+     */
+    public function setPasswordPage(Request $request)
+    {
+        $current_user = SCUserLib::currentUser();
+        $check = $this->checkBlankPassword($current_user);
+        if ($check === true) {
+            return view('sc.auth.passwords.set', ['email'=>$current_user->email]);
+        }
+        return $check;
+    }
+    public function setPasswordPost(Request $request)
+    {
+        $current_user = SCUserLib::currentUser();
+        if ($this->checkBlankPassword($current_user)) {
+            $_req = $request->all();
+            $validator = Validator::make($request->all(), [
+                                        'email'         => 'required|email', 
+                                        'password'      => 'required|min:6|confirmed'   ]);
+            if ($validator->fails()) {
+                return redirect()->route('user.password.set')
+                                 ->withErrors($validator);
+            }
+
+            $current_user->forceFill([
+                'password' => bcrypt($_req['password']),
+                //'remember_token' => Str::random(60),
+            ])->save();
+
+            return redirect()->route('dashboard');
+        }
+    }
+    protected function checkBlankPassword($current_user)
+    {
+        if (!$current_user) {
+            return redirect()->route('user.login');
+        } 
+        else if ($current_user->status == config('sc.user_status.active')) {
+            if ($current_user->password == '') {
+                return true;
+            }
+        }
+        return redirect()->route('dashboard');
     }
 }

@@ -23,7 +23,7 @@ class UserActivationCodesController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'user_id';
-	public $listing_cols = ['id', 'user_id', 'code'];
+	public $listing_cols = ['id', 'user_id', 'code', 'expiration'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

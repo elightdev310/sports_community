@@ -123,6 +123,11 @@ class UserLib
 
         $authUser = $socialProfile->user;
         if ($authUser) {
+            if ($authUser->status == config('sc.user_status.pending')) {
+                // Not need to verify in social login
+                $authUser->status = config('sc.user_status.active');
+                $authUser->save();
+            }
             return $authUser;
         }
 
@@ -131,7 +136,7 @@ class UserLib
             'name'     => $user['name'],
             'email'    => $email,
             'type'     => config('sc.user_type.app_user'), 
-            'status'   => config('sc.user_status.pending')
+            'status'   => config('sc.user_status.active')  // Not need to verify in social login
         ]);
 
         // User Role (APP_USER)
@@ -139,8 +144,7 @@ class UserLib
         $role = Role::where('name', config('sc.user_role.app_user'))->first();
         $authUser->attachRole($role);
 
-        // Send comfirm mail
-        $this->sendActivationMail($authUser);
+        // Not need to send verification mail
         return $authUser;
     }
 
@@ -173,7 +177,8 @@ class UserLib
     }
 
     /**
-     * Generate 6-digits Activation Code 
+     * Generate 6-digits Activation Code
+     * expiration - 10 mins
      */
     public function generateActivationCode($user) {
         // Random Number ( 6 digits )
@@ -192,11 +197,13 @@ class UserLib
         $uac = UserActivationCode::where('user_id', $user->id)->first();
         if ($uac) {
             $uac->code = $code;
+            $uac->expiration = time() + config('sc.activation_period');
             $uac->save();
         }
         else {
             $uac = UserActivationCode::create([
                 'user_id'   => $user->id, 
+                'expiration'=> time() + config('sc.activation_period'), 
                 'code'      => $code
             ]);
         }
@@ -210,13 +217,18 @@ class UserLib
     public function handleActivationCode($user, $code) {
         $uac = UserActivationCode::where('user_id', $user->id)
                                  ->where('code', $code)
+                                 ->orderBy('expiration', 'DESC')
                                  ->first();
         if ($uac) {
+            if ($uac->expiration < time()) {
+                return "Your code is expired. Please try to get verification code by clicking send email link.";
+            }
             $user->status = config('sc.user_status.active');
             $user->save();
             $uac->forceDelete();
             return true;
         }
+
         return "Invalid Activation Code";
     }
 

@@ -35,6 +35,7 @@
 					{{--
 					@la_input($module, 'user_id')
 					@la_input($module, 'code')
+					@la_input($module, 'expiration')
 					--}}
                     <br>
 					<div class="form-group">

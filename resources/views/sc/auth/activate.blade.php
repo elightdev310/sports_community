@@ -22,6 +22,11 @@ Activate User
                     {!! Form::submit('Continue', ['class'=>'btn btn-primary btn-block btn-flat']) !!}
                 </div><!-- /.col -->
             </div>
+            <div class="row pt20">
+                <div class="col-xs-12">
+                    <a href="{{ url('/logout') }}">Log out</a>
+                </div>
+            </div>
         {!! Form::close() !!}
     </div><!-- /.login-box-body -->
 </div><!-- /.login-box -->
