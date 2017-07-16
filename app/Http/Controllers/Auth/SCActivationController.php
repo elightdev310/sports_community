@@ -74,7 +74,7 @@ class SCActivationController extends Controller
             $result = SCUserLib::sendActivationMail($user);
             if ($result === true) {
                 return redirect()->route('user.activate')
-                                 ->with("We have e-mailed your verification code.");
+                                 ->with('status', "We have e-mailed your verification code.");
             }
             else if ($result == 'activated') {
                 return redirect()->route('dashboard');

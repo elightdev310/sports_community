@@ -134,7 +134,7 @@ class UserLib
         // Create New User
         $authUser = User::create([
             'name'     => $user['name'],
-            'email'    => $email,
+            'email'    => $user['email'],
             'type'     => config('sc.user_type.app_user'), 
             'status'   => config('sc.user_status.active')  // Not need to verify in social login
         ]);
@@ -196,9 +196,15 @@ class UserLib
         // Store Code in UserActivationCode Table
         $uac = UserActivationCode::where('user_id', $user->id)->first();
         if ($uac) {
-            $uac->code = $code;
-            $uac->expiration = time() + config('sc.activation_period');
-            $uac->save();
+            if (($uac->expiration-60) < time()) {
+                // Keep OLD code before expiration - 1 min
+                $code = $uac->code;
+            } 
+            else {
+                $uac->code = $code;
+                $uac->expiration = time() + config('sc.activation_period');
+                $uac->save();
+            }
         }
         else {
             $uac = UserActivationCode::create([
