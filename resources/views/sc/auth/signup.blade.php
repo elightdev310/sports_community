@@ -17,8 +17,10 @@ Sign Up
         {!! Form::open(['route'=>'user.signup.post', 'method'=>'post', 'id'=>'signup-form']) !!}
             {!! Form::hidden('_action', 'register') !!}
             <div class="form-group has-feedback">
-                {!! Form::text('name', NULL, ['class'=>'form-control', 'placeholder'=>'Full name']) !!}
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                {!! Form::text('first_name', NULL, ['class'=>'form-control', 'placeholder'=>'First name']) !!}
+            </div>
+            <div class="form-group has-feedback">
+                {!! Form::text('last_name', NULL, ['class'=>'form-control', 'placeholder'=>'Last name']) !!}
             </div>
             <div class="form-group has-feedback">
                 {!! Form::email('email', NULL, ['class'=>'form-control', 'placeholder'=>'Email']) !!}

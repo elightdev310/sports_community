@@ -66,7 +66,7 @@ class UserLib
         try {
             // User Model
             $ud = array();
-            $ud['name']     = $req['name'];
+            $ud['name']     = $req['first_name'].' '.$req['last_name'];
             $ud['email']    = $req['email'];
             $ud['password'] = $req['password'];
             $ud['type']     = config('sc.user_type.app_user');
@@ -89,6 +89,9 @@ class UserLib
 
             // Send comfirm mail
             $this->sendActivationMail($user);
+            // Login 
+            Auth::login($user, true);
+
             return true;
         }
         catch(Exception $e) {

@@ -78,7 +78,8 @@ class SCAuthController extends Controller
         $_req = $request->all();
         if ($request->input('_action') && $request->input('_action')=='register') {
             $validator = Validator::make($request->all(), [
-                                        'name'          => 'required', 
+                                        'first_name'    => 'required', 
+                                        'last_name'     => 'required', 
                                         'email'         => 'required|email', 
                                         'password'      => 'required|min:6|confirmed', 
                                         'date_birth'    => 'required', 
@@ -90,9 +91,10 @@ class SCAuthController extends Controller
                                  ->withInput();
             }
 
-            $result = SCUserLib::registerUserAction($_req);
+            $result = SCUserLib::registerUserAction($_req); // Log in 
             if ($result === true) {
                 return redirect()->route('user.login');
+                // redirect to verification page, automatically
             } else {
                 if ($result === false) {
                     $result = 'unknown error (signup.post)';
