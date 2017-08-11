@@ -16,8 +16,12 @@ Profile
   <div class="upload-picture-wrap hidden p10">
     <div id="upload-picture">
     </div>
+    <div class="text-center">
+    <button class="avatar-rotate" data-deg="-90">Rotate Left</button>
+    <button class="avatar-rotate" data-deg="90">Rotate Right</button>
+    </div>
 
-    <div class="p20 text-right">
+    <div class="pt20 text-right">
       <button type="button" class="btn btn-primary crop-user-picture" >Crop and Save</button>
     </div>
   </div>
@@ -39,29 +43,33 @@ Profile
         
         reader.onload = function (e) {
           $('#user-picture-modal').addClass('ready');
+          console.log(e.target.result);
           $uploadCrop.croppie('bind', {
             url: e.target.result
+          }).
+          then(function(){
+            console.log('jQuery bind complete');
           });
         }
 
         reader.readAsDataURL(input.files[0]);
       }
       else {
-        swal("Sorry - you're browser doesn't support the FileReader API");
+        
       }
     }
   
     $uploadCrop = $('#upload-picture').croppie({
-      enableExif: true,
       viewport: {
         width: 160,
         height: 160, 
       },
-
       boundary: {
           width: 250,
           height: 250
-      }, 
+      },
+      enableOrientation: true, 
+      //enableExif: true
     });
 
     $('#upload-photo-link').on('click', function () {
@@ -71,11 +79,15 @@ Profile
       readFile(this);
       $('.upload-picture-wrap').removeClass('hidden');
     })
+    $('.avatar-rotate').on('click', function(ev) {
+      var degree = parseInt($(this).data('deg'));
+      $uploadCrop.croppie('rotate', degree);
+    });
+
     $('.crop-user-picture').on('click', function (ev) {
       $uploadCrop.croppie('result', {
         type: 'canvas',
         size: 'viewport', 
-        circle: false, 
       }).then(function (resp) {
         // Crop & Save
         SCApp.UI.blockUI('body');
@@ -102,4 +114,6 @@ Profile
 
   });
 </script>
+
+<script src="{{ asset('assets/plugins/exif/exif.js') }}" type="text/javascript"></script>
 @endpush
