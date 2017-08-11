@@ -53,9 +53,12 @@ SCApp.UI = {
     var options = {
       url: url, 
       title: title, 
-      size: size
+      size: size, 
     };
-    eModal.iframe(options);
+    eModal.setModalOptions({backdrop: false, keyboard: false});
+    var modal = eModal.iframe(options);
+
+
   }, 
   blockUI: function(selector) {
     $(selector).block({ 

@@ -13,6 +13,6 @@ use App\Models\UserActivationCode as UserActivationCodeModule;
 class UserActivationCode extends UserActivationCodeModule
 {
     public function user() {
-        return $this->hasOne('App\SC\Models\User', 'user_id');
+        return $this->belongsTo('App\SC\Models\User');
     }
 }

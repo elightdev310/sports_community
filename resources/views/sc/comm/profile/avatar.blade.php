@@ -52,6 +52,7 @@ Profile
     }
   
     $uploadCrop = $('#upload-picture').croppie({
+      enableExif: true,
       viewport: {
         width: 160,
         height: 160, 

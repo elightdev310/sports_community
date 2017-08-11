@@ -14,7 +14,13 @@ class User extends UserModule
 {
     use SoftDeletes;
 
-    // public function employee() {
-    //     return $this->hasOne('App\SC\Models\Employee', 'user_id');
-    // }
+    public function profile() {
+      return $this->hasOne('App\SC\Models\UserProfile', 'user_id');
+    }
+
+    public function createProfile() {
+      $profile = new UserProfile;
+      $profile->user_id = $this->id;
+      $profile->save();
+    }
 }

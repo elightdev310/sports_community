@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 
 use App\SC\Models\User;
+use App\SC\Models\UserProfile;
 use SCUserLib;
 
 /**
@@ -34,12 +35,23 @@ class ProfileController extends Controller
   /**
    * URL (/profile)
    */
-  public function profilePage(Request $request)
+  public function profilePage(Request $request, User $user)
   {
-    $user = SCUserLib::currentUser();
+    if ($user->status != config('sc.user_status.active')) {
+      abort(404);
+    }
+    if (!$user->profile) {
+      $user->createProfile();
+    }
+
+    $currentUser = SCUserLib::currentUser();
 
     $params = array();
+    $params['user'] = $user;
     $params['tab'] = 'timeline';
+    $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+
     return view('sc.comm.profile.timeline', $params);
   }
 

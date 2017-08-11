@@ -13,6 +13,6 @@ use App\Models\UserProfile as UserProfileModule;
 class UserProfile extends UserProfileModule
 {
     public function user() {
-        return $this->hasOne('App\SC\Models\User', 'user_id');
+        return $this->belongsTo('App\SC\Models\User');
     }
 }

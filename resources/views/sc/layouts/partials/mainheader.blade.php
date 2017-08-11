@@ -13,7 +13,7 @@
 
     <div class="collapse navbar-collapse" id="header-menu">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="{{ route('profile.index') }}">Daan</a></li>
+        <li><a href="{{ route('profile.index', [$currentUser->id]) }}">{{$currentUser->name}}</a></li>
         <li><a href="/">Home</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
