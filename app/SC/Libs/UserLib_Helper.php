@@ -8,7 +8,6 @@ use Auth;
 use Dwij\Laraadmin\Models\Module;
 use Dwij\Laraadmin\Models\ModuleFields;
 
-use App\User as UserModule;
 use App\Role;
 use App\SC\Models\User;
 
@@ -23,17 +22,28 @@ Trait UserLib_Helper
         return $user;
     }
 
-    public function avatarImage($user, $size=120, $classes="") {
+    public function avatarImage($user, $size=160, $classes="") {
         if (is_numeric($user)) {
             $user = User::find($user);
         }
         
-        $avatar_file = 'default.jpg';
-        $avatar_url = url(config('sc.avatar_path') . $avatar_file);
+        if (!$user->avatar) {
+          $user->avatar = 'default.jpg';
+        }
+        $avatar_url = url(config('sc.avatar_path') . $user->avatar);
 
-        $html = sprintf('<img src="%s" class="%s user-avatar img-circle" width="%d" height="%d" alt="User Image">', 
+        $html = sprintf('<img src="%s" class="%s img profile-picture" width="%d" height="%d" alt="User Image">', 
                          $avatar_url, $classes, $size, $size);
         return $html;
+    }
+    public function checkAvatarExist($user) {
+        if (is_numeric($user)) {
+            $user = User::find($user);
+        }
+        if (!$user->avatar || $user->avatar=='default.jpg') {
+            return false;
+        }
+        return true;
     }
 
     public static function isSuperAdmin($user) 

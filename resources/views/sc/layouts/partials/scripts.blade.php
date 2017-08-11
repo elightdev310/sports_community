@@ -27,6 +27,8 @@
       fixed layout. -->
 <script src="{{ asset('assets/plugins/bootbox/bootbox.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-loading-overlay/loading-overlay.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/emodal/eModal.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/jquery.blockUI/jquery.blockUI.js') }}" type="text/javascript"></script>
 
 
 <script src="{{ asset('assets/js/sc-app.js') }}" type="text/javascript"></script>

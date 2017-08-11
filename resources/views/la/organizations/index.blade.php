@@ -1,7 +1,7 @@
 @extends("la.layouts.app")
 
 @section("contentheader_title", "Organizations")
-@section("contentheader_description", "organizations listing")
+@section("contentheader_description", "Organizations listing")
 @section("section", "Organizations")
 @section("sub_section", "Listing")
 @section("htmlheader_title", "Organizations Listing")
@@ -63,13 +63,10 @@
 					@la_input($module, 'email')
 					@la_input($module, 'phone')
 					@la_input($module, 'website')
-					@la_input($module, 'assigned_to')
-					@la_input($module, 'connect_since')
 					@la_input($module, 'address')
 					@la_input($module, 'city')
 					@la_input($module, 'description')
-					@la_input($module, 'profile_image')
-					@la_input($module, 'profile')
+					@la_input($module, 'feedpage_id')
 					--}}
 				</div>
 			</div>

@@ -39,6 +39,7 @@
 					@la_input($module, 'password')
 					@la_input($module, 'type')
 					@la_input($module, 'status')
+					@la_input($module, 'avatar')
 					--}}
                     <br>
 					<div class="form-group">

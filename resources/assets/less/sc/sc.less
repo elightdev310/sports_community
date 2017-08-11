@@ -5,123 +5,73 @@
 @import "component.less";
 @import "common.less";
 
-/****** Dashboard *********/
-.dashboard-page .icon-block{
-    padding-top:30px;padding-bottom:30px;
-    ul{
-        margin: 0;padding:0;list-style:none;clear:both;
-        li {
-            float:left;
-            text-align:center;
-            width:150px;
-            height:180px;
-            a {
-                display:inline-block;
-                color:#fff;
-                font-family: 'Gotham-bold';
-                font-size: 12px;
-                letter-spacing:1px;
-                text-decoration:none;
-                text-transform:uppercase;
-                
+.wrapper {
+    & > .header-wrapper {
+        
+    }
+    & > .content-wrapper {
+        margin-top: 50px;
+    }
+}
+
+.profile-page {
+    .profile-cover {
+        .cover-image {
+            background: #1d2129;
+            height: 200px;
+            position: relative;
+        }
+        .user-name {
+            position: absolute;
+            bottom: 10px;
+            left: 201px;
+            color: #f8f8f8;
+        }
+    }
+    .headline {
+        position: relative;
+    }
+    .photo-container {
+        position: absolute;
+        top: -135px;
+        left: 20px;
+        .profile-picture-thumb {
+            border-radius: 3px;
+            border: solid 1px #e9e9e9;
+            position: absolute;
+            cursor: pointer;
+            .profile-picture {
+                width: 160px;
+                height: 160px;
+                border: 4px solid #fff;
+                border-radius: 2px;
+                display: block;
             }
-            img{width:90px;}
-            a span{display:block;transform: none !important;}
-            &.hvr-grow:hover span, 
-            &.hvr-grow:focus span, 
-            &.hvr-grow:active span {
-                transform: none !important;
+            .edit-photo-link {
+                position: absolute;
+                width: 100%;
+                height: auto;
+                padding: 10px 20px;
+                bottom: 0px;
+                background-color: rgba(0,0,0, 0.5);
+                color: white;
+                opacity: 0;
+                -webkit-transition: all .2s ease-in-out;
+                transition: all .2s ease-in-out;
+            }
+            &:hover .edit-photo-link {
+                opacity: 1;
             }
         }
     }
+    .headline-tab {
+        padding-left: 200px;
+        border: solid 1px #e9e9e9;
+        border-top: none;
+        background: #f8f8f8;
+    }
 }
 
-
-
-
-@media only screen and (min-width : 1440px) and (max-width : 1680px) {
-    .dashboard-page {
-        .icon-block ul li{width:110px;height:130px;}
-        .icon-block ul li img{width:65px;}
-    }
-    div.color-block-top h1{font-size:60px;}
-    
-    div.color-section ul li{line-height:60px;}
-    div.user-block {padding-top:20px;padding-bottom:20px;}
-    div.user-block h2{font-size:25px;}
-    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
-}
-
-@media only screen and (min-width : 1280px) and (max-width : 1441px) {
-    .dashboard-page {
-        .icon-block ul li{width:95px;height:115px;}
-        .icon-block ul li img{width:55px;}
-        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
-    }
-    div.color-block-top h1{font-size:50px;}
-    div.color-section ul li{line-height:60px;}
-    div.user-block {padding-top:20px;padding-bottom:20px;}
-    div.user-block h2{font-size:25px;}
-    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
-}
-
-@media only screen and (min-width : 1024px) and (max-width : 1155px) {
-    .dashboard-page {
-        .icon-block ul li{width:95px;height:115px;}
-        .icon-block ul li img{width:55px;}
-        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
-    }
-    div.color-block-top h1{font-size:50px;}
-    div.user-block {padding-top:20px;padding-bottom:20px;}
-    div.header{padding:10px 20px;}
-    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
-    div.color-dock ul li a {
-        border-radius:10px;
-        height:43px;line-height:43px;width:43px;
-    }
-    div.color-dock ul li span.mirror{width:43px;}
-    div.color-section ul li{line-height:60px;}
-}
-@media only screen and (min-width : 768px) and (max-width : 1023px) {
-    .dashboard-page {
-        .icon-block ul li{width:95px;height:115px;}
-        .icon-block ul li img{width:55px;}
-        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
-    }
-    div.header{padding:10px 20px;}
-    div.color-dock ul li a
-      {
-        border-radius:10px;
-        height:40px;line-height:40px;width:40px;
-        margin-right:5px;
-        margin-left:5px;
-      }
-    div.color-dock ul li span.mirror{width:40px;height:15px;}
-    div.color-section ul li{line-height:60px;}
-    div.user-block {padding-top:20px;padding-bottom:20px;}
-    div.user-block h2{font-size:25px;}
-    div.color-block-middle,div.color-block-bottom,div.icon-bar{line-height:84px;}
-}
-
-@media only screen and (min-width : 1px) and (max-width : 767px) {
-    .dashboard-page {
-        .icon-block ul{clear:inherit;}
-        .icon-block ul li{width:95px;height:115px;}
-        .icon-block ul li img{width:55px;}
-        .icon-block ul li a{font-size:10px; letter-spacing:0.5px;}
-    }
-
-    header{height:auto;width:100%;}
-    div.user-block{padding-bottom:10px;padding-top:10px;}
-    div.user-block h2{font-size:20px;padding:10px 0 5px;}
-    div.color-section ul li{line-height:50px;}
-    div.warper{width:100%; height:auto;}
-    div.warper.is-up{height:100%; position:fixed;}
-    div.header{padding:5px 15px;}
-    div.color-block-middle, div.color-block-bottom, div.icon-bar{line-height:60px;}
-    div.color-block-top h1{font-size:30px;}
-    div.color-dock{width:100%;left:0;right:0;}
-    div.color-dock:before, div.color-dock:after{content:inherit;}
-    div.color-dock ul li a{height:43px;line-height:43px;width:43px;border-radius:10px;margin-left:5px;margin-right:0;margin-bottom:5px;}
-    div.shade-bank-details{height:100%}
+.picture-action-panel {
+    border-bottom: solid 1px #bbb;
 }

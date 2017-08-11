@@ -14,7 +14,7 @@ use App\Http\Controllers\Controller as Controller;
 
 /**
  * Class DashboardController
- * @package App\Http\Controllers\MIC\Admin
+ * @package App\Http\Controllers\SC\Admin
  */
 class DashboardController extends Controller
 {

@@ -11,10 +11,9 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <div class="container-fluid">
-                <!-- Content Header -->
+            <div class="container">
                 <!-- Main content -->
-                <section class="content {{ $no_padding or '' }}">
+                <section class="content no-padding">
                     <!-- Your Page Content Here -->
                     @if(!isset($sub_message))
                     @include('sc.commons.success_error')

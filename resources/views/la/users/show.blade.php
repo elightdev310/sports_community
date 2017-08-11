@@ -113,6 +113,7 @@
 						@la_display($module, 'password')
 						@la_display($module, 'type')
 						@la_display($module, 'status')
+						@la_display($module, 'avatar')
 					</div>
 				</div>
 			</div>

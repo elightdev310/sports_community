@@ -82,4 +82,13 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== UserProfiles ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/userprofiles', 'LA\UserProfilesController');
 	Route::get(config('laraadmin.adminRoute') . '/userprofile_dt_ajax', 'LA\UserProfilesController@dtajax');
+
+	/* ================== Teams ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/teams', 'LA\TeamsController');
+	Route::get(config('laraadmin.adminRoute') . '/team_dt_ajax', 'LA\TeamsController@dtajax');
+
+	/* ================== Leagues ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/leagues', 'LA\LeaguesController');
+	Route::get(config('laraadmin.adminRoute') . '/league_dt_ajax', 'LA\LeaguesController@dtajax');
+
 });
