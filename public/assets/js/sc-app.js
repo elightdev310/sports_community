@@ -12,16 +12,18 @@ var SCApp = {
   }, 
 
   doAjaxAction: function(json) {
-    if (json.action == 'reload') {
+     SCApp.ajaxReloadPage(json.action);
+  }, 
+  ajaxReloadPage: function(type) {
+    if (type == 'reload') {
       SCApp.UI.reloadPage();
     }
-    else if (json.action == 'reload_opener') {
+    else if (type == 'reload_opener') {
       SCApp.UI.reloadPage('_opener');
     }
-    else if (json.action == 'reload_parent') {
+    else if (type == 'reload_parent') {
       SCApp.UI.reloadPage('_parent');
     }
-    
   }
 };
 

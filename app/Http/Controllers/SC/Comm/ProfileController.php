@@ -12,9 +12,12 @@ use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 
+use Illuminate\Support\Facades\Input;
+
 use App\SC\Models\User;
 use App\SC\Models\UserProfile;
 use SCUserLib;
+use SCPhotoLib;
 
 /**
  * Class ProfileController
@@ -40,8 +43,9 @@ class ProfileController extends Controller
     if ($user->status != config('sc.user_status.active')) {
       abort(404);
     }
+    
     if (!$user->profile) {
-      $user->createProfile();
+        $user->createProfile();
     }
 
     $currentUser = SCUserLib::currentUser();
@@ -66,9 +70,9 @@ class ProfileController extends Controller
   }
 
   /**
-   * URL-POST (/profile/avatar/save)
+   * URL-POST (/profile/avatar/upload)
    */
-  public function saveAvatar(Request $request)
+  public function uploadAvatar(Request $request)
   {
     $_user = SCUserLib::currentUser();
     $user = User::find($_user->id);
@@ -105,6 +109,62 @@ class ProfileController extends Controller
           "status" => "success",
           "action" => "reload_parent", 
         ], 200);
+  }
+
+  /**
+   * URL (/profile/cover-photo)
+   */
+  public function coverPhotoPage(Request $request)
+  {
+    $params = array();
+
+    return view("sc.comm.profile.cover_photo", $params);
+  }
+
+  /**
+   * URL-POST (/profile/cover-photo/upload)
+   */
+  public function uploadCoverPhoto(Request $request)
+  {
+    $_user = SCUserLib::currentUser();
+    $user = User::find($_user->id);
+
+    if (!$user) {
+      return response()->json([
+          "status" => "error",
+          "action" => "reload", 
+        ], 200);
+    }
+
+    if(Input::hasFile('cover_photo')) {
+
+      $file = Input::file('cover_photo');
+      
+      $photo_folder = "photos".DIRECTORY_SEPARATOR."user".DIRECTORY_SEPARATOR.$user->id;
+      $folder = storage_path($photo_folder);
+      $photo = SCPhotoLib::uploadPhoto($file, $folder, $user->getNode());
+
+      $profile = $user->profile;
+      $profile->cover_photo_path = str_replace(url('/'), '', $photo->file->path());
+      $profile->save();
+
+      if( $photo ) {
+        return response()->json([
+          "status" => "success",
+          "action" => "reload"
+        ], 200);
+      } else {
+        return response()->json([
+          "status" => "error", 
+          "message"=> "failed to upload photo."
+        ], 200);
+      }
+    } else {
+      return response()->json([
+          "status" => "error", 
+          "message"=> "upload file not found."
+        ], 200);
+    }
   }
   
 }

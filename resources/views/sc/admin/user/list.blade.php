@@ -21,7 +21,7 @@
                 'class' =>'frm-search-user']) !!}
           <div class="row">
               <div class="col-sm-9">
-                  <div id="imaginary_container"> 
+                  <div id="imaginary_container">
                       <div class="input-group stylish-input-group">
                           {!! Form::text('search_txt', Request::get('search_txt'), ['class' => 'form-control', 'placeholder'=>'Search']) !!}
                           <span class="input-group-addon">

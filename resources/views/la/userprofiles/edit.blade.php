@@ -36,6 +36,7 @@
 					@la_input($module, 'user_id')
 					@la_input($module, 'date_birth')
 					@la_input($module, 'gender')
+					@la_input($module, 'cover_photo_path')
 					--}}
                     <br>
 					<div class="form-group">

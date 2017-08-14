@@ -16,11 +16,6 @@
 
 .profile-page {
     .profile-cover {
-        .cover-image {
-            background: #1d2129;
-            height: 200px;
-            position: relative;
-        }
         .user-name {
             position: absolute;
             bottom: 10px;
@@ -74,4 +69,32 @@
 
 .picture-action-panel {
     border-bottom: solid 1px #bbb;
+}
+
+.cover-image {
+    background-color: #1d2129;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    height: 200px;
+    position: relative;
+
+    .edit-cover-link {
+        margin: 15px 0px 0px 20px;
+        padding: 5px 10px;
+        display: inline-block;
+        color: #888;
+        span {
+            visibility: hidden;
+        }
+        &:hover {
+            background: #222;
+            border: solid 1px #f8f8f8;
+            color: #fff;
+            span {
+                visibility: visible;
+            }
+        }
+    }
 }

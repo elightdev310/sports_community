@@ -91,4 +91,12 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	Route::resource(config('laraadmin.adminRoute') . '/leagues', 'LA\LeaguesController');
 	Route::get(config('laraadmin.adminRoute') . '/league_dt_ajax', 'LA\LeaguesController@dtajax');
 
+
+	/* ================== Photos ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/photos', 'LA\PhotosController');
+	Route::get(config('laraadmin.adminRoute') . '/photo_dt_ajax', 'LA\PhotosController@dtajax');
+
+	/* ================== Nodes ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/nodes', 'LA\NodesController');
+	Route::get(config('laraadmin.adminRoute') . '/node_dt_ajax', 'LA\NodesController@dtajax');
 });

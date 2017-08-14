@@ -1,14 +1,14 @@
 @extends("la.layouts.app")
 
-@section("contentheader_title", "UserProfiles")
-@section("contentheader_description", "UserProfiles listing")
-@section("section", "UserProfiles")
+@section("contentheader_title", "Nodes")
+@section("contentheader_description", "Nodes listing")
+@section("section", "Nodes")
 @section("sub_section", "Listing")
-@section("htmlheader_title", "UserProfiles Listing")
+@section("htmlheader_title", "Nodes Listing")
 
 @section("headerElems")
-@la_access("UserProfiles", "create")
-	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add UserProfile</button>
+@la_access("Nodes", "create")
+	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Node</button>
 @endla_access
 @endsection
 
@@ -45,24 +45,23 @@
 	</div>
 </div>
 
-@la_access("UserProfiles", "create")
+@la_access("Nodes", "create")
 <div class="modal fade" id="AddModal" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Add UserProfile</h4>
+				<h4 class="modal-title" id="myModalLabel">Add Node</h4>
 			</div>
-			{!! Form::open(['action' => 'LA\UserProfilesController@store', 'id' => 'userprofile-add-form']) !!}
+			{!! Form::open(['action' => 'LA\NodesController@store', 'id' => 'node-add-form']) !!}
 			<div class="modal-body">
 				<div class="box-body">
                     @la_form($module)
 					
 					{{--
+					@la_input($module, 'object_id')
+					@la_input($module, 'type')
 					@la_input($module, 'user_id')
-					@la_input($module, 'date_birth')
-					@la_input($module, 'gender')
-					@la_input($module, 'cover_photo_path')
 					--}}
 				</div>
 			</div>
@@ -89,7 +88,7 @@ $(function () {
 	$("#example1").DataTable({
 		processing: true,
         serverSide: true,
-        ajax: "{{ url(config('laraadmin.adminRoute') . '/userprofile_dt_ajax') }}",
+        ajax: "{{ url(config('laraadmin.adminRoute') . '/node_dt_ajax') }}",
 		language: {
 			lengthMenu: "_MENU_",
 			search: "_INPUT_",
@@ -99,7 +98,7 @@ $(function () {
 		columnDefs: [ { orderable: false, targets: [-1] }],
 		@endif
 	});
-	$("#userprofile-add-form").validate({
+	$("#node-add-form").validate({
 		
 	});
 });

@@ -188,7 +188,10 @@ ul.files_container {
 .emodal-loading {
   width: 100%;
   text-align: center;
-  margin-top: 30%;
+  padding: 10px;
+}
+.modal-body {
+  padding: 0px;
 }
 html,
 body {
@@ -212,11 +215,6 @@ body {
 /* smaller than 480px screen */
 .wrapper > .content-wrapper {
   margin-top: 50px;
-}
-.profile-page .profile-cover .cover-image {
-  background: #1d2129;
-  height: 200px;
-  position: relative;
 }
 .profile-page .profile-cover .user-name {
   position: absolute;
@@ -267,6 +265,31 @@ body {
 }
 .picture-action-panel {
   border-bottom: solid 1px #bbb;
+}
+.cover-image {
+  background-color: #1d2129;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 200px;
+  position: relative;
+}
+.cover-image .edit-cover-link {
+  margin: 15px 0px 0px 20px;
+  padding: 5px 10px;
+  display: inline-block;
+  color: #888;
+}
+.cover-image .edit-cover-link span {
+  visibility: hidden;
+}
+.cover-image .edit-cover-link:hover {
+  background: #222;
+  border: solid 1px #f8f8f8;
+  color: #fff;
+}
+.cover-image .edit-cover-link:hover span {
+  visibility: visible;
 }
 
 /*# sourceMappingURL=sc.css.map */

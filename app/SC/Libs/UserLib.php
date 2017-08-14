@@ -12,6 +12,7 @@ use Dwij\Laraadmin\Models\ModuleFields;
 use App\Role;
 use App\SC\Models\User;
 use App\SC\Models\UserProfile;
+use App\SC\Models\Node;
 use App\SC\Models\SocialProfile;
 use App\SC\Models\UserActivationCode;
 
@@ -86,6 +87,7 @@ class UserLib
 
             // Profile
             $this->saveUserProfile($req, $user);
+            
 
             // Send comfirm mail
             $this->sendActivationMail($user);

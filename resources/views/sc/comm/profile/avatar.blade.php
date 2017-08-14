@@ -1,7 +1,7 @@
 @extends('sc.layouts.modal')
 
 @section('htmlheader_title')
-Profile
+Add Photo
 @endsection
 
 @section('page_id')avatar @endsection
@@ -94,7 +94,7 @@ Profile
         SCApp.ajaxSetup();
         $.ajax({
             type: "POST", 
-            url: "{{ route('profile.avatar.save_picture.post') }}",
+            url: "{{ route('profile.avatar.upload_picture.post') }}",
             dataType: 'json',
             data: {
               "user_pic" : resp
