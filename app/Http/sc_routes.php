@@ -12,9 +12,15 @@ Route::group(['middleware' => ['auth']],
         'as' => 'profile.cover_photo', 'uses' => 'SC\Comm\ProfileController@coverPhotoPage' ]);
     Route::post('profile/cover-photo/upload', [
         'as' => 'profile.cover_photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadCoverPhoto' ]);
-    
+
     Route::get('profile/{user}', [
         'as' => 'profile.index', 'uses' => 'SC\Comm\ProfileController@profilePage' ]);
     
+    Route::get('profile/{user}/photos', [
+        'as' => 'profile.photo', 'uses' => 'SC\Comm\ProfileController@photoPage' ]);
+    Route::post('profile/{user}/photo/upload', [
+        'as' => 'profile.photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadPhoto' ]);
+    Route::post('profile/{user}/photo/delete', [
+        'as' => 'profile.photo.delete_picture.post', 'uses' => 'SC\Comm\ProfileController@deletePhoto' ]);
 });
 

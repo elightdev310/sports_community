@@ -78,6 +78,28 @@ SCApp.UI = {
   }
 };
 
+SCApp.Photo = {
+  removePhoto: function(action_url, data) {
+    var $this = $(this);
+    eModal.confirm('Are you sure to remove photo?', 'Remove Photo')
+      .then(function() {
+              SCApp.UI.blockUI('.photo-panel-section');
+              SCApp.ajaxSetup();
+              $.ajax({
+                url: action_url,
+                type: "POST",
+                data: data,
+              })
+              .done(function( json, textStatus, jqXHR ) {
+                SCApp.doAjaxAction(json); //Refresh
+              })
+              .always(function( data, textStatus, errorThrown ) {
+                SCApp.UI.unblockUI('.photo-panel-section');
+              });
+            }, null);
+  }
+};
+
 $(function () {
   "use strict";
   $(document).ready(function() {

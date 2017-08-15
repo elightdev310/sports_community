@@ -22,4 +22,12 @@ class Photo extends PhotoModule
     public function group() {
       return $this->belongsTo('App\SC\Models\Node', 'group_nid');
     }
+
+    public function remove() {
+      if (file_exists($this->file->path)) {
+        unlink( $this->file->path );
+      }
+      $this->file->forceDelete();
+      $this->forceDelete();
+    }
 }

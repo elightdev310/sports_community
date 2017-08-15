@@ -18,10 +18,10 @@
     </div>
     <div class="headline clearfix">
         <ul class="headline-tab nav nav-pills">
-          <li class="@if ($tab=='timeline') active @endif"> <a href="#">Timeline</a></li>
+          <li class="@if ($tab=='timeline') active @endif"> <a href="{{ route('profile.index', ['user'=>$user->id]) }}">Timeline</a></li>
           <li class="@if ($tab=='about')    active @endif"> <a href="#">About</a></li>
           <li class="@if ($tab=='friends')  active @endif"> <a href="#">Friends</a></li>
-          <li class="@if ($tab=='photos')   active @endif"> <a href="#">Photos</a></li>
+          <li class="@if ($tab=='photos')   active @endif"> <a href="{{ route('profile.photo', ['user'=>$user->id]) }}">Photos</a></li>
         </ul>
         <div class="photo-container">
             <div class="profile-picture-thumb">
@@ -82,7 +82,7 @@ $(function () {
       })
       .always(function( data, textStatus, errorThrown ) {
         SCApp.UI.unblockUI('.modal-body');
-      });;
+      });
     });
 
 

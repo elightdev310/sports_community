@@ -103,4 +103,24 @@ class PhotoLib
           return false;
         }
     }
+
+    public function removePhoto($photo_id) 
+    {
+        $photo = Photo::find($photo_id);
+        if ($photo) {
+            $photo->remove();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Get Photos related to Group (Node)
+     */
+    public function getPhotos($group)
+    {
+        return Photo::where('group_nid', '=', $group->id)
+                    ->orderBy('id', 'DESC')
+                    ->get();
+    }
 }
