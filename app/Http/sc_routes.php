@@ -22,5 +22,20 @@ Route::group(['middleware' => ['auth']],
         'as' => 'profile.photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadPhoto' ]);
     Route::post('profile/{user}/photo/delete', [
         'as' => 'profile.photo.delete_picture.post', 'uses' => 'SC\Comm\ProfileController@deletePhoto' ]);
+
+    Route::get('profile/{user}/about', [
+        'as' => 'profile.about', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
+
+    Route::get('profile/{user}/about/contact', [
+        'as' => 'profile.about.contact', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
+    Route::post('profile/{user}/about/contact', [
+        'as' => 'profile.about.save_contact.post', 'uses' => 'SC\Comm\ProfileController@saveContact' ]);
+    Route::get('profile/{user}/about/basic', [
+        'as' => 'profile.about.basic', 'uses' => 'SC\Comm\ProfileController@aboutBasicPage' ]);
+    Route::post('profile/{user}/about/basic', [
+        'as' => 'profile.about.save_basic.post', 'uses' => 'SC\Comm\ProfileController@saveBasic' ]);
+
+    Route::get('profile/{user}/about/education', [
+        'as' => 'profile.about.education', 'uses' => 'SC\Comm\ProfileController@aboutEducationPage' ]);
 });
 

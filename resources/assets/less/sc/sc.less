@@ -65,6 +65,27 @@
         border-top: none;
         background: #f8f8f8;
     }
+
+    .about-wrapper {
+        .about-left-tab {
+            .nav-item a {
+                color: #888;
+                font-size: 16px;
+            }
+            .nav-item.active a {
+                color: @text-color;
+                font-weight: bold;
+            }
+        }
+        .about-content-section {
+            border-left: solid 1px #ccc;
+            /* smaller than Extra small screen */
+            @media (max-width: (@screen-xs-max)) {
+                border-left: none;
+                border-top: solid 1px #ccc;
+            }
+        }
+    }
 }
 
 .picture-action-panel {
@@ -100,8 +121,7 @@
 }
 
 .photo-panel-section {
-    margin-left: 5px;
-    margin-right: 5px;
+    margin: 5px;
     .image-item {
         padding: 5px;
         .image-content {

@@ -108,6 +108,13 @@ class SCHelper
         return $str;
     }
 
+    public static function getStrDate($dateTime, $type) {
+        list($y, $m, $d) = explode('-', $dateTime);
+        if ($type == 'y') { return $y; }
+        else if ($type == 'm') { return $m; }
+        else if ($type == 'd') { return $d; }
+        return '';
+    }
     public static function strTime($dateTime, $format="M d, Y") 
     {
         $date = date_create($dateTime);
@@ -140,5 +147,40 @@ class SCHelper
             return 'Just now';
         }
         return $interval->s.' '.str_plural('second', $interval->s).$suffix;
+    }
+
+    public static function monthArray() {
+        $data = array();
+        $data['']    = '- Please select month -';
+        $data['1']  = 'January';
+        $data['2']  = 'Feburary';
+        $data['3']  = 'March';
+        $data['4']  = 'April';
+        $data['5']  = 'May';
+        $data['6']  = 'June';
+        $data['7']  = 'July';
+        $data['8']  = 'August';
+        $data['9']  = 'September';
+        $data['10'] = 'October';
+        $data['11'] = 'November';
+        $data['12'] = 'December';
+
+        return $data;
+    }
+    public static function dayArray() {
+        $data = array();
+        $data['']    = '- Please select day -';
+        for ($day = 1; $day<=31; $day++) {
+            $data[$day] = $day;
+        }
+        return $data;
+    }
+    public static function yearArray() {
+        $data = array();
+        $data['']    = '- Please select year -';
+        for ($year = date('Y'); $year>=date('Y')-70; $year--) {
+            $data[$year] = $year;
+        }
+        return $data;
     }
 }

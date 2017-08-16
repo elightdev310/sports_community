@@ -277,4 +277,133 @@ class ProfileController extends Controller
     }
   }
   
+  /**
+   * URL (/profile/{user}/about/contact)
+   */
+  public function aboutContactPage(Request $request, User $user)
+  {
+    if ($user->status != config('sc.user_status.active')) {
+      abort(404);
+    }
+    
+    if (!$user->profile) {
+        $user->createProfile();
+    }
+
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['user'] = $user;
+    $params['tab'] = 'about';
+    $params['about_tab'] = 'contact';
+    $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+
+    return view('sc.comm.profile.about_contact', $params);
+  }
+
+  /**
+   * URL-POST (/profile/{user}/about/contact)
+   */
+  public function saveContact(Request $request, User $user) {
+    try {
+      $_user = SCUserLib::currentUser();
+
+      if ($user->id != $_user->id) {
+        throw new Exception();
+      }
+
+      
+      return redirect()->back();
+    } catch(Exception $e) {
+      return redirect()->back()->withErrors('Failed to save contact information.');
+    }
+  }
+
+  /**
+   * URL (/profile/{user}/about/basic)
+   */
+  public function aboutBasicPage(Request $request, User $user)
+  {
+    if ($user->status != config('sc.user_status.active')) {
+      abort(404);
+    }
+    
+    if (!$user->profile) {
+        $user->createProfile();
+    }
+
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['user'] = $user;
+    $params['tab'] = 'about';
+    $params['about_tab'] = 'basic';
+    $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+    $params['sub_message'] = true;
+
+    return view('sc.comm.profile.about_basic', $params);
+  }
+
+  /**
+   * URL-POST (/profile/{user}/about/basic)
+   */
+  public function saveBasic(Request $request, User $user) {
+    try {
+      $_user = SCUserLib::currentUser();
+
+      if ($user->id != $_user->id) {
+        throw new Exception();
+      }
+
+      $validator = Validator::make($request->all(), [
+        'birth_year'   => 'required', 
+        'birth_month'  => 'required', 
+        'birth_day'    => 'required', 
+        'gender'    => 'required', 
+      ]);
+
+      if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      $profile = $user->profile;
+      $profile->date_birth = sprintf("%d-%02d-%02d", 
+            $request->input('birth_year'), 
+            $request->input('birth_month'), 
+            $request->input('birth_day'));
+      $profile->gender = $request->input('gender');
+      $profile->save();
+
+      return redirect()->back();
+
+    } catch(Exception $e) {
+      return redirect()->back()->withErrors('Failed to save contact information.')->withInput();
+    }
+  }
+
+  /**
+   * URL (/profile/{user}/about/education)
+   */
+  public function aboutEducationPage(Request $request, User $user)
+  {
+    if ($user->status != config('sc.user_status.active')) {
+      abort(404);
+    }
+    
+    if (!$user->profile) {
+        $user->createProfile();
+    }
+
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['user'] = $user;
+    $params['tab'] = 'about';
+    $params['about_tab'] = 'education';
+    $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+
+    return view('sc.comm.profile.about_education', $params);
+  }
 }
