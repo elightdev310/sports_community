@@ -23,7 +23,7 @@ class UserProfilesController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'user_id';
-	public $listing_cols = ['id', 'user_id', 'date_birth', 'gender', 'cover_photo_path'];
+	public $listing_cols = ['id', 'user_id', 'date_birth', 'gender', 'cover_photo_path', 'phone', 'address', 'city', 'state', 'zip'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

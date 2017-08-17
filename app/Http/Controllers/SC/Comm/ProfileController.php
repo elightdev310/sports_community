@@ -313,6 +313,13 @@ class ProfileController extends Controller
         throw new Exception();
       }
 
+      $profile = $user->profile;
+      $profile->phone   = $request->input('phone');
+      $profile->address = $request->input('address');
+      $profile->city    = $request->input('city');
+      $profile->state   = $request->input('state');
+      $profile->zip     = $request->input('zip');
+      $profile->save();
       
       return redirect()->back();
     } catch(Exception $e) {

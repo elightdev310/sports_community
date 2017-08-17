@@ -111,6 +111,11 @@
 						@la_display($module, 'date_birth')
 						@la_display($module, 'gender')
 						@la_display($module, 'cover_photo_path')
+						@la_display($module, 'phone')
+						@la_display($module, 'address')
+						@la_display($module, 'city')
+						@la_display($module, 'state')
+						@la_display($module, 'zip')
 					</div>
 				</div>
 			</div>

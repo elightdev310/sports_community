@@ -33,9 +33,9 @@ Contact Information
                 </div>
             </div>
             <div class="form-group has-feedback row">
-                {!! Form::label('mobile', 'Mobile', ['class' => 'form-label col-xs-3']) !!}
+                {!! Form::label('phone', 'Mobile', ['class' => 'form-label col-xs-3']) !!}
                 <div class="col-xs-9">
-                  {!! Form::text('mobile', $user->profile->mobile, ['class'=>'form-control']) !!}
+                  {!! Form::text('phone', $user->profile->phone, ['class'=>'form-control']) !!}
                 </div>
             </div>
 
@@ -60,7 +60,7 @@ Contact Information
             <div class="form-group has-feedback row">
                 {!! Form::label('zip', 'Zip', ['class' => 'form-label col-xs-3']) !!}
                 <div class="col-xs-9">
-                  {!! Form::text('state', $user->profile->zip, ['class'=>'form-control']) !!}
+                  {!! Form::text('zip', $user->profile->zip, ['class'=>'form-control']) !!}
                 </div>
             </div>
 
