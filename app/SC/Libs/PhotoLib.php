@@ -93,9 +93,12 @@ class PhotoLib
             }
             $upload->save();
 
+            $info = getimagesize($upload->path);
             $photo = Photo::create([
                 'file_id'   => $upload->id, 
-                'group_nid' => $group->id
+                'group_nid' => $group->id, 
+                'width'     => $info[0], 
+                'height'    => $info[1]
             ]);
             return $photo;
 

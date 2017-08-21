@@ -17,37 +17,37 @@ use Collective\Html\FormFacade as Form;
 use Dwij\Laraadmin\Models\Module;
 use Dwij\Laraadmin\Models\ModuleFields;
 
-use App\Models\Photo;
+use App\Models\Post;
 
-class PhotosController extends Controller
+class PostsController extends Controller
 {
 	public $show_action = true;
-	public $view_col = 'file_id';
-	public $listing_cols = ['id', 'file_id', 'width', 'height', 'group_nid', 'used'];
+	public $view_col = 'text';
+	public $listing_cols = ['id', 'text', 'group_nid', 'author_uid'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns
 		if(\Dwij\Laraadmin\Helpers\LAHelper::laravel_ver() == 5.3) {
 			$this->middleware(function ($request, $next) {
-				$this->listing_cols = ModuleFields::listingColumnAccessScan('Photos', $this->listing_cols);
+				$this->listing_cols = ModuleFields::listingColumnAccessScan('Posts', $this->listing_cols);
 				return $next($request);
 			});
 		} else {
-			$this->listing_cols = ModuleFields::listingColumnAccessScan('Photos', $this->listing_cols);
+			$this->listing_cols = ModuleFields::listingColumnAccessScan('Posts', $this->listing_cols);
 		}
 	}
 	
 	/**
-	 * Display a listing of the Photos.
+	 * Display a listing of the Posts.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
 	{
-		$module = Module::get('Photos');
+		$module = Module::get('Posts');
 		
 		if(Module::hasAccess($module->id)) {
-			return View('la.photos.index', [
+			return View('la.posts.index', [
 				'show_actions' => $this->show_action,
 				'listing_cols' => $this->listing_cols,
 				'module' => $module
@@ -58,7 +58,7 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Show the form for creating a new photo.
+	 * Show the form for creating a new post.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
@@ -68,16 +68,16 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Store a newly created photo in database.
+	 * Store a newly created post in database.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request)
 	{
-		if(Module::hasAccess("Photos", "create")) {
+		if(Module::hasAccess("Posts", "create")) {
 		
-			$rules = Module::validateRules("Photos", $request);
+			$rules = Module::validateRules("Posts", $request);
 			
 			$validator = Validator::make($request->all(), $rules);
 			
@@ -85,9 +85,9 @@ class PhotosController extends Controller
 				return redirect()->back()->withErrors($validator)->withInput();
 			}
 			
-			$insert_id = Module::insert("Photos", $request);
+			$insert_id = Module::insert("Posts", $request);
 			
-			return redirect()->route(config('laraadmin.adminRoute') . '.photos.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.posts.index');
 			
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
@@ -95,30 +95,30 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Display the specified photo.
+	 * Display the specified post.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id)
 	{
-		if(Module::hasAccess("Photos", "view")) {
+		if(Module::hasAccess("Posts", "view")) {
 			
-			$photo = Photo::find($id);
-			if(isset($photo->id)) {
-				$module = Module::get('Photos');
-				$module->row = $photo;
+			$post = Post::find($id);
+			if(isset($post->id)) {
+				$module = Module::get('Posts');
+				$module->row = $post;
 				
-				return view('la.photos.show', [
+				return view('la.posts.show', [
 					'module' => $module,
 					'view_col' => $this->view_col,
 					'no_header' => true,
 					'no_padding' => "no-padding"
-				])->with('photo', $photo);
+				])->with('post', $post);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
-					'record_name' => ucfirst("photo"),
+					'record_name' => ucfirst("post"),
 				]);
 			}
 		} else {
@@ -127,28 +127,28 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified photo.
+	 * Show the form for editing the specified post.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id)
 	{
-		if(Module::hasAccess("Photos", "edit")) {			
-			$photo = Photo::find($id);
-			if(isset($photo->id)) {	
-				$module = Module::get('Photos');
+		if(Module::hasAccess("Posts", "edit")) {			
+			$post = Post::find($id);
+			if(isset($post->id)) {	
+				$module = Module::get('Posts');
 				
-				$module->row = $photo;
+				$module->row = $post;
 				
-				return view('la.photos.edit', [
+				return view('la.posts.edit', [
 					'module' => $module,
 					'view_col' => $this->view_col,
-				])->with('photo', $photo);
+				])->with('post', $post);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
-					'record_name' => ucfirst("photo"),
+					'record_name' => ucfirst("post"),
 				]);
 			}
 		} else {
@@ -157,7 +157,7 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Update the specified photo in storage.
+	 * Update the specified post in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  int  $id
@@ -165,9 +165,9 @@ class PhotosController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		if(Module::hasAccess("Photos", "edit")) {
+		if(Module::hasAccess("Posts", "edit")) {
 			
-			$rules = Module::validateRules("Photos", $request, true);
+			$rules = Module::validateRules("Posts", $request, true);
 			
 			$validator = Validator::make($request->all(), $rules);
 			
@@ -175,9 +175,9 @@ class PhotosController extends Controller
 				return redirect()->back()->withErrors($validator)->withInput();;
 			}
 			
-			$insert_id = Module::updateRow("Photos", $request, $id);
+			$insert_id = Module::updateRow("Posts", $request, $id);
 			
-			return redirect()->route(config('laraadmin.adminRoute') . '.photos.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.posts.index');
 			
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
@@ -185,18 +185,18 @@ class PhotosController extends Controller
 	}
 
 	/**
-	 * Remove the specified photo from storage.
+	 * Remove the specified post from storage.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
 	{
-		if(Module::hasAccess("Photos", "delete")) {
-			Photo::find($id)->delete();
+		if(Module::hasAccess("Posts", "delete")) {
+			Post::find($id)->delete();
 			
 			// Redirecting to index() method
-			return redirect()->route(config('laraadmin.adminRoute') . '.photos.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.posts.index');
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
 		}
@@ -209,11 +209,11 @@ class PhotosController extends Controller
 	 */
 	public function dtajax()
 	{
-		$values = DB::table('photos')->select($this->listing_cols)->whereNull('deleted_at');
+		$values = DB::table('posts')->select($this->listing_cols)->whereNull('deleted_at');
 		$out = Datatables::of($values)->make();
 		$data = $out->getData();
 
-		$fields_popup = ModuleFields::getModuleFields('Photos');
+		$fields_popup = ModuleFields::getModuleFields('Posts');
 		
 		for($i=0; $i < count($data->data); $i++) {
 			for ($j=0; $j < count($this->listing_cols); $j++) { 
@@ -222,7 +222,7 @@ class PhotosController extends Controller
 					$data->data[$i][$j] = ModuleFields::getFieldValue($fields_popup[$col], $data->data[$i][$j]);
 				}
 				if($col == $this->view_col) {
-					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/photos/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
+					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/posts/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
 				}
 				// else if($col == "author") {
 				//    $data->data[$i][$j];
@@ -231,12 +231,12 @@ class PhotosController extends Controller
 			
 			if($this->show_action) {
 				$output = '';
-				if(Module::hasAccess("Photos", "edit")) {
-					$output .= '<a href="'.url(config('laraadmin.adminRoute') . '/photos/'.$data->data[$i][0].'/edit').'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+				if(Module::hasAccess("Posts", "edit")) {
+					$output .= '<a href="'.url(config('laraadmin.adminRoute') . '/posts/'.$data->data[$i][0].'/edit').'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
 				}
 				
-				if(Module::hasAccess("Photos", "delete")) {
-					$output .= Form::open(['route' => [config('laraadmin.adminRoute') . '.photos.destroy', $data->data[$i][0]], 'method' => 'delete', 'style'=>'display:inline']);
+				if(Module::hasAccess("Posts", "delete")) {
+					$output .= Form::open(['route' => [config('laraadmin.adminRoute') . '.posts.destroy', $data->data[$i][0]], 'method' => 'delete', 'style'=>'display:inline']);
 					$output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
 					$output .= Form::close();
 				}

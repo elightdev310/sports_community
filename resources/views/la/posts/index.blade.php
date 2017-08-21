@@ -1,14 +1,14 @@
 @extends("la.layouts.app")
 
-@section("contentheader_title", "Photos")
-@section("contentheader_description", "Photos listing")
-@section("section", "Photos")
+@section("contentheader_title", "Posts")
+@section("contentheader_description", "Posts listing")
+@section("section", "Posts")
 @section("sub_section", "Listing")
-@section("htmlheader_title", "Photos Listing")
+@section("htmlheader_title", "Posts Listing")
 
 @section("headerElems")
-@la_access("Photos", "create")
-	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Photo</button>
+@la_access("Posts", "create")
+	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Post</button>
 @endla_access
 @endsection
 
@@ -45,25 +45,23 @@
 	</div>
 </div>
 
-@la_access("Photos", "create")
+@la_access("Posts", "create")
 <div class="modal fade" id="AddModal" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Add Photo</h4>
+				<h4 class="modal-title" id="myModalLabel">Add Post</h4>
 			</div>
-			{!! Form::open(['action' => 'LA\PhotosController@store', 'id' => 'photo-add-form']) !!}
+			{!! Form::open(['action' => 'LA\PostsController@store', 'id' => 'post-add-form']) !!}
 			<div class="modal-body">
 				<div class="box-body">
                     @la_form($module)
 					
 					{{--
-					@la_input($module, 'file_id')
-					@la_input($module, 'width')
-					@la_input($module, 'height')
+					@la_input($module, 'text')
 					@la_input($module, 'group_nid')
-					@la_input($module, 'used')
+					@la_input($module, 'author_uid')
 					--}}
 				</div>
 			</div>
@@ -90,7 +88,7 @@ $(function () {
 	$("#example1").DataTable({
 		processing: true,
         serverSide: true,
-        ajax: "{{ url(config('laraadmin.adminRoute') . '/photo_dt_ajax') }}",
+        ajax: "{{ url(config('laraadmin.adminRoute') . '/post_dt_ajax') }}",
 		language: {
 			lengthMenu: "_MENU_",
 			search: "_INPUT_",
@@ -100,7 +98,7 @@ $(function () {
 		columnDefs: [ { orderable: false, targets: [-1] }],
 		@endif
 	});
-	$("#photo-add-form").validate({
+	$("#post-add-form").validate({
 		
 	});
 });
