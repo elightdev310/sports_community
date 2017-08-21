@@ -120,6 +120,7 @@ class PhotoLib
     public function getPhotos($group)
     {
         return Photo::where('group_nid', '=', $group->id)
+                    ->where('used', '=', 1)
                     ->orderBy('id', 'DESC')
                     ->get();
     }

@@ -152,9 +152,11 @@ class ProfileController extends Controller
         $photo_folder = "photos".DIRECTORY_SEPARATOR."user".DIRECTORY_SEPARATOR.$user->id;
         $folder = storage_path($photo_folder);
         $photo = SCPhotoLib::uploadPhoto($file, $folder, $user->getNode());
+        $photo->used = 1;
+        $photo->save();
 
         $profile = $user->profile;
-        $profile->cover_photo_path = str_replace(url('/'), '', $photo->file->path());
+        $profile->cover_photo_id = $photo->id;
         $profile->save();
 
         if( $photo ) {
@@ -224,7 +226,9 @@ class ProfileController extends Controller
         $photo_folder = "photos".DIRECTORY_SEPARATOR."user".DIRECTORY_SEPARATOR.$user->id;
         $folder = storage_path($photo_folder);
         $photo = SCPhotoLib::uploadPhoto($file, $folder, $user->getNode());
-
+        $photo->used = 1;
+        $photo->save();
+        
         if( $photo ) {
           return response()->json([
             "status" => "success",

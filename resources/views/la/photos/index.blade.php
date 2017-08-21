@@ -61,6 +61,7 @@
 					{{--
 					@la_input($module, 'file_id')
 					@la_input($module, 'group_nid')
+					@la_input($module, 'used')
 					--}}
 				</div>
 			</div>

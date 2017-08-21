@@ -15,4 +15,13 @@ class UserProfile extends UserProfileModule
     public function user() {
         return $this->belongsTo('App\SC\Models\User');
     }
+
+    public function coverPhotoPath() {
+      if ($this->cover_photo_id) {
+        if ($cover_photo = Photo::find($this->cover_photo_id)) {
+          return $cover_photo->file->path();
+        }
+      }
+      return false;
+    }
 }

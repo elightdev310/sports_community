@@ -23,7 +23,7 @@ class PhotosController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'file_id';
-	public $listing_cols = ['id', 'file_id', 'group_nid'];
+	public $listing_cols = ['id', 'file_id', 'group_nid', 'used'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

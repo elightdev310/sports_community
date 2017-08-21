@@ -109,6 +109,7 @@
 					<div class="panel-body">
 						@la_display($module, 'file_id')
 						@la_display($module, 'group_nid')
+						@la_display($module, 'used')
 					</div>
 				</div>
 			</div>
