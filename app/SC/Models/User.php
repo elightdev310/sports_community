@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User as UserModule;
 use App\SC\Models\Node;
+use SCPostLib;
 
 class User extends UserModule
 {
@@ -37,5 +38,9 @@ class User extends UserModule
         ]);
       }
       return $node;
+    }
+
+    public function getPosts() {
+      return SCPostLib::getPosts($this->getNode());
     }
 }

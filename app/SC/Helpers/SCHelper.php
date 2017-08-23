@@ -12,7 +12,7 @@ class SCHelper
      */
     public static function getErrorMessage($e)
     {
-        $error = $e->getMessage()."in ".$e->getFile()."[Line: ".$e->getLine."]";
+        $error = $e->getMessage()." <br/>in ".$e->getFile()." [Line: ".$e->getLine()."]";
         return $error;
     }
 

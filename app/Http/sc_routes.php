@@ -37,5 +37,18 @@ Route::group(['middleware' => ['auth']],
 
     Route::get('profile/{user}/about/education', [
         'as' => 'profile.about.education', 'uses' => 'SC\Comm\ProfileController@aboutEducationPage' ]);
+
+
+    Route::post('timeline/{group}/post/add', [
+        'as' => 'timeline.post.add.post', 'uses' => 'SC\Comm\TimelineController@addPost' ]);
+
+    Route::post('timeline/post/{post}/comment/add', [
+        'as' => 'timeline.post.comment.add.post', 'uses' => 'SC\Comm\TimelineController@addComment' ]);
+
+    Route::post('timeline/post/comment/{comment}/reply', [
+        'as' => 'timeline.post.comment.reply.post', 'uses' => 'SC\Comm\TimelineController@replyComment' ]);
+
+    Route::get('timeline/post/{post}/refresh', [
+        'as' => 'timeline.post.refresh', 'uses' => 'SC\Comm\TimelineController@refreshPost' ]);
 });
 

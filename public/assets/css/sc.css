@@ -364,5 +364,180 @@ body {
 .hover-pane .hover-action-link:hover {
   opacity: 1;
 }
+.timeline-section .post-card-w-hint {
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.timeline-section .post-card {
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  box-shadow: 0 1px 1px #e8e8e8;
+  margin-bottom: 10px;
+}
+.timeline-section .post-field {
+  position: relative;
+  display: table;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  table-layout: fixed;
+  border-radius: inherit;
+  background-color: #fff;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+}
+.timeline-section .post-field .author-photo {
+  display: table-cell;
+  width: 32px;
+  padding-right: 10px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.timeline-section .mentions-container {
+  position: relative;
+  width: 100%;
+  display: table-cell;
+  vertical-align: top;
+}
+.timeline-section .mentions-container .mentions-input {
+  width: 100%;
+  display: inline-block;
+  min-height: 30px;
+  word-wrap: break-word;
+}
+.timeline-section .mentions-container .status-input-text {
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+  background: #fcfad8;
+  border: none;
+  padding: 5px;
+  height: 30px;
+}
+.timeline-section .mentions-container .placeholder-text {
+  box-sizing: border-box;
+  position: absolute;
+  padding: 6px;
+  color: #aaa;
+}
+.timeline-section .post-area {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: end;
+  align-items: flex-end;
+  -ms-flex-pack: justify;
+  justify-content: flex-end;
+  margin-top: 5px;
+}
+.timeline-section .author-name {
+  color: #0a4391;
+  font-weight: bold;
+}
+.timeline-section .post-date,
+.timeline-section .comment-date {
+  color: #666;
+}
+.timeline-section .comment-section {
+  border-top: solid 1px #e8e8e8;
+  background: #f8f8f8;
+}
+.timeline-section .comment-section .comment-replies-section {
+  margin-left: 42px;
+  border-left: solid 3px #e8e8e8;
+  padding-left: 10px;
+}
+.timeline-section .comment-card-item {
+  margin-bottom: 10px;
+}
+.timeline-section .comment-box {
+  display: block;
+  width: 100%;
+  vertical-align: top;
+}
+.timeline-section .reply-box {
+  margin-top: 10px;
+}
+.timeline-section .threaded-comment-list {
+  padding-bottom: 10px;
+  transition: box-shadow 0.2s ease, border 0.2s ease;
+  color: #3d464d;
+}
+.timeline-section .threaded-comment-list .comment-activity {
+  width: 100%;
+  opacity: 1;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment {
+  display: table;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 10px 0;
+  table-layout: fixed;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .commenter-photo {
+  display: table-cell;
+  width: 40px;
+  padding-top: 4px;
+  padding-right: 8px;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .commenter-photo img {
+  width: 32px;
+  height: 32px;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .comment-body {
+  display: table-cell;
+  width: 99%;
+  vertical-align: top;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .comment-body .comment-top-bar {
+  display: block;
+  width: 100%;
+  height: 20px;
+  margin-bottom: 0;
+  padding-top: 1px;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .comment-body .comment-top-bar .commenter-name {
+  font-size: 15px;
+  font-weight: 600;
+  display: inline-block;
+  overflow: hidden;
+  max-width: 140px;
+  margin-right: 5px;
+  vertical-align: top;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .comment-body .comment-top-bar .comment-when {
+  font-size: 11px;
+  display: inline-block;
+  color: #a1a1a1;
+}
+.timeline-section .threaded-comment-list .comment-activity .comment .comment-body .comment-text {
+  font-size: 13px;
+  line-height: 18px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: #4c545a;
+  margin-top: 5px;
+}
+.timeline-section .threaded-comment-list .comment-reply-section {
+  padding-left: 50px;
+}
+.timeline-section .comment-field--reply {
+  margin-top: 10px;
+  padding-bottom: 0;
+  border-top: 1px solid #e8e8e8;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  background-color: transparent;
+  display: none;
+}
+.timeline-section .threaded-comment-list.focus-thread .comment-field--reply {
+  display: block;
+}
+.timeline-section .threaded-comment-list.focus-thread .comment-reply-section {
+  display: none;
+}
 
 /*# sourceMappingURL=sc.css.map */

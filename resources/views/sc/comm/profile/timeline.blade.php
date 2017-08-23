@@ -9,4 +9,9 @@ Profile
 
 @section('content')
 @include('sc.comm.profile.profile_header')
+
+<div class="user-timeline-section mt10">
+  @include('sc.comm.partials.timeline.timeline')
+</div>
+
 @endsection

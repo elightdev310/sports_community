@@ -103,4 +103,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Posts ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/posts', 'LA\PostsController');
 	Route::get(config('laraadmin.adminRoute') . '/post_dt_ajax', 'LA\PostsController@dtajax');
+
+	/* ================== PostComments ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/postcomments', 'LA\PostCommentsController');
+	Route::get(config('laraadmin.adminRoute') . '/postcomment_dt_ajax', 'LA\PostCommentsController@dtajax');
 });

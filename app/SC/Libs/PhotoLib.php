@@ -13,7 +13,6 @@ use App\Models\Upload;
 
 use App\Role;
 use App\SC\Models\User;
-use App\SC\Models\UserProfile;
 use App\SC\Models\Photo;
 
 use SCHelper;
