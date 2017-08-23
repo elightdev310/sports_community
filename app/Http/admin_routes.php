@@ -107,4 +107,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== PostComments ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/postcomments', 'LA\PostCommentsController');
 	Route::get(config('laraadmin.adminRoute') . '/postcomment_dt_ajax', 'LA\PostCommentsController@dtajax');
+
+	/* ================== Education ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/education', 'LA\EducationController');
+	Route::get(config('laraadmin.adminRoute') . '/education_dt_ajax', 'LA\EducationController@dtajax');
 });
