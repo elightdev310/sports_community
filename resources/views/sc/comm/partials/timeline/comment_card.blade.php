@@ -1,11 +1,11 @@
 <div class="comment-box comment-card-item">
   <div class="author-photo">
-    {!! SCUserLib::avatarImage($currentUser, 32) !!}
+    {!! SCUserLib::avatarImage($comment->author, 32) !!}
   </div>
   <div class="mentions-container">
     <div class="">
-      <span class="author-name">{{ $comment->author->name }}</span> - 
-      <span class="comment-date">{{ SCHelper::strDTime($comment->created_at) }}</span>
+      <span class="author-name">{{ $comment->author->name }}</span>
+      <span class="comment-date"> - {{ SCHelper::strDTime($comment->created_at) }}</span>
     </div>
     <div class="comment-content card-content">
       <div class="comment-status">{{ $comment->text }}</div>
@@ -21,12 +21,12 @@
       @foreach ($replies as $reply)
         <div class="reply-box comment-box comment-reply-item">
           <div class="author-photo">
-            {!! SCUserLib::avatarImage($currentUser, 32) !!}
+            {!! SCUserLib::avatarImage($reply->author, 32) !!}
           </div>
           <div class="mentions-container">
             <div class="">
-              <span class="author-name">{{ $reply->author->name }}</span> - 
-              <span class="comment-date">{{ SCHelper::strDTime($reply->created_at) }}</span>
+              <span class="author-name">{{ $reply->author->name }}</span>
+              <span class="comment-date"> - {{ SCHelper::strDTime($reply->created_at) }}</span>
             </div>
             <div class="comment-content card-content">
               <div class="comment-status">{{ $reply->text }}</div>

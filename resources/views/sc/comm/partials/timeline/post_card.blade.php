@@ -2,12 +2,12 @@
   <div class="post-field">
     <div class="post-box">
       <div class="author-photo">
-        {!! SCUserLib::avatarImage($currentUser, 32) !!}
+        {!! SCUserLib::avatarImage($post->author, 32) !!}
       </div>
       <div class="mentions-container">
         <div class="">
-          <span class="author-name">{{ $post->author->name }}</span> - 
-          <span class="post-date">{{ SCHelper::strDTime($post->created_at) }}</span>
+          <span class="author-name">{{ $post->author->name }}</span>
+          <span class="post-date"> - {{ SCHelper::strDTime($post->created_at) }}</span>
         </div>
         <div class="post-content card-content">
           <div class="post-status">{{ $post->text }}</div>

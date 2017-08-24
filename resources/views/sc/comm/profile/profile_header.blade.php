@@ -1,5 +1,5 @@
 <div class="header-section profile-cover">
-    <div class="cover-image" style="@if ($user->profile->coverPhotoPath()) background-image: url({{ url($user->profile->coverPhotoPath()) }}); @endif">
+    <div class="cover-image" style="@if ($user->profile->coverPhotoPath()) background-image: url('{{ url($user->profile->coverPhotoPath()) }}'); @endif">
 
         @if ($editable)
         <a class="edit-cover-link" href="#" >
