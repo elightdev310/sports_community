@@ -23,7 +23,7 @@ class EducationController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'name';
-	public $listing_cols = ['id', 'name', 'start', 'end', 'user_id', 'graduated'];
+	public $listing_cols = ['id', 'name', 'start', 'end', 'graduated', 'user_id'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

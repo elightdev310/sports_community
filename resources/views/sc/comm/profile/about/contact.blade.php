@@ -20,11 +20,13 @@ Contact Information
     <div class="row">
       <div class="col-sm-4 col-md-3">
         <div class="about-left-sidebar p10">
-          @include('sc.comm.profile.about_left')
+          @include('sc.comm.profile.about.left_menu')
         </div>
       </div>
       <div class="col-sm-8 col-md-9">
-        <div class="about-content-section clearfix p20">
+        <div class="profile-contact-section about-content-section clearfix p20">
+
+          @if (!empty($editable))
           {!! Form::open(['route'=>['profile.about.save_contact.post', $user->id], 'method'=>'post', 'class'=>'sc-form-1' ]) !!}
             <div class="form-group has-feedback row">
                 {!! Form::label('email', 'Email', ['class' => 'form-label col-xs-3']) !!}
@@ -63,15 +65,55 @@ Contact Information
                   {!! Form::text('zip', $user->profile->zip, ['class'=>'form-control']) !!}
                 </div>
             </div>
-
-
             <div class="row">
                 <div class="col-xs-12 text-right">
                     {!! Form::submit('Save Changes', ['class'=>'btn btn-primary btn-flat']) !!}
                 </div><!-- /.col -->
             </div>
-
           {!! Form::close() !!}
+
+          @else
+
+          <!-- Public Contact Information -->
+            <div class="form-group has-feedback row">
+                {!! Form::label('email', 'Email', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->email }}
+                </div>
+            </div>
+            <div class="form-group has-feedback row">
+                {!! Form::label('phone', 'Mobile', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->profile->phone }}
+                </div>
+            </div>
+
+            <div class="form-group has-feedback row">
+                {!! Form::label('address', 'Address', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->profile->address }}
+                </div>
+            </div>
+            <div class="form-group has-feedback row">
+                {!! Form::label('city', 'City', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->profile->city }}
+                </div>
+            </div>
+            <div class="form-group has-feedback row">
+                {!! Form::label('state', 'State', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->profile->state }}
+                </div>
+            </div>
+            <div class="form-group has-feedback row">
+                {!! Form::label('zip', 'Zip', ['class' => 'form-label col-xs-3']) !!}
+                <div class="col-xs-9">
+                  {{ $user->profile->zip }}
+                </div>
+            </div>
+          @endif
+
         </div>
       </div>
     </div>

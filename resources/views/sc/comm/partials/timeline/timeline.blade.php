@@ -1,5 +1,5 @@
 <div class="timeline-section">
-  @if ($editable)
+  @if (!empty($editable))
   @include('sc.comm.partials.timeline.add_post_panel')
   @endif
 
@@ -15,18 +15,14 @@
     @endforeach
   </div>
   @endif
-
+  
 </div>
 
-
-
-
 @push('scripts')
+<script src="{{ asset('assets/js/sc-post.js') }}" type="text/javascript"></script>
 <script>
 $(function() {
-  $(document).ready(function() {
-    SCApp.Post.timelineInit();
-  });
+  SCApp.Post.timelineInit();
 });
 </script>
 @endpush

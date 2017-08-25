@@ -26,20 +26,18 @@
       fixed layout. -->
 <script src="{{ asset('assets/plugins/bootbox/bootbox.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery-loading-overlay/loading-overlay.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/plugins/emodal/eModal.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/emodal/eModal.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.blockUI/jquery.blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.scrollTo.min.js') }}" type="text/javascript"></script>
 
 
 <script src="{{ asset('assets/js/sc-app.js') }}" type="text/javascript"></script>
 
-@if (session('redirect'))
+@if (!empty(session('redirect')))
 <script>
 (function ($) {
   $(document).ready(function() {
-    @if (session('redirect') == '_parent')
-      SCApp.UI.reloadPage('_parent');
-    @endif
+      SCApp.UI.reloadPage('{{ session('redirect') }}');
   });
 }(jQuery));
 </script>

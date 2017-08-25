@@ -20,12 +20,12 @@ Basic Information
     <div class="row">
       <div class="col-sm-4 col-md-3">
         <div class="about-left-sidebar p10">
-          @include('sc.comm.profile.about_left')
+          @include('sc.comm.profile.about.left_menu')
         </div>
       </div>
       <div class="col-sm-8 col-md-9">
-        <div class="about-content-section clearfix p20">
-          @if ($editable)
+        <div class="profile-basic-section about-content-section clearfix p20">
+          @if (!empty($editable))
           {!! Form::open(['route'=>['profile.about.save_basic.post', $user->id], 'method'=>'post', 'class'=>'sc-form-1' ]) !!}
             @include('sc.commons.success_error')
             <div class="form-group has-feedback row">

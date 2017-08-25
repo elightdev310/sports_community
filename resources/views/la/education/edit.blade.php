@@ -36,8 +36,8 @@
 					@la_input($module, 'name')
 					@la_input($module, 'start')
 					@la_input($module, 'end')
-					@la_input($module, 'user_id')
 					@la_input($module, 'graduated')
+					@la_input($module, 'user_id')
 					--}}
                     <br>
 					<div class="form-group">

@@ -110,8 +110,8 @@
 						@la_display($module, 'name')
 						@la_display($module, 'start')
 						@la_display($module, 'end')
-						@la_display($module, 'user_id')
 						@la_display($module, 'graduated')
+						@la_display($module, 'user_id')
 					</div>
 				</div>
 			</div>

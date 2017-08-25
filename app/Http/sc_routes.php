@@ -37,7 +37,16 @@ Route::group(['middleware' => ['auth']],
 
     Route::get('profile/{user}/about/education', [
         'as' => 'profile.about.education', 'uses' => 'SC\Comm\ProfileController@aboutEducationPage' ]);
-
+    Route::get('profile/{user}/about/education/add', [
+        'as' => 'profile.about.education.add', 'uses' => 'SC\Comm\ProfileController@addEducationPage' ]);
+    Route::post('profile/{user}/about/education/add', [
+        'as' => 'profile.about.education.add.post', 'uses' => 'SC\Comm\ProfileController@addEducation' ]);
+    Route::get('profile/{user}/about/education/{edu}/edit', [
+        'as' => 'profile.about.education.edit', 'uses' => 'SC\Comm\ProfileController@editEducationPage' ]);
+    Route::post('profile/{user}/about/education/{edu}/edit', [
+        'as' => 'profile.about.education.edit.post', 'uses' => 'SC\Comm\ProfileController@editEducation' ]);
+    Route::post('profile/{user}/about/education/delete', [
+        'as' => 'profile.about.education.delete.post', 'uses' => 'SC\Comm\ProfileController@deleteEducation' ]);
 
     Route::post('timeline/{group}/post/add', [
         'as' => 'timeline.post.add.post', 'uses' => 'SC\Comm\TimelineController@addPost' ]);

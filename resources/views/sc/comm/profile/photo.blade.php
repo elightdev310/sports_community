@@ -1,7 +1,7 @@
 @extends('sc.layouts.app')
 
 @section('htmlheader_title')
-Profile
+Photo
 @endsection
 
 @section('page_id')user-photo @endsection
