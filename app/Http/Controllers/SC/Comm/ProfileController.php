@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * 
  */
 
 namespace App\Http\Controllers\SC\Comm;
@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Input;
 use App\SC\Models\User;
 use App\SC\Models\UserProfile;
 use App\SC\Models\Education;
+use App\SC\Models\FriendRequest;
 
 use SCUserLib;
 use SCPhotoLib;
@@ -528,7 +529,7 @@ class ProfileController extends Controller
     $edu->end   = $end;
     $edu->graduated = $graduated;
     $edu->save();
-    
+
     return redirect()->back()->withInput()->with('redirect', '_parent');
   }
 
@@ -553,6 +554,147 @@ class ProfileController extends Controller
           ]);
       }
       $edu->forceDelete();
+      return response()->json([
+            "status" => "success",
+            "action" => "reload", 
+          ]);
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error",
+            "message" => SCHelper::getErrorMessage($e), 
+          ]);
+    }
+  }
+
+  public function friendsPage(Request $request, User $user)
+  {
+    if ($user->status != config('sc.user_status.active')) {
+      abort(404);
+    }
+
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['user'] = $user;
+    $params['tab'] = 'friends';
+    $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+
+    return view('sc.comm.profile.friends.friends', $params);
+  }
+
+  /**
+   * URL-POST (profile/{user}/friends/send-request)
+   */
+  public function sendFriendReuqest(Request $request, User $user)
+  {
+    try {
+      $currentUser = SCUserLib::currentUser();
+      if (!$user || $currentUser->id == $user->id) {
+        throw new Exception('Failed to send request. Please refresh page and try again.');
+      }
+      if (SCUserLib::getFriendRequests($user->id)) {
+        return response()->json([
+            "status" => "error",
+            "action" => "reload", 
+          ]);
+      }
+      $fr = FriendRequest::create([
+        'user_id'     => $currentUser->id, 
+        'friend_uid'  => $user->id, 
+      ]);
+      return response()->json([
+            "status" => "success",
+            "action" => "reload", 
+          ]);
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error",
+            "message" => SCHelper::getErrorMessage($e), 
+          ]);
+    }
+  }
+
+  /**
+   * URL-POST (profile/{user}/friends/cancel-request)
+   */
+  public function cancelFriendReuqest(Request $request, User $user)
+  {
+    try {
+      $currentUser = SCUserLib::currentUser();
+      if (!$user || $currentUser->id == $user->id) {
+        throw new Exception('Failed to cancel request. Please refresh page and try again.');
+      }
+
+      $fr = SCUserLib::getFriendRequests($user->id);
+      if (!$fr || $fr->user_id != $currentUser->id) {
+        return response()->json([
+            "status" => "error",
+            "action" => "reload", 
+          ]);
+      }
+      $fr->forceDelete();
+      return response()->json([
+            "status" => "success",
+            "action" => "reload", 
+          ]);
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error",
+            "message" => SCHelper::getErrorMessage($e), 
+          ]);
+    }
+  }
+
+  /**
+   * URL-POST (profile/{user}/friends/confirm-request)
+   */
+  public function confirmFriendReuqest(Request $request, User $user)
+  {
+    try {
+      $currentUser = SCUserLib::currentUser();
+      if (!$user || $currentUser->id == $user->id) {
+        throw new Exception('Failed to confirm request. Please refresh page and try again.');
+      }
+
+      $fr = SCUserLib::getFriendRequests($user->id);
+      if (!$fr || $fr->friend_uid != $currentUser->id) {
+        return response()->json([
+            "status" => "error",
+            "action" => "reload", 
+          ]);
+      }
+      $fr->forceDelete();
+      return response()->json([
+            "status" => "success",
+            "action" => "reload", 
+          ]);
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error",
+            "message" => SCHelper::getErrorMessage($e), 
+          ]);
+    }
+  }
+  /**
+   * URL-POST (profile/{user}/friends/reject-request)
+   */
+  public function rejectFriendReuqest(Request $request, User $user)
+  {
+    try {
+      $currentUser = SCUserLib::currentUser();
+      if (!$user || $currentUser->id == $user->id) {
+        throw new Exception('Failed to reject request. Please refresh page and try again.');
+      }
+
+      $fr = SCUserLib::getFriendRequests($user->id);
+      if (!$fr || $fr->friend_uid != $currentUser->id) {
+        return response()->json([
+            "status" => "error",
+            "action" => "reload", 
+          ]);
+      }
+      $fr->forceDelete();
       return response()->json([
             "status" => "success",
             "action" => "reload", 

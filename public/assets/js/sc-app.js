@@ -133,6 +133,23 @@ SCApp.Photo = {
   }
 };
 
+SCApp.Friend = {
+  doAction: function(action_url, action_type) {
+    SCApp.UI.blockUI('body');
+    SCApp.ajaxSetup();
+    $.ajax({
+      url: action_url,
+      type: "POST"
+    })
+    .done(function( json, textStatus, jqXHR ) {
+      SCApp.doAjaxAction(json); //Refresh
+    })
+    .always(function( data, textStatus, errorThrown ) {
+      SCApp.UI.unblockUI('body');
+    });
+  }
+};
+
 $(function () {
   "use strict";
   $(document).ready(function() {

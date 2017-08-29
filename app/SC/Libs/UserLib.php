@@ -15,6 +15,7 @@ use App\SC\Models\UserProfile;
 use App\SC\Models\Node;
 use App\SC\Models\SocialProfile;
 use App\SC\Models\UserActivationCode;
+use App\SC\Models\FriendRequest;
 
 use SCHelper;
 use App\SC\Libs\UserLib_Helper;
@@ -260,5 +261,64 @@ class UserLib
                 'gender'     => $req['gender']
             ]);
         }
+    }
+
+    /**
+     * Check if Users are friends
+     */
+    public function isFriend($user_id, $friend_uid) {
+        return false;
+    }
+
+    /**
+     *
+     */
+    public function isFriendRequest($user_id, $friend_uid) {
+        $fr = FriendRequest::where('user_id', '=', $user_id)
+                            ->where('friend_uid', '=', $friend_uid)
+                            ->first();
+        if ($fr) {
+            return 1;   // User sent request to friend
+        }
+
+        $fr = FriendRequest::where('user_id', '=', $friend_uid)
+                            ->where('friend_uid', '=', $user_id)
+                            ->first();
+        if ($fr) {
+            return -1;   // User received request from friend
+        }
+
+        return 0; // No request
+    }
+
+    /**
+     * Get Friend Request
+     *
+     * Own Profile Page - Confirmation Request
+     * Other User Profile Page - Send or Confirm Request to that User
+     */
+    public function getFriendRequests($user_id) {
+        $currentUser = $this->currentUser();
+        if ($currentUser->id == $user_id) {
+            // Get Received Request
+            return FriendRequest::where('friend_uid', '=', $user_id)
+                                ->get();
+
+        } else {
+            $fr = FriendRequest::where('user_id', '=', $currentUser->id)
+                            ->where('friend_uid', '=', $user_id)
+                            ->first();
+            if ($fr) {
+                return $fr;   // User sent request to friend
+            }
+
+            $fr = FriendRequest::where('user_id', '=', $user_id)
+                                ->where('friend_uid', '=', $currentUser->id)
+                                ->first();
+            if ($fr) {
+                return $fr;   // User received request from friend
+            }
+        }
+        return false;
     }
 }

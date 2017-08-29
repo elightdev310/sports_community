@@ -321,6 +321,12 @@ body {
   padding: 3px 7px;
   display: inline-block;
 }
+.profile-page .fr-list .fr-item {
+  border: solid 1px #ddd;
+}
+.profile-page .fr-list .fr-item .user-name {
+  font-size: 1.2em;
+}
 .picture-action-panel {
   border-bottom: solid 1px #bbb;
 }

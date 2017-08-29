@@ -111,4 +111,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Education ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/education', 'LA\EducationController');
 	Route::get(config('laraadmin.adminRoute') . '/education_dt_ajax', 'LA\EducationController@dtajax');
+
+	/* ================== FriendRequests ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/friendrequests', 'LA\FriendRequestsController');
+	Route::get(config('laraadmin.adminRoute') . '/friendrequest_dt_ajax', 'LA\FriendRequestsController@dtajax');
 });
