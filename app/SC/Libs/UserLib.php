@@ -321,4 +321,19 @@ class UserLib
         }
         return false;
     }
+
+    /**
+     * Get Sent Friend Request
+     *
+     */
+    public function getSentFriendRequests($user_id) {
+        $currentUser = $this->currentUser();
+        if ($currentUser->id == $user_id) {
+            // Get Received Request
+            return FriendRequest::where('user_id', '=', $user_id)
+                                ->get();
+
+        }
+        return false;
+    }
 }

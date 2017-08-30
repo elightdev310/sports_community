@@ -9,7 +9,9 @@ Friends
 
 @section('content')
 @include('sc.comm.profile.profile_header')
-
+@if ($currentUser->id == $user->id)
+@include('sc.comm.profile.friends.friends_sent_request_panel')
+@endif
 <div class="page-panel friends-wrapper mt10">
   <div class="panel-header">
     <div class="row">
