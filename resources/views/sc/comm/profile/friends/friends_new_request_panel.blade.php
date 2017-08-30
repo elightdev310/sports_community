@@ -18,10 +18,10 @@
               </div>
               <div class="mt5">
                 <div class="dropdown">
-                  <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-respond-fr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-new-respond-fr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Respond Request
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown-respond-fr">
+                  <ul class="dropdown-menu" aria-labelledby="dropdown-new-respond-fr">
                     <li><a href="#" data-url="{{ route('profile.friends.confirm_request.post', ['user'=>$i_fr->user_id]) }}" class="confirm-ifr-request">Confirm</a></li>
                     <li><a href="#" data-url="{{ route('profile.friends.reject_request.post', ['user'=>$i_fr->user_id]) }}" class="reject-ifr-request">Reject</a></li>
                   </ul>
@@ -39,7 +39,7 @@
 @push('scripts')
 <script>
 $(function() {
-    // Confirm Friend Request
+  // Confirm Friend Request
   $('.new-friends-request-section .confirm-ifr-request').on('click', function() {
     var action_url = $(this).data('url');
     SCApp.Friend.doAction(action_url, 'confirm_request');

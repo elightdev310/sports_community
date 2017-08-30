@@ -15,7 +15,14 @@ Friends
 <div class="page-panel friends-wrapper mt10">
   <div class="panel-header">
     <div class="row">
-      <div class="col-xs-6"><div class="panel-title"><i class="fa fa-users mr5" aria-hidden="true"></i>Friends</div></div>
+      <div class="col-xs-6">
+        <div class="panel-title"><i class="fa fa-users mr5" aria-hidden="true"></i>Friends</div>
+      </div>
+      @if ($currentUser->id == $user->id)
+      <div class="col-xs-6">
+        <div class="pull-right"><a href="{{ route('search.people') }}" class="btn btn-primary btn-flat find-friends">+ Find Friends</a></div>
+      </div>
+      @endif
     </div>
   </div>
   <div class="panel-content">

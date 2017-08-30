@@ -81,5 +81,11 @@ Route::group(['middleware' => ['auth']],
         'as' => 'timeline.post.comment.reply.post', 'uses' => 'SC\Comm\TimelineController@replyComment' ]);
     Route::get('timeline/post/{post}/refresh', [
         'as' => 'timeline.post.refresh', 'uses' => 'SC\Comm\TimelineController@refreshPost' ]);
+
+    /***************************************************************************/
+    /* Search
+    /***************************************************************************/
+    Route::get('search/people', [
+        'as' => 'search.people', 'uses' => 'SC\Comm\SearchController@people' ]);
 });
 

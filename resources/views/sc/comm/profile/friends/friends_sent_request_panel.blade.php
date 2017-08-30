@@ -18,10 +18,10 @@
               </div>
               <div class="mt5">
                 <div class="dropdown">
-                  <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-respond-fr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-sent-respond-fr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Sent Request
                   </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdown-respond-fr">
+                  <ul class="dropdown-menu" aria-labelledby="dropdown-sent-respond-fr">
                     <li><a href="#" data-url="{{ route('profile.friends.cancel_request.post', ['user'=>$i_fr->friend_uid]) }}" class="cancel-ifr-request">Cancel</a></li>
                   </ul>
                 </div>
@@ -41,7 +41,7 @@ $(function() {
   // Reject Friend Request
   $('.sent-request-friends-section .cancel-ifr-request').on('click', function() {
     var action_url = $(this).data('url');
-    SCApp.Friend.doAction(action_url, 'reject_request');
+    SCApp.Friend.doAction(action_url, 'cancel_request');
     return false;
   });
 });
