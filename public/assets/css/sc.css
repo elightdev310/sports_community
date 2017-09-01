@@ -327,6 +327,10 @@ body {
 .profile-page .fr-list .fr-item .user-name {
   font-size: 1.2em;
 }
+.profile-page .friend-list .people-item {
+  padding: 10px 0px;
+  border: solid 1px #ddd;
+}
 .picture-action-panel {
   border-bottom: solid 1px #bbb;
 }

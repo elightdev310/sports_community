@@ -18,6 +18,7 @@ use App\SC\Models\User;
 use App\SC\Models\UserProfile;
 use App\SC\Models\Education;
 use App\SC\Models\FriendRequest;
+use App\SC\Models\FriendShip;
 
 use SCUserLib;
 use SCPhotoLib;
@@ -578,6 +579,7 @@ class ProfileController extends Controller
     $params['user'] = $user;
     $params['tab'] = 'friends';
     $params['profile'] = $user->profile;
+    $params['friends'] = SCUserLib::getFriends($user->id);
     $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
 
     return view('sc.comm.profile.friends.friends', $params);
@@ -665,6 +667,11 @@ class ProfileController extends Controller
           ]);
       }
       $fr->forceDelete();
+      $fs = FriendShip::create([
+        'user1_id'  => $user->id, 
+        'user2_id'  => $currentUser->id 
+      ]);
+
       return response()->json([
             "status" => "success",
             "action" => "reload", 
@@ -695,6 +702,28 @@ class ProfileController extends Controller
           ]);
       }
       $fr->forceDelete();
+      return response()->json([
+            "status" => "success",
+            "action" => "reload", 
+          ]);
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error",
+            "message" => SCHelper::getErrorMessage($e), 
+          ]);
+    }
+  }
+
+  public function closeFriendShip(Request $request, User $user)
+  {
+    try {
+      $currentUser = SCUserLib::currentUser();
+      if (!$user || $currentUser->id == $user->id) {
+        throw new Exception('Failed to close request. Please refresh page and try again.');
+      }
+
+      SCUserLib::closeFriendShip($currentUser->id, $user->id);
+
       return response()->json([
             "status" => "success",
             "action" => "reload", 

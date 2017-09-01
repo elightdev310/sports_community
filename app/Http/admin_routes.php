@@ -115,4 +115,9 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== FriendRequests ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/friendrequests', 'LA\FriendRequestsController');
 	Route::get(config('laraadmin.adminRoute') . '/friendrequest_dt_ajax', 'LA\FriendRequestsController@dtajax');
+
+
+	/* ================== FriendShips ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/friendships', 'LA\FriendShipsController');
+	Route::get(config('laraadmin.adminRoute') . '/friendship_dt_ajax', 'LA\FriendShipsController@dtajax');
 });

@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth']],
         'as' => 'profile.friends.confirm_request.post', 'uses' => 'SC\Comm\ProfileController@confirmFriendReuqest' ]);
     Route::post('profile/{user}/friends/reject-request', [
         'as' => 'profile.friends.reject_request.post', 'uses' => 'SC\Comm\ProfileController@rejectFriendReuqest' ]);
+    Route::post('profile/{user}/friends/close-friendship', [
+        'as' => 'profile.friends.close_friendship.post', 'uses' => 'SC\Comm\ProfileController@closeFriendShip' ]);
     
 
     // About

@@ -6,6 +6,8 @@
 
 namespace App\SC\Models;
 
+use DB;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User as UserModule;
@@ -42,5 +44,16 @@ class User extends UserModule
 
     public function getPosts() {
       return SCPostLib::getPosts($this->getNode());
+    }
+
+    public function getFriendIDs() {
+      $u1 = DB::table('friendships')->select('user1_id as uid')->where('user2_id', '=', $this->id)->get();
+      $u2 = DB::table('friendships')->select('user2_id as uid')->where('user1_id', '=', $this->id)->get();
+      $u = array_merge($u1, $u2);
+      $data = array();
+      foreach ($u as $row) {
+        $data[$row->uid] = $row->uid;
+      }
+      return $data;
     }
 }

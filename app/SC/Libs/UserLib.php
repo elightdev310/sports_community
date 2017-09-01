@@ -16,6 +16,7 @@ use App\SC\Models\Node;
 use App\SC\Models\SocialProfile;
 use App\SC\Models\UserActivationCode;
 use App\SC\Models\FriendRequest;
+use App\SC\Models\FriendShip;
 
 use SCHelper;
 use App\SC\Libs\UserLib_Helper;
@@ -267,6 +268,19 @@ class UserLib
      * Check if Users are friends
      */
     public function isFriend($user_id, $friend_uid) {
+        $fs = FriendShip::where('user1_id', '=', $user_id)
+                        ->where('user2_id', '=', $friend_uid)
+                        ->first();
+        if ($fs) {
+            return true;
+        } else {
+            $fs = FriendShip::where('user1_id', '=', $friend_uid)
+                            ->where('user2_id', '=', $user_id)
+                            ->first();
+            if ($fs) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -335,5 +349,32 @@ class UserLib
 
         }
         return false;
+    }
+
+    public function getFriends($user_id) {
+        if (is_numeric($user_id)) {
+            $user = User::find($user_id);
+        } else {
+            $user = $user_id;
+        }
+
+        $ids = $user->getFriendIDs();
+        $friends = array();
+        foreach ($ids as $f_id) {
+            $friends[$f_id] = User::find($f_id);
+        }
+        return $friends;
+    }
+
+    public function closeFriendShip($user1_id, $user2_id) {
+        $fs = FriendShip::where('user1_id', '=', $user1_id)
+                        ->where('user2_id', '=', $user2_id)
+                        ->first();
+        if ($fs) { $fs->forceDelete(); }
+
+        $fs = FriendShip::where('user1_id', '=', $user2_id)
+                        ->where('user2_id', '=', $user1_id)
+                        ->first();
+        if ($fs) { $fs->forceDelete(); }
     }
 }
