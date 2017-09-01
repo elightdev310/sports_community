@@ -43,6 +43,7 @@ Friends
           </div>
           @if ($editable)
           <div class="pull-right p5">
+            <div class="dropdown">
               <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-friendship-{{$friend->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user" aria-hidden="true"></i>&nbsp;Friend
               </button>
