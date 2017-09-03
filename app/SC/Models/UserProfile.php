@@ -19,7 +19,7 @@ class UserProfile extends UserProfileModule
     public function coverPhotoPath() {
       if ($this->cover_photo_id) {
         if ($cover_photo = Photo::find($this->cover_photo_id)) {
-          return $cover_photo->file->path();
+          return $cover_photo->path();
         }
       }
       return false;

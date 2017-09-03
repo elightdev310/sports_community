@@ -3,9 +3,9 @@
     @foreach ($photos as $photo)
     <div class="image-item col-xs-6 col-sm-4 col-md-3 col-lg-2">
       <div class="image-content hover-pane" data-photo="{{ $photo->id }} ">
-        <a class="fm_file_sel info" href="{{ $photo->file->path() }}" title="{{ $photo->file->name }}" data-gallery="#profile-photo" 
-        data-toggle="tooltip" data-placement="top" title="" upload="" data-original-title="{{ $photo->file->name }}">
-          <img src="{{ $photo->file->path() }}?s=300" width="100%"/>
+        <a class="fm_file_sel info" href="{{ $photo->path() }}" title="{{ $photo->name }}" data-gallery="#profile-photo" 
+        data-toggle="tooltip" data-placement="top" title="" upload="" data-original-title="{{ $photo->name }}">
+          <img src="{{ $photo->path(300) }}" width="100%"/>
         </a>
         <a class="photo-action-link hover-action-link">
           <i class="fa fa-trash-o" aria-hidden="true"></i>

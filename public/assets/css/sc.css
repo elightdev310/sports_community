@@ -256,6 +256,7 @@ body {
 .profile-page .photo-container .profile-picture-thumb {
   border-radius: 3px;
   border: solid 1px #e9e9e9;
+  background: white;
   position: absolute;
   cursor: pointer;
 }
@@ -346,11 +347,9 @@ body {
   position: relative;
   overflow: hidden;
   background-color: #1d2129;
+  background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
-}
-.cover-image-section.b-lazy.b-loaded {
-  background-size: cover;
 }
 .cover-image-section img.cover-img {
   width: 100%;

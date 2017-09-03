@@ -107,7 +107,10 @@
 						<h4>General Info</h4>
 					</div>
 					<div class="panel-body">
-						@la_display($module, 'file_id')
+						@la_display($module, 'name')
+						@la_display($module, 'path')
+						@la_display($module, 'extension')
+						@la_display($module, 'user_id')
 						@la_display($module, 'width')
 						@la_display($module, 'height')
 						@la_display($module, 'group_nid')

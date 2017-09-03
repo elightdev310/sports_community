@@ -9,6 +9,7 @@ namespace App\SC\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Photo as PhotoModule;
+use SCPhotoLib;
 
 class Photo extends PhotoModule
 {
@@ -27,7 +28,14 @@ class Photo extends PhotoModule
       if (file_exists($this->file->path)) {
         unlink( $this->file->path );
       }
-      $this->file->forceDelete();
       $this->forceDelete();
+    }
+
+    public function author() {
+        return $this->belongsTo('App\SC\Models\User', 'user_id');
+    }
+
+    public function path($thumb_size=0) {
+      return SCPhotoLib::getThumbPhotoUrl($this, $thumb_size);
     }
 }

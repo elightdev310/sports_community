@@ -22,8 +22,8 @@ use App\Models\Photo;
 class PhotosController extends Controller
 {
 	public $show_action = true;
-	public $view_col = 'file_id';
-	public $listing_cols = ['id', 'file_id', 'width', 'height', 'group_nid', 'used'];
+	public $view_col = 'name';
+	public $listing_cols = ['id', 'name', 'path', 'extension', 'user_id', 'width', 'height', 'group_nid', 'used'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

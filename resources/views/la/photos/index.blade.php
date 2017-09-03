@@ -59,7 +59,10 @@
                     @la_form($module)
 					
 					{{--
-					@la_input($module, 'file_id')
+					@la_input($module, 'name')
+					@la_input($module, 'path')
+					@la_input($module, 'extension')
+					@la_input($module, 'user_id')
 					@la_input($module, 'width')
 					@la_input($module, 'height')
 					@la_input($module, 'group_nid')
