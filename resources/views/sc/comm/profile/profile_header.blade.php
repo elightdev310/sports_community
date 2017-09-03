@@ -1,5 +1,5 @@
 <div class="header-section profile-cover">
-    <div class="cover-image" style="@if ($user->profile->coverPhotoPath()) background-image: url('{{ url($user->profile->coverPhotoPath()) }}'); @endif">
+    <div class="cover-image-section @if ($user->profile->coverPhotoPath())b-lazy @endif" @if ($user->profile->coverPhotoPath()) data-src="{{ url($user->profile->coverPhotoPath()) }}" @endif>
 
         @if ($editable)
         <a class="edit-cover-link emodal-ajax" href="#" data-url="{{ route('profile.cover_photo') }}" data-title="Add Cover Photo" data-size="md">

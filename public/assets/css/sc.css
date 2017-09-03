@@ -225,6 +225,13 @@ body {
 .wrapper .content-wrapper {
   background-color: transparent;
 }
+.b-lazy {
+  opacity: 0;
+  transition: all 300ms;
+}
+.b-loaded {
+  opacity: 1;
+}
 /* smaller than Extra small screen */
 /* smaller than Extra small screen */
 /* smaller than 640px screen */
@@ -334,29 +341,37 @@ body {
 .picture-action-panel {
   border-bottom: solid 1px #bbb;
 }
-.cover-image {
-  background-color: #1d2129;
-  background-position: center center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.cover-image-section {
   height: 200px;
   position: relative;
+  overflow: hidden;
+  background-color: #1d2129;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
-.cover-image .edit-cover-link {
+.cover-image-section.b-lazy.b-loaded {
+  background-size: cover;
+}
+.cover-image-section img.cover-img {
+  width: 100%;
+  position: absolute;
+  z-index: -10;
+}
+.cover-image-section .edit-cover-link {
   margin: 15px 0px 0px 20px;
   padding: 5px 10px;
   display: inline-block;
   color: #888;
 }
-.cover-image .edit-cover-link span {
+.cover-image-section .edit-cover-link span {
   visibility: hidden;
 }
-.cover-image .edit-cover-link:hover {
+.cover-image-section .edit-cover-link:hover {
   background: #222;
   border: solid 1px #f8f8f8;
   color: #fff;
 }
-.cover-image .edit-cover-link:hover span {
+.cover-image-section .edit-cover-link:hover span {
   visibility: visible;
 }
 .photo-panel-section {

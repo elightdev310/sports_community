@@ -29,7 +29,7 @@
 <script src="{{ asset('assets/plugins/emodal/eModal.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.blockUI/jquery.blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.scrollTo.min.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('assets/plugins/blazy.min.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/js/sc-app.js') }}" type="text/javascript"></script>
 

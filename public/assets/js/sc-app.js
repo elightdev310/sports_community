@@ -164,5 +164,9 @@ $(function () {
     });
     $('.emodal-iframe').click(SCApp.UI.modalIframe);
     $('.emodal-ajax').click(SCApp.UI.modalAjax);
+
+    var bLazy = new Blazy({
+        src: 'data-src'
+    });
   });
 });

@@ -133,14 +133,26 @@
     border-bottom: solid 1px #bbb;
 }
 
-.cover-image {
-    background-color: #1d2129;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-
+.cover-image-section {
     height: 200px;
     position: relative;
+    overflow: hidden;
+
+    background-color: #1d2129;
+    // &.b-lazy {
+    //   background-image: url('/assets/img/loader2.gif');
+    // }
+    &.b-lazy.b-loaded {
+      background-size: cover;
+    }
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    img.cover-img {
+      width: 100%;
+      position: absolute;
+      z-index: -10;
+    }
 
     .edit-cover-link {
         margin: 15px 0px 0px 20px;
