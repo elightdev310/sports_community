@@ -13,20 +13,13 @@ use SCPhotoLib;
 
 class Photo extends PhotoModule
 {
-    public function file() {
-      if ($this->file_id) {
-        return $this->belongsTo('App\Models\Upload', 'file_id');
-      }
-      return false;
-    }
-
     public function group() {
       return $this->belongsTo('App\SC\Models\Node', 'group_nid');
     }
 
     public function remove() {
-      if (file_exists($this->file->path)) {
-        unlink( $this->file->path );
+      if (file_exists($this->path())) {
+        unlink( $this->path() );
       }
       $this->forceDelete();
     }
