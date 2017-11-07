@@ -49,6 +49,7 @@ Add Photo
           }).
           then(function(){
             console.log('jQuery bind complete');
+            SCApp.UI.fitModalWindow();
           });
         }
 

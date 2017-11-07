@@ -91,7 +91,10 @@ SCApp.UI = {
     var m_height = $('.modal-wrapper').height();
     var iframe = window.parent.$('.embed-responsive-item');
     if (iframe.length) {
-      iframe.height(m_height);
+      // iframe.height(m_height);
+      iframe.animate({
+          height: m_height
+        }, "fast", "swing");
     }
   }, 
 
