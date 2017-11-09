@@ -502,7 +502,7 @@ body {
   opacity: 1;
   height: auto;
   display: block;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.3s linear;
 }
 .timeline-section .comment-section .comment-replies-section .reply-list.hidden-reply-list {
   opacity: 0;
@@ -517,7 +517,7 @@ body {
   width: 100%;
   vertical-align: top;
   opacity: 1;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.3s linear;
 }
 .timeline-section .comment-box.hidden-comment {
   opacity: 0;
