@@ -312,7 +312,18 @@
     .comment-replies-section {
         margin-left: 42px;
         border-left: solid 3px #e8e8e8;
-        padding-left: 10px;
+        padding-left: 10px; 
+        .reply-list {
+          opacity: 1;
+          height: auto;
+          display: block;
+          transition: opacity 0.5s linear;
+          &.hidden-reply-list {
+            opacity: 0;
+            height: 0px;
+            overflow: hidden;
+          }
+        }
     }
   }
 
@@ -324,9 +335,28 @@
     display: block;
     width: 100%;
     vertical-align: top;
+    opacity: 1;
+    transition: opacity 0.5s linear;
+    &.hidden-comment {
+      opacity: 0;
+      height: 0px;
+      margin: 0px;
+      overflow: hidden;
+    }
+
+    .author-photo {
+      img {
+        width: 28px; height: 28px;
+      }
+    }
   }
   .reply-box {
     margin-top: 10px;
+    .author-photo {
+      img {
+        width: 24px; height: 24px;
+      }
+    }
   }
 }
 

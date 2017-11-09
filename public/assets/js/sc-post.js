@@ -8,6 +8,9 @@ SCApp.Post = {
     $('.timeline-section').on('click', '.add-reply-btn', SCApp.Post.addComment);
     $('.timeline-section').on('click', '.add-comment-link', SCApp.Post.focusCommentAdd);
     $('.timeline-section').on('click', '.comment-reply-link', SCApp.Post.focusCommentReply);
+
+    $('.timeline-section').on('click', '.show-all-comments', SCApp.Post.showAllComments);
+    $('.timeline-section').on('click', '.show-all-replies', SCApp.Post.showAllReplies);
   }, 
   textAreaAdjust: function(o) {
     o.style.height = "1px";
@@ -79,6 +82,10 @@ SCApp.Post = {
   }, 
   focusCommentReply: function() {
     var $comment_card = $(this).closest('.comment-card-item');
+    // Show all replies
+    $comment_card.find('.show-all-replies').each(function() {
+      $(this).trigger('click');
+    })
     var $txtInput = $comment_card.find('.write-comment-reply-form')
                  .removeClass('hidden')
                  .find('.status-input-text').focus();
@@ -88,6 +95,7 @@ SCApp.Post = {
     //     $txtInput.focus();
     //   }
     // });
+
     return false;
   }, 
   refreshPostCard: function($post_card_item) {
@@ -105,5 +113,23 @@ SCApp.Post = {
       }
     })
     .always(function( data, textStatus, errorThrown ) {});
+  }, 
+  // Show all comments
+  showAllComments: function() {
+    var $list = $(this).closest('.comment-list');
+    $list.find('.comment-box.hidden-comment').each(function() {
+        $(this).removeClass('hidden-comment');
+    });
+
+    $(this).closest('.comment-box').remove();
+    return false;
+  }, 
+  // Show all replies
+  showAllReplies: function() {
+    var $list = $(this).closest('.comment-replies-section').find('.reply-list');
+    $list.removeClass('hidden-reply-list');
+
+    $(this).closest('.reply-summary-box').remove();
+    return false;
   }
 };

@@ -1,4 +1,4 @@
-<div class="comment-box comment-card-item">
+<div class="comment-box comment-card-item {{ $comment_hidden_style or ''}}">
   <div class="author-photo">
     {!! SCUserLib::avatarImage($comment->author, 32) !!}
   </div>
@@ -17,7 +17,7 @@
 
   <div class="comment-replies-section">
     @if (!empty($replies))
-    <div class="reply-list">
+    <div class="reply-list hidden-reply-list">
       @foreach ($replies as $reply)
         <div class="reply-box comment-box comment-reply-item">
           <div class="author-photo">
@@ -38,6 +38,21 @@
         </div>
       @endforeach
     </div>
+
+    @if (isset($reply))
+      <div class="reply-summary-box reply-box comment-box comment-reply-item">
+        <div class="author-photo">
+          {!! SCUserLib::avatarImage($reply->author, 32) !!}
+        </div>
+        <div class="mentions-container">
+          <a href="#" class="show-all-replies">
+            <span class="">{{ $reply->author->name }} replied</span>
+            <span class="reply-count"> - {{ count($replies) }}  {{ str_plural('reply', count($replies)) }}</span>
+          </a>
+        </div>
+      </div>
+    @endif
+
     @endif
 
     @include('sc.comm.partials.timeline.write_reply_panel')

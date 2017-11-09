@@ -21,10 +21,25 @@
   <div class="post-field comment-section">
     @if (!empty($comments))
     <div class="comment-list">
+      <?php $c_count = count($comments) - 3; ?>
+      @if ($c_count>0)
+        <div class="comment-box comment-card-item">
+          <a href="#" class="show-all-comments">{{ "Show all ".count($comments)." comments" }}</a>
+        </div>
+      @endif
+
       @foreach ($comments as $comment_v)
         <?php $comment = $comment_v['comment']; ?>
         <?php $replies = $comment_v['replies']; ?>
+        @if ($c_count > 0)
+          <?php $comment_hidden_style="hidden-comment"; ?>
+        @else
+          <?php $comment_hidden_style=""; ?>
+        @endif
+
         @include('sc.comm.partials.timeline.comment_card')
+
+        <?php $c_count--; ?>
       @endforeach
     </div>
     @endif

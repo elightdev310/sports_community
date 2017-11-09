@@ -209,6 +209,10 @@ ul.files_container {
   text-align: left;
   padding-top: 7px;
 }
+iframe.embed-responsive-item {
+  transition: height 0.3s;
+  height: auto;
+}
 html,
 body {
   height: 100%;
@@ -494,6 +498,17 @@ body {
   border-left: solid 3px #e8e8e8;
   padding-left: 10px;
 }
+.timeline-section .comment-section .comment-replies-section .reply-list {
+  opacity: 1;
+  height: auto;
+  display: block;
+  transition: opacity 0.5s linear;
+}
+.timeline-section .comment-section .comment-replies-section .reply-list.hidden-reply-list {
+  opacity: 0;
+  height: 0px;
+  overflow: hidden;
+}
 .timeline-section .comment-card-item {
   margin-bottom: 10px;
 }
@@ -501,9 +516,25 @@ body {
   display: block;
   width: 100%;
   vertical-align: top;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+.timeline-section .comment-box.hidden-comment {
+  opacity: 0;
+  height: 0px;
+  margin: 0px;
+  overflow: hidden;
+}
+.timeline-section .comment-box .author-photo img {
+  width: 28px;
+  height: 28px;
 }
 .timeline-section .reply-box {
   margin-top: 10px;
+}
+.timeline-section .reply-box .author-photo img {
+  width: 24px;
+  height: 24px;
 }
 .search-people-result .search-people-list .people-item {
   padding: 10px 0px;
