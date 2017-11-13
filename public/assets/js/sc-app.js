@@ -98,19 +98,49 @@ SCApp.UI = {
     }
   }, 
 
-  blockUI: function(selector) {
-    $(selector).block({ 
+  blockUI: function(selector, options) {
+    if (typeof selector == 'string') {
+      $_selector = $(selector);
+    } else {
+      $_selctor = selector;
+    }
+
+    var default_options = { 
       message: '<span class="fa fa-circle-o-notch fa-spin fa-3x text-primary"></span><div class="h4">Loading</div>', 
       css: { 
         border: 'none', 
-        background: 'transparent', 
+        backgroundColor: 'transparent', 
         opacity: 1, 
-        color: '#fff' 
+        color: '#222' 
+      }, 
+      overlayCSS: {
+        backgroundColor: 'transparent', 
       }
-    });
+    };
+
+    var block_options = $.extend({}, default_options, options || {});
+    $_selctor.block(block_options);
   }, 
   unblockUI: function(selector) {
-      $(selector).unblock();
+    if (typeof selector == 'string') {
+      $_selector = $(selector);
+    } else {
+      $_selctor = selector;
+    }
+
+    $_selctor.unblock();
+  }, 
+  checkScrollBar: function() {
+    var hContent = $(document).height(); // get the height of your content
+    var hWindow = $(window).height();  // get the height of the visitor's browser window
+
+    // if the height of your content is bigger than the height of the 
+    // browser window, we have a scroll bar
+    if(hContent>hWindow) { 
+        return true;
+    }
+
+    return false;
   }
 };
 

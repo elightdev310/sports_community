@@ -14,6 +14,8 @@ use App\SC\Models\User;
 use App\SC\Models\Post;
 use App\SC\Models\PostComment;
 
+use App\SC\Models\Node;
+
 use Exception;
 use SCUserLib;
 
@@ -109,4 +111,70 @@ class PostLib
             ]);
     return $reply;
   }
+
+
+
+
+  /**
+   * Get Feed Posts
+   */
+  public function getFeedPosts(Node $group, $type, $params=array()) {
+    if (!isset($params['page']))    { $params['page'] = 0; }
+    if (!isset($params['perPage'])) { $params['perPage'] = 3; }     // Default
+
+    $posts = array();
+    switch ($group->type) {
+      case 'user':
+        if ($type == 'timeline') {
+          $posts = $this->getUserTimelinePosts($group, $params);
+        }
+        break;
+    }
+
+    $data = array();
+    foreach ($posts as $post) {
+      $data[$post->id] = array(
+        'post' => $post, 
+        'comments' => $this->getPostComments($post), 
+      );
+    }
+    return $data;
+  }
+
+  /**
+   * Get Post in Feeds
+   */
+  public function getPostsInFeeds($follow_fids, $params) {
+    $currentUser = SCUserLib::currentUser();
+
+    $perPage = $params['perPage'];
+    $offset = $params['page'] * $perPage;
+
+    $str_follow_fids = implode(', ', $follow_fids);
+
+    $query = "SELECT p.* 
+              FROM posts AS p 
+              WHERE group_nid IN ($str_follow_fids) 
+              ORDER BY p.updated_at DESC 
+              LIMIT $offset, $perPage";
+    $results = DB::select($query);
+    $posts = array();
+    if ($results) {
+      foreach ($results as $post) {
+        $posts[$post->id] = Post::find($post->id);
+      }
+    }
+    return $posts;
+  }
+
+  /**
+   * Get User Timeline Posts
+   */
+  public function getUserTimelinePosts(Node $group, $params) {
+    $follow_fids = array($group->id => $group->id);
+    $posts = $this->getPostsInFeeds($follow_fids, $params);
+    return $posts;
+  }
+
+
 }

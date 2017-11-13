@@ -42,10 +42,6 @@ class User extends UserModule
       return $node;
     }
 
-    public function getPosts() {
-      return SCPostLib::getPosts($this->getNode());
-    }
-
     public function getFriendIDs() {
       $u1 = DB::table('friendships')->select('user1_id as uid')->where('user2_id', '=', $this->id)->get();
       $u2 = DB::table('friendships')->select('user2_id as uid')->where('user1_id', '=', $this->id)->get();

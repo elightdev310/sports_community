@@ -84,6 +84,9 @@ Route::group(['middleware' => ['auth']],
     Route::get('timeline/post/{post}/refresh', [
         'as' => 'timeline.post.refresh', 'uses' => 'SC\Comm\TimelineController@refreshPost' ]);
 
+    Route::post('timeline/load-post/{group}/{type}', [
+        'as' => 'timeline.load_post', 'uses' => 'SC\Comm\TimelineController@load_next_posts' ]);
+
     /***************************************************************************/
     /* Search
     /***************************************************************************/

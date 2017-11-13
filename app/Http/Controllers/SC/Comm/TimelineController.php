@@ -146,4 +146,36 @@ class TimelineController extends Controller
     }
 
   }
+
+  /**
+   * URL - POST (ajax) : timeline/load-post/{group}/{type}
+   */
+  public function load_next_posts(Request $request, Node $group, $type)
+  {
+    $currentUser = SCUserLib::currentUser();
+
+    $result = array(
+        'status' => 'success', 
+        'msg'    => '', 
+        'posts'  => ''
+    );
+
+    $page = $request->has('page')? $request->input('page') : 0;
+    $result['nextPage'] = $page;
+
+    $posts = SCPostLib::getFeedPosts($group, $type, array('page'=>$page));
+
+    if ($posts && !empty($posts)) {
+      $view = View::make('sc.comm.partials.timeline.timeline_post_list', 
+                          ['posts' => $posts]);
+      $posts_html = $view->render();
+
+      $result['nextPage'] = ++$page;
+      $result['posts'] = $posts_html;
+      // $result['posts'] = $posts;
+    }
+
+    return response()->json($result);
+  }
+
 }

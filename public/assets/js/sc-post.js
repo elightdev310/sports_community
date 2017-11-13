@@ -11,7 +11,19 @@ SCApp.Post = {
 
     $('.timeline-section').on('click', '.show-all-comments', SCApp.Post.showAllComments);
     $('.timeline-section').on('click', '.show-all-replies', SCApp.Post.showAllReplies);
+
+    // Load first feed page
+    SCApp.Post.loadNextPosts(0, 'start');
+    // Infinite Scroll
+    $(window).scroll(function() {
+        if (Math.ceil($(window).scrollTop()) >= $(document).height() - $(window).height()) {
+            var _page = $('.timeline-section .post-list').attr('data-page');
+            SCApp.Post.loadNextPosts(_page);
+        }
+    });
+
   }, 
+
   textAreaAdjust: function(o) {
     o.style.height = "1px";
     o.style.height = (0+o.scrollHeight)+"px";
@@ -131,5 +143,60 @@ SCApp.Post = {
 
     $(this).closest('.reply-summary-box').remove();
     return false;
-  }
+  }, 
+
+  loadNextPosts: function(page, start='next') {
+    var $section = $('.timeline-section .post-list');
+    if (start == 'start') {
+        $section.attr('data-page', 0);
+        $section.removeClass('loading-end');
+        $section.html('');
+    }
+    if ($section.hasClass("loading-posts") || $section.hasClass('loading-end')) {
+        return;
+    }
+
+    var _url  = $section.data('url');
+    SCApp.ajaxSetup();
+    $.ajax({
+        url:    _url,
+        type:   'POST',
+        data:   {page: page}, 
+        beforeSend: function(jqXHR, settings) {
+            $section.addClass("loading-posts");
+            $section.append($('<div class="next-page-loading"></div>'));
+            SCApp.UI.blockUI($section.find('.next-page-loading'));
+        },
+        error: function() {},
+        success: function(json) {
+            setTimeout(function(){
+                $section.removeClass("loading-posts");
+                SCApp.UI.unblockUI($section.find('.next-page-loading'));
+                $section.find('.next-page-loading').remove();
+
+                if (json.status == "success") {
+                    if (page == 0) {
+                        $section.html($(json.posts).hide().fadeIn(300));
+                    } else {
+                        $section.append($(json.posts).hide().fadeIn(300));
+                    }
+                    var prevPage = $section.attr('data-page');
+                    if (prevPage == json.nextPage) {
+                        $section.addClass('loading-end');
+                    } else {
+                        $section.attr('data-page', json.nextPage);
+                    }
+
+                    if (!SCApp.UI.checkScrollBar()) {
+                      var _page = $section.attr('data-page');
+                      SCApp.Post.loadNextPosts(_page);
+                    }
+                } else {
+                    if (json.msg != "") { alert(json.msg); }
+                }
+            }, 300);
+        }, 
+        complete: function(jqXHR, textStatus) {}
+    }); 
+  },
 };
