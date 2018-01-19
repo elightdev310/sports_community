@@ -99,10 +99,11 @@ SCApp.UI = {
   }, 
 
   blockUI: function(selector, options) {
+    var $_selector;
     if (typeof selector == 'string') {
       $_selector = $(selector);
     } else {
-      $_selctor = selector;
+      $_selector = selector;
     }
 
     var default_options = { 
@@ -119,16 +120,17 @@ SCApp.UI = {
     };
 
     var block_options = $.extend({}, default_options, options || {});
-    $_selctor.block(block_options);
+    $_selector.block(block_options);
   }, 
   unblockUI: function(selector) {
+    var $_selector;
     if (typeof selector == 'string') {
       $_selector = $(selector);
     } else {
-      $_selctor = selector;
+      $_selector = selector;
     }
 
-    $_selctor.unblock();
+    $_selector.unblock();
   }, 
   checkScrollBar: function() {
     var hContent = $(document).height(); // get the height of your content

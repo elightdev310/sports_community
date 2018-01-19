@@ -2,7 +2,7 @@
      <div class="cover-image-section" @if ($user->profile->coverPhotoPath()) style="background-image:url('{{ url($user->profile->coverPhotoPath()) }}')" @endif>
 
         @if ($editable)
-        <a class="edit-cover-link emodal-ajax" href="#" data-url="{{ route('profile.cover_photo') }}" data-title="Add Cover Photo" data-size="md">
+        <a class="edit-cover-link emodal-iframe" href="#" data-url="{{ route('profile.cover_photo') }}" data-title="Add Cover Photo" data-size="md">
           <i class="fa fa-camera mr5" aria-hidden="true"></i>
           <span>
           @if ($user->profile->cover_photo_path)

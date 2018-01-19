@@ -9,9 +9,14 @@ Add Photo
 
 @section('content')
 <div class="avatar-picture-content">
-  <div class="picture-action-panel p10">
-    <button id="upload-photo-link" class="btn btn-primary btn-lg">Upload Photo</button>
-    <input type="file" name="avatar" id="user-profile-picture" class="hidden">
+  <div class="picture-action-panel">
+    <div class="upload-photo-section p10">
+      <button id="upload-photo-link" class="btn btn-primary btn-lg">Upload Photo</button>
+      <input type="file" name="avatar" id="user-profile-picture" class="hidden">
+    </div>
+    <div class="photo-browser-section p10">
+      <?php print SCPhotoLib::render_photo_browser(); ?>
+    </div>
   </div>
   <div class="upload-picture-wrap hidden p10">
     <div id="upload-picture">
@@ -79,6 +84,7 @@ Add Photo
     $('#user-profile-picture').on('change', function() {
       readFile(this);
       $('.upload-picture-wrap').removeClass('hidden');
+      $('.avatar-picture-content .picture-action-panel').addClass('hidden');
     })
     $('.avatar-rotate').on('click', function(ev) {
       var degree = parseInt($(this).data('deg'));
@@ -113,6 +119,24 @@ Add Photo
       });
     });
 
+    // Choose photo in browser
+    $('.photo-browser-section .image-item .image-content').on('click', function () {
+      var $this = $(this);
+      var photo_id = $this.data('photo');
+      $this.addClass('border-selected');
+
+      $('.upload-picture-wrap').removeClass('hidden');
+      $('.avatar-picture-content .picture-action-panel').addClass('hidden');
+
+      $('#user-picture-modal').addClass('ready');
+      $uploadCrop.croppie('bind', {
+        url: $this.data('url')
+      }).
+      then(function(){
+        console.log('jQuery bind complete');
+        SCApp.UI.fitModalWindow();
+      });
+    });
   });
 </script>
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Input;
 
 use App\SC\Models\User;
 use App\SC\Models\UserProfile;
+use App\SC\Models\Photo;
 use App\SC\Models\Education;
 use App\SC\Models\FriendRequest;
 use App\SC\Models\FriendShip;
@@ -157,7 +158,7 @@ class ProfileController extends Controller
       if (!$user) {
         return response()->json([
             "status" => "error",
-            "action" => "reload", 
+            "action" => "reload_parent", 
           ], 200);
       }
 
@@ -177,7 +178,7 @@ class ProfileController extends Controller
         if( $photo ) {
           return response()->json([
             "status" => "success",
-            "action" => "reload"
+            "action" => "reload_parent"
           ]);
         } else {
           return response()->json([
@@ -194,7 +195,49 @@ class ProfileController extends Controller
     } catch(Exception $e) {
       return response()->json([
             "status" => "error", 
-            "action" => "reload"
+            "action" => "reload_parent"
+          ]);
+    }
+  }
+
+  /**
+   * URL-POST (/profile/cover-photo/choose)
+   */
+  public function chooseCoverPhoto(Request $request)
+  {
+    try {
+      $_user = SCUserLib::currentUser();
+      $user = User::find($_user->id);
+
+      if (!$user) {
+        return response()->json([
+            "status" => "error",
+            "action" => "reload_parent", 
+          ], 200);
+      }
+
+      $photo_id = $request->input('photo_id');
+      $photo = Photo::find($photo_id);
+      if ($photo) {
+
+        $profile = $user->profile;
+        $profile->cover_photo_id = $photo->id;
+        $profile->save();
+
+        return response()->json([
+          "status" => "success",
+          "action" => "reload_parent"
+        ]);
+      } else {
+        return response()->json([
+          "status" => "error", 
+          "message"=> "failed to upload photo."
+        ]);
+      }
+    } catch(Exception $e) {
+      return response()->json([
+            "status" => "error", 
+            "action" => "reload_parent"
           ]);
     }
   }

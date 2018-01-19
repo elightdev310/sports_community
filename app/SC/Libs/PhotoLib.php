@@ -20,9 +20,11 @@ use App\SC\Models\User;
 use App\SC\Models\Photo;
 
 use SCHelper;
+use App\SC\Libs\PhotoLib_UI;
 
 class PhotoLib 
 {
+    use PhotoLib_UI;
     /**
      * Laravel application
      *
