@@ -17,7 +17,7 @@ Photo
       <div class="col-xs-6 text-right">
         @if ($editable)
         <button class="btn btn-primary add-photo-link">Add Photo</button>
-        <input type="file" id="photo-file" class="hidden" />
+        <input type="file" id="photo-file" class="hidden" multiple />
         @endif
       </div>
     </div>
@@ -38,10 +38,15 @@ $(function () {
   $('#photo-file').on('change', function() {
     var input = $(this);
     var inputLength = input[0].files.length; //No of files selected
-    var file;
+    var files;
     var formData = new FormData();
-    file = input[0].files[0];
-    formData.append( 'file', file);
+
+    files = input[0].files;
+    for (var i=0; i<inputLength; i++) {
+      formData.append('files['+i+']', files[i]);
+    }
+    formData.append('count_files', inputLength);
+
     //send POST request to upload.php
     SCApp.UI.blockUI('.photo-wrapper.page-panel');
     SCApp.ajaxSetup();

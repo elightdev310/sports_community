@@ -57,26 +57,18 @@ trait PhotoController {
           ]);
       }
 
-      if(Input::hasFile('file')) {
-
-        $file = Input::file('file');
-        
-        $photo_folder = "photos".DIRECTORY_SEPARATOR."user".DIRECTORY_SEPARATOR.$user->id;
-        $photo = SCPhotoLib::uploadPhoto($file, $photo_folder, $user->getNode());
-        $photo->used = 1;
-        $photo->save(); 
-
-        if( $photo ) {
-          return response()->json([
-            "status" => "success",
-            "action" => "reload"
-          ], 200);
-        } else {
-          return response()->json([
-            "status" => "error", 
-            "message"=> "failed to upload photo."
-          ]);
+      $files = Input::file('files');
+      if($files) {
+        foreach ($files as $file) {
+          $photo_folder = "photos".DIRECTORY_SEPARATOR."user".DIRECTORY_SEPARATOR.$user->id;
+          $photo = SCPhotoLib::uploadPhoto($file, $photo_folder, $user->getNode());
+          $photo->used = 1;
+          $photo->save(); 
         }
+        return response()->json([
+          "status" => "success",
+          "action" => "reload"
+        ], 200);
       } else {
         return response()->json([
             "status" => "error", 

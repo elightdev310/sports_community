@@ -85,7 +85,7 @@ Add Photo
       readFile(this);
       $('.upload-picture-wrap').removeClass('hidden');
       $('.avatar-picture-content .picture-action-panel').addClass('hidden');
-    })
+    });
     $('.avatar-rotate').on('click', function(ev) {
       var degree = parseInt($(this).data('deg'));
       $uploadCrop.croppie('rotate', degree);
