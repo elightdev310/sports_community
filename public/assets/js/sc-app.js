@@ -37,6 +37,7 @@ var SCApp = {
 
 SCApp.UI = {
   reloadPage: function(target) {
+    console.log(target);
     if (typeof target == 'undefined') {
       target = '_blank';
     }

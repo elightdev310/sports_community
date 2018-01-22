@@ -142,7 +142,7 @@ class SCAuthController extends Controller
 
         $authUser = SCUserLib::socialFindOrCreateUser((array)$user, $provider);
         Auth::login($authUser, true);
-        $request->session()->flash('redirect', '_parent');
+        $request->session()->flash('redirect', '_opener');
         return view('sc.commons.reload_parent');
     }
 

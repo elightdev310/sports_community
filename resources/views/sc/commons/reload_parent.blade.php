@@ -1,10 +1,12 @@
 @extends('sc.layouts.modal')
 
 @section('htmlheader_title')
-Redirect
+Redirecting...
 @endsection
 
 @section('content')
-Redirect
+Redirecting...
 @endsection
 
+@push('scripts')
+@endpush
