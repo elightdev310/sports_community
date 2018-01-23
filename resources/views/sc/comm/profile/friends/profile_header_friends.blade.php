@@ -1,5 +1,21 @@
 @if ($currentUser->id == $user->id)
   @include('sc.comm.profile.friends.friends_new_request_panel')
+@elseif (SCUserLib::isFriend($currentUser->id, $user->id))
+  <div class="page-panel profile-header-friends-section mt10">
+    <div class="panel-header">
+      <strong>{{ $user->name }} is your friend.</strong>&nbsp;
+    </div>
+    <div class="panel-content p10 clearfix">
+      <div class="dropdown">
+        <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-friendship-{{$user->id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" aria-hidden="true"></i>&nbsp;Friend
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdown-friendship-{{$user->id}}">
+          <li><a href="#" data-url="{{ route('profile.friends.close_friendship.post', ['user'=>$user->id]) }}" class="close-friendship">Close Friend</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 @else
   <?php $h_fr = SCUserLib::getFriendRequests($user->id); ?>
   <div class="page-panel profile-header-friends-section mt10">
@@ -59,6 +75,13 @@ $(function() {
   $('.profile-header-friends-section .reject-fr-request').on('click', function() {
     var action_url = '{{ route('profile.friends.reject_request.post', ['user'=>$user->id]) }}';
     SCApp.Friend.doAction(action_url, 'reject_request');
+    return false;
+  });
+
+  // CLose Friendship
+  $('.profile-header-friends-section .close-friendship').on('click', function() {
+    var action_url = $(this).data('url');
+    SCApp.Friend.doAction(action_url, 'close_friendship');
     return false;
   });
 });
