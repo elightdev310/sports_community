@@ -18,7 +18,7 @@ SCApp.Post = {
     $(window).scroll(function() {
         if (Math.ceil($(window).scrollTop()) >= $(document).height() - $(window).height()) {
             var _page = $('.timeline-section .post-list').attr('data-page');
-            SCApp.Post.loadNextPosts(_page);
+            SCApp.Post.loadNextPosts(_page, 'next');
         }
     });
 
@@ -145,7 +145,7 @@ SCApp.Post = {
     return false;
   }, 
 
-  loadNextPosts: function(page, start='next') {
+  loadNextPosts: function(page, start) {
     var $section = $('.timeline-section .post-list');
     if (start == 'start') {
         $section.attr('data-page', 0);
@@ -189,7 +189,7 @@ SCApp.Post = {
 
                     if (!SCApp.UI.checkScrollBar()) {
                       var _page = $section.attr('data-page');
-                      SCApp.Post.loadNextPosts(_page);
+                      SCApp.Post.loadNextPosts(_page, 'next');
                     }
                 } else {
                     if (json.msg != "") { alert(json.msg); }

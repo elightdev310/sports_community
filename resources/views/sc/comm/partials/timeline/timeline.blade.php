@@ -13,7 +13,9 @@
 <script src="{{ asset('assets/js/sc-post.js') }}" type="text/javascript"></script>
 <script>
 $(function() {
-  SCApp.Post.timelineInit();
+  $(document).ready(function() {
+    SCApp.Post.timelineInit();
+  });
 });
 </script>
 @endpush
