@@ -1,14 +1,14 @@
 @extends("la.layouts.app")
 
-@section("contentheader_title", "UserProfiles")
-@section("contentheader_description", "UserProfiles listing")
-@section("section", "UserProfiles")
+@section("contentheader_title", "Seasons")
+@section("contentheader_description", "Seasons listing")
+@section("section", "Seasons")
 @section("sub_section", "Listing")
-@section("htmlheader_title", "UserProfiles Listing")
+@section("htmlheader_title", "Seasons Listing")
 
 @section("headerElems")
-@la_access("UserProfiles", "create")
-	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add UserProfile</button>
+@la_access("Seasons", "create")
+	<button class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#AddModal">Add Season</button>
 @endla_access
 @endsection
 
@@ -45,29 +45,24 @@
 	</div>
 </div>
 
-@la_access("UserProfiles", "create")
+@la_access("Seasons", "create")
 <div class="modal fade" id="AddModal" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Add UserProfile</h4>
+				<h4 class="modal-title" id="myModalLabel">Add Season</h4>
 			</div>
-			{!! Form::open(['action' => 'LA\UserProfilesController@store', 'id' => 'userprofile-add-form']) !!}
+			{!! Form::open(['action' => 'LA\SeasonsController@store', 'id' => 'season-add-form']) !!}
 			<div class="modal-body">
 				<div class="box-body">
                     @la_form($module)
 					
 					{{--
-					@la_input($module, 'user_id')
-					@la_input($module, 'date_birth')
-					@la_input($module, 'gender')
-					@la_input($module, 'cover_photo_id')
-					@la_input($module, 'phone')
-					@la_input($module, 'address')
-					@la_input($module, 'city')
-					@la_input($module, 'state')
-					@la_input($module, 'zip')
+					@la_input($module, 'name')
+					@la_input($module, 'start_date')
+					@la_input($module, 'end_date')
+					@la_input($module, 'league_id')
 					--}}
 				</div>
 			</div>
@@ -94,7 +89,7 @@ $(function () {
 	$("#example1").DataTable({
 		processing: true,
         serverSide: true,
-        ajax: "{{ url(config('laraadmin.adminRoute') . '/userprofile_dt_ajax') }}",
+        ajax: "{{ url(config('laraadmin.adminRoute') . '/season_dt_ajax') }}",
 		language: {
 			lengthMenu: "_MENU_",
 			search: "_INPUT_",
@@ -104,7 +99,7 @@ $(function () {
 		columnDefs: [ { orderable: false, targets: [-1] }],
 		@endif
 	});
-	$("#userprofile-add-form").validate({
+	$("#season-add-form").validate({
 		
 	});
 });

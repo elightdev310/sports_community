@@ -1,7 +1,7 @@
 @extends('la.layouts.app')
 
 @section('htmlheader_title')
-	UserProfile View
+	League Sport View
 @endsection
 
 
@@ -15,7 +15,7 @@
 					<div class="profile-icon text-primary"><i class="fa {{ $module->fa_icon }}"></i></div>
 				</div>
 				<div class="col-md-9">
-					<h4 class="name">{{ $userprofile->$view_col }}</h4>
+					<h4 class="name">{{ $league_sport->$view_col }}</h4>
 					<div class="row stats">
 						<div class="col-md-4"><i class="fa fa-facebook"></i> 234</div>
 						<div class="col-md-4"><i class="fa fa-twitter"></i> 12</div>
@@ -81,12 +81,12 @@
 			</div>
 		</div>
 		<div class="col-md-1 actions">
-			@la_access("UserProfiles", "edit")
-				<a href="{{ url(config('laraadmin.adminRoute') . '/userprofiles/'.$userprofile->id.'/edit') }}" class="btn btn-xs btn-edit btn-default"><i class="fa fa-pencil"></i></a><br>
+			@la_access("League_Sports", "edit")
+				<a href="{{ url(config('laraadmin.adminRoute') . '/league_sports/'.$league_sport->id.'/edit') }}" class="btn btn-xs btn-edit btn-default"><i class="fa fa-pencil"></i></a><br>
 			@endla_access
 			
-			@la_access("UserProfiles", "delete")
-				{{ Form::open(['route' => [config('laraadmin.adminRoute') . '.userprofiles.destroy', $userprofile->id], 'method' => 'delete', 'style'=>'display:inline']) }}
+			@la_access("League_Sports", "delete")
+				{{ Form::open(['route' => [config('laraadmin.adminRoute') . '.league_sports.destroy', $league_sport->id], 'method' => 'delete', 'style'=>'display:inline']) }}
 					<button class="btn btn-default btn-delete btn-xs" type="submit"><i class="fa fa-times"></i></button>
 				{{ Form::close() }}
 			@endla_access
@@ -94,7 +94,7 @@
 	</div>
 
 	<ul data-toggle="ajax-tab" class="nav nav-tabs profile" role="tablist">
-		<li class=""><a href="{{ url(config('laraadmin.adminRoute') . '/userprofiles') }}" data-toggle="tooltip" data-placement="right" title="Back to UserProfiles"><i class="fa fa-chevron-left"></i></a></li>
+		<li class=""><a href="{{ url(config('laraadmin.adminRoute') . '/league_sports') }}" data-toggle="tooltip" data-placement="right" title="Back to League Sports"><i class="fa fa-chevron-left"></i></a></li>
 		<li class="active"><a role="tab" data-toggle="tab" class="active" href="#tab-general-info" data-target="#tab-info"><i class="fa fa-bars"></i> General Info</a></li>
 		<li class=""><a role="tab" data-toggle="tab" href="#tab-timeline" data-target="#tab-timeline"><i class="fa fa-clock-o"></i> Timeline</a></li>
 	</ul>
@@ -107,15 +107,8 @@
 						<h4>General Info</h4>
 					</div>
 					<div class="panel-body">
-						@la_display($module, 'user_id')
-						@la_display($module, 'date_birth')
-						@la_display($module, 'gender')
-						@la_display($module, 'cover_photo_id')
-						@la_display($module, 'phone')
-						@la_display($module, 'address')
-						@la_display($module, 'city')
-						@la_display($module, 'state')
-						@la_display($module, 'zip')
+						@la_display($module, 'league_id')
+						@la_display($module, 'sport_id')
 					</div>
 				</div>
 			</div>

@@ -17,37 +17,37 @@ use Collective\Html\FormFacade as Form;
 use Dwij\Laraadmin\Models\Module;
 use Dwij\Laraadmin\Models\ModuleFields;
 
-use App\Models\UserProfile;
+use App\Models\League_Sport;
 
-class UserProfilesController extends Controller
+class League_SportsController extends Controller
 {
 	public $show_action = true;
-	public $view_col = 'user_id';
-	public $listing_cols = ['id', 'user_id', 'date_birth', 'gender', 'cover_photo_id', 'phone', 'address', 'city', 'state', 'zip'];
+	public $view_col = 'league_id';
+	public $listing_cols = ['id', 'league_id', 'sport_id'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns
 		if(\Dwij\Laraadmin\Helpers\LAHelper::laravel_ver() == 5.3) {
 			$this->middleware(function ($request, $next) {
-				$this->listing_cols = ModuleFields::listingColumnAccessScan('UserProfiles', $this->listing_cols);
+				$this->listing_cols = ModuleFields::listingColumnAccessScan('League_Sports', $this->listing_cols);
 				return $next($request);
 			});
 		} else {
-			$this->listing_cols = ModuleFields::listingColumnAccessScan('UserProfiles', $this->listing_cols);
+			$this->listing_cols = ModuleFields::listingColumnAccessScan('League_Sports', $this->listing_cols);
 		}
 	}
 	
 	/**
-	 * Display a listing of the UserProfiles.
+	 * Display a listing of the League_Sports.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
 	{
-		$module = Module::get('UserProfiles');
+		$module = Module::get('League_Sports');
 		
 		if(Module::hasAccess($module->id)) {
-			return View('la.userprofiles.index', [
+			return View('la.league_sports.index', [
 				'show_actions' => $this->show_action,
 				'listing_cols' => $this->listing_cols,
 				'module' => $module
@@ -58,7 +58,7 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Show the form for creating a new userprofile.
+	 * Show the form for creating a new league_sport.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
@@ -68,16 +68,16 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Store a newly created userprofile in database.
+	 * Store a newly created league_sport in database.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request)
 	{
-		if(Module::hasAccess("UserProfiles", "create")) {
+		if(Module::hasAccess("League_Sports", "create")) {
 		
-			$rules = Module::validateRules("UserProfiles", $request);
+			$rules = Module::validateRules("League_Sports", $request);
 			
 			$validator = Validator::make($request->all(), $rules);
 			
@@ -85,9 +85,9 @@ class UserProfilesController extends Controller
 				return redirect()->back()->withErrors($validator)->withInput();
 			}
 			
-			$insert_id = Module::insert("UserProfiles", $request);
+			$insert_id = Module::insert("League_Sports", $request);
 			
-			return redirect()->route(config('laraadmin.adminRoute') . '.userprofiles.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.league_sports.index');
 			
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
@@ -95,30 +95,30 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Display the specified userprofile.
+	 * Display the specified league_sport.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id)
 	{
-		if(Module::hasAccess("UserProfiles", "view")) {
+		if(Module::hasAccess("League_Sports", "view")) {
 			
-			$userprofile = UserProfile::find($id);
-			if(isset($userprofile->id)) {
-				$module = Module::get('UserProfiles');
-				$module->row = $userprofile;
+			$league_sport = League_Sport::find($id);
+			if(isset($league_sport->id)) {
+				$module = Module::get('League_Sports');
+				$module->row = $league_sport;
 				
-				return view('la.userprofiles.show', [
+				return view('la.league_sports.show', [
 					'module' => $module,
 					'view_col' => $this->view_col,
 					'no_header' => true,
 					'no_padding' => "no-padding"
-				])->with('userprofile', $userprofile);
+				])->with('league_sport', $league_sport);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
-					'record_name' => ucfirst("userprofile"),
+					'record_name' => ucfirst("league_sport"),
 				]);
 			}
 		} else {
@@ -127,28 +127,28 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Show the form for editing the specified userprofile.
+	 * Show the form for editing the specified league_sport.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit($id)
 	{
-		if(Module::hasAccess("UserProfiles", "edit")) {			
-			$userprofile = UserProfile::find($id);
-			if(isset($userprofile->id)) {	
-				$module = Module::get('UserProfiles');
+		if(Module::hasAccess("League_Sports", "edit")) {			
+			$league_sport = League_Sport::find($id);
+			if(isset($league_sport->id)) {	
+				$module = Module::get('League_Sports');
 				
-				$module->row = $userprofile;
+				$module->row = $league_sport;
 				
-				return view('la.userprofiles.edit', [
+				return view('la.league_sports.edit', [
 					'module' => $module,
 					'view_col' => $this->view_col,
-				])->with('userprofile', $userprofile);
+				])->with('league_sport', $league_sport);
 			} else {
 				return view('errors.404', [
 					'record_id' => $id,
-					'record_name' => ucfirst("userprofile"),
+					'record_name' => ucfirst("league_sport"),
 				]);
 			}
 		} else {
@@ -157,7 +157,7 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Update the specified userprofile in storage.
+	 * Update the specified league_sport in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  int  $id
@@ -165,9 +165,9 @@ class UserProfilesController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		if(Module::hasAccess("UserProfiles", "edit")) {
+		if(Module::hasAccess("League_Sports", "edit")) {
 			
-			$rules = Module::validateRules("UserProfiles", $request, true);
+			$rules = Module::validateRules("League_Sports", $request, true);
 			
 			$validator = Validator::make($request->all(), $rules);
 			
@@ -175,9 +175,9 @@ class UserProfilesController extends Controller
 				return redirect()->back()->withErrors($validator)->withInput();;
 			}
 			
-			$insert_id = Module::updateRow("UserProfiles", $request, $id);
+			$insert_id = Module::updateRow("League_Sports", $request, $id);
 			
-			return redirect()->route(config('laraadmin.adminRoute') . '.userprofiles.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.league_sports.index');
 			
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
@@ -185,18 +185,18 @@ class UserProfilesController extends Controller
 	}
 
 	/**
-	 * Remove the specified userprofile from storage.
+	 * Remove the specified league_sport from storage.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
 	{
-		if(Module::hasAccess("UserProfiles", "delete")) {
-			UserProfile::find($id)->delete();
+		if(Module::hasAccess("League_Sports", "delete")) {
+			League_Sport::find($id)->delete();
 			
 			// Redirecting to index() method
-			return redirect()->route(config('laraadmin.adminRoute') . '.userprofiles.index');
+			return redirect()->route(config('laraadmin.adminRoute') . '.league_sports.index');
 		} else {
 			return redirect(config('laraadmin.adminRoute')."/");
 		}
@@ -209,11 +209,11 @@ class UserProfilesController extends Controller
 	 */
 	public function dtajax()
 	{
-		$values = DB::table('userprofiles')->select($this->listing_cols)->whereNull('deleted_at');
+		$values = DB::table('league_sports')->select($this->listing_cols)->whereNull('deleted_at');
 		$out = Datatables::of($values)->make();
 		$data = $out->getData();
 
-		$fields_popup = ModuleFields::getModuleFields('UserProfiles');
+		$fields_popup = ModuleFields::getModuleFields('League_Sports');
 		
 		for($i=0; $i < count($data->data); $i++) {
 			for ($j=0; $j < count($this->listing_cols); $j++) { 
@@ -222,7 +222,7 @@ class UserProfilesController extends Controller
 					$data->data[$i][$j] = ModuleFields::getFieldValue($fields_popup[$col], $data->data[$i][$j]);
 				}
 				if($col == $this->view_col) {
-					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/userprofiles/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
+					$data->data[$i][$j] = '<a href="'.url(config('laraadmin.adminRoute') . '/league_sports/'.$data->data[$i][0]).'">'.$data->data[$i][$j].'</a>';
 				}
 				// else if($col == "author") {
 				//    $data->data[$i][$j];
@@ -231,12 +231,12 @@ class UserProfilesController extends Controller
 			
 			if($this->show_action) {
 				$output = '';
-				if(Module::hasAccess("UserProfiles", "edit")) {
-					$output .= '<a href="'.url(config('laraadmin.adminRoute') . '/userprofiles/'.$data->data[$i][0].'/edit').'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
+				if(Module::hasAccess("League_Sports", "edit")) {
+					$output .= '<a href="'.url(config('laraadmin.adminRoute') . '/league_sports/'.$data->data[$i][0].'/edit').'" class="btn btn-warning btn-xs" style="display:inline;padding:2px 5px 3px 5px;"><i class="fa fa-edit"></i></a>';
 				}
 				
-				if(Module::hasAccess("UserProfiles", "delete")) {
-					$output .= Form::open(['route' => [config('laraadmin.adminRoute') . '.userprofiles.destroy', $data->data[$i][0]], 'method' => 'delete', 'style'=>'display:inline']);
+				if(Module::hasAccess("League_Sports", "delete")) {
+					$output .= Form::open(['route' => [config('laraadmin.adminRoute') . '.league_sports.destroy', $data->data[$i][0]], 'method' => 'delete', 'style'=>'display:inline']);
 					$output .= ' <button class="btn btn-danger btn-xs" type="submit"><i class="fa fa-times"></i></button>';
 					$output .= Form::close();
 				}

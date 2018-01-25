@@ -120,4 +120,24 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== FriendShips ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/friendships', 'LA\FriendShipsController');
 	Route::get(config('laraadmin.adminRoute') . '/friendship_dt_ajax', 'LA\FriendShipsController@dtajax');
+
+	/* ================== Sports ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/sports', 'LA\SportsController');
+	Route::get(config('laraadmin.adminRoute') . '/sport_dt_ajax', 'LA\SportsController@dtajax');
+
+	/* ================== League_Sports ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/league_sports', 'LA\League_SportsController');
+	Route::get(config('laraadmin.adminRoute') . '/league_sport_dt_ajax', 'LA\League_SportsController@dtajax');
+
+	/* ================== Seasons ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/seasons', 'LA\SeasonsController');
+	Route::get(config('laraadmin.adminRoute') . '/season_dt_ajax', 'LA\SeasonsController@dtajax');
+
+	/* ================== Divisions ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/divisions', 'LA\DivisionsController');
+	Route::get(config('laraadmin.adminRoute') . '/division_dt_ajax', 'LA\DivisionsController@dtajax');
+
+	/* ================== Division_Teams ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/division_teams', 'LA\Division_TeamsController');
+	Route::get(config('laraadmin.adminRoute') . '/division_team_dt_ajax', 'LA\Division_TeamsController@dtajax');
 });

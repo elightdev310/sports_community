@@ -36,7 +36,7 @@
 					@la_input($module, 'user_id')
 					@la_input($module, 'date_birth')
 					@la_input($module, 'gender')
-					@la_input($module, 'cover_photo_path')
+					@la_input($module, 'cover_photo_id')
 					@la_input($module, 'phone')
 					@la_input($module, 'address')
 					@la_input($module, 'city')
