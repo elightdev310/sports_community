@@ -22,4 +22,6 @@ class Post extends PostModule
                         ->orderBy('created_at', 'ASC')
                         ->get();
     }
+
+    
 }
