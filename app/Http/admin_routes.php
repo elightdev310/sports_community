@@ -140,4 +140,12 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Division_Teams ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/division_teams', 'LA\Division_TeamsController');
 	Route::get(config('laraadmin.adminRoute') . '/division_team_dt_ajax', 'LA\Division_TeamsController@dtajax');
+
+	/* ================== Team_Members ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/team_members', 'LA\Team_MembersController');
+	Route::get(config('laraadmin.adminRoute') . '/team_member_dt_ajax', 'LA\Team_MembersController@dtajax');
+
+	/* ================== Division_Team_Members ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/division_team_members', 'LA\Division_Team_MembersController');
+	Route::get(config('laraadmin.adminRoute') . '/division_team_member_dt_ajax', 'LA\Division_Team_MembersController@dtajax');
 });
