@@ -33,5 +33,11 @@ class League extends LeagueModule
                 ->first();
     return $node;
   }
-
+  public static function getLeague($slug) {
+    $league_id = SCHelper::getObjectIDBySlug($slug, 'leagues');
+    if ($league_id) {
+      return self::find($league_id);
+    }
+    return null;
+  }
 }

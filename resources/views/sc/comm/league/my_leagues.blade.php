@@ -44,7 +44,8 @@ My Leagues
                     &nbsp;
                   </div>
                 </td>
-                <td class="league-title">{{ $m_league->name }}</td>
+                <td class="league-title">
+                  <a href="{{ route('league.page', ['slug'=>$m_league->slug]) }}">{{ $m_league->name }}</a></td>
               </tr>
             </table>
           </div>

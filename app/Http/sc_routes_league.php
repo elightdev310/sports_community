@@ -10,4 +10,6 @@ Route::group(['middleware' => ['auth']],
   Route::post('leagues/create', [
         'as' => 'league.create.post', 'uses' => 'SC\Comm\League\LeagueController@createLeagueAction' ]);
 
+  Route::get('leagues/{slug}', [
+        'as' => 'league.page', 'uses' => 'SC\Comm\League\LeagueController@leaguePage' ]);
 });

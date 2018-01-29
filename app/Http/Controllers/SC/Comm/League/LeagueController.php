@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller as Controller;
 use Illuminate\Support\Facades\Input;
 
 use App\SC\Models\User;
+use App\SC\Models\League;
 
 use SCLeagueLib;
 use SCUserLib;
@@ -88,5 +89,22 @@ class LeagueController extends Controller
       return redirect()->back()->withErrors("Failed to create league.")->withInput();
     }
     return redirect()->back()->withInput()->with('redirect', '_parent');
+  }
+
+  /**
+   * URL (/leagues/{slug})
+   * 
+   * Individual League Page
+   */
+  public function leaguePage(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+
+    $league = League::getLeague($slug);
+
+    $params = array();
+    $params['league'] = $league;
+
+    return view('sc.comm.league.league', $params);
   }
 }

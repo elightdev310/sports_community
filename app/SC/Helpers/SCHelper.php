@@ -213,4 +213,19 @@ class SCHelper
         }
         return false;
     }
+
+    /**
+     * Get Object ID by Slug
+     */
+    public static function getObjectIDBySlug($slug, $table) {
+        try {
+            $obj = DB::table($table)->where('slug', $slug)->first();
+            if ($obj && isset($obj->id)) {
+                return $obj->id;
+            }
+        } catch(Exception $e) {
+            return 0;
+        }
+        return 0;
+    }
 }
