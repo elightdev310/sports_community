@@ -8,6 +8,10 @@ use Illuminate\Foundation\AliasLoader;
 use App\SC\Libs\UserLib;
 use App\SC\Libs\PhotoLib;
 use App\SC\Libs\PostLib;
+use App\SC\Libs\League\LeagueLib;
+use App\SC\Libs\League\SeasonLib;
+use App\SC\Libs\League\DivisionLib;
+use App\SC\Libs\League\Division_TeamLib;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +46,22 @@ class AppServiceProvider extends ServiceProvider
             return new PostLib($app);
         });
 
+        // League
+        $this->app->bind('scleague_league', function ($app) {
+            return new LeagueLib($app);
+        });
+        $this->app->bind('scleague_season', function ($app) {
+            return new SeasonLib($app);
+        });
+        $this->app->bind('scleague_division', function ($app) {
+            return new DivisionLib($app);
+        });
+        $this->app->bind('scleague_division_team', function ($app) {
+            return new Division_TeamLib($app);
+        });
+
+
+
         //
         $loader = AliasLoader::getInstance();
         $loader->alias('SCHelper', \App\SC\Helpers\SCHelper::class);
@@ -49,5 +69,11 @@ class AppServiceProvider extends ServiceProvider
         $loader->alias('SCUserLib',   \App\SC\Facades\UserFacade::class);
         $loader->alias('SCPhotoLib',  \App\SC\Facades\PhotoFacade::class);
         $loader->alias('SCPostLib',   \App\SC\Facades\PostFacade::class);
+
+        // League
+        $loader->alias('SCLeagueLib',       \App\SC\Facades\League\LeagueFacade::class);
+        $loader->alias('SCSeasonLib',       \App\SC\Facades\League\SeasonFacade::class);
+        $loader->alias('SCDivisionLib',     \App\SC\Facades\League\DivisionFacade::class);
+        $loader->alias('SCDivision_TeamLib',\App\SC\Facades\League\Division_TeamFacade::class);
     }
 }

@@ -21,6 +21,7 @@ elixir(function(mix) {
     // mix.less('bootstrap/bootstrap.less', 'public/la-assets/css');
     //mix.less('sc/auth.less', 'public/assets/css');
     mix.less('sc/sc.less', 'public/assets/css');
+    mix.less('sc/league.less', 'public/assets/css');
     //mix.less('sc/admin.less', 'public/assets/css');
 });
 

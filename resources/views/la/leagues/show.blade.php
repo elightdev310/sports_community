@@ -108,6 +108,7 @@
 					</div>
 					<div class="panel-body">
 						@la_display($module, 'name')
+						@la_display($module, 'creator_uid')
 					</div>
 				</div>
 			</div>

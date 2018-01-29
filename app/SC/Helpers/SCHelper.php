@@ -3,6 +3,8 @@
 namespace App\SC\Helpers;
 
 use Auth;
+use DB;
+use Exception;
 use App\SC\Models\User;
 
 class SCHelper
@@ -182,5 +184,33 @@ class SCHelper
             $data[$year] = $year;
         }
         return $data;
+    }
+
+    /**
+     * Create Slug - Machine Name
+     */
+    public static function createSlug($name, $table) {
+        $slug = str_slug($name,'-');
+        try {
+            $repeating = 0;
+            while (self::checkSlugExist($slug, $table)) {
+                $repeating++;
+                if ($repeating < 10000) {
+                    $slug = str_slug($name,'-').mt_rand(0, 99999);
+                } else {
+                    $slug = str_slug($name.str_random(5),'-').mt_rand(0, 99999);
+                }
+            }
+            return $slug;
+        } catch(Exception $e) {
+            return false;
+        }
+    }
+    public static function checkSlugExist($slug, $table) {
+        $count = DB::table($table)->where('slug', $slug)->count();
+        if ($count) {
+            return true;
+        }
+        return false;
     }
 }

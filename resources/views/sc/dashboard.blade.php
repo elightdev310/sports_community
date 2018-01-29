@@ -10,7 +10,9 @@ Dashboard
 @section('content')
   <div class="text-center pt30">
     <h2>Dashboard</h2>
-    <p>Coming Soon...</p>
+    <p class="p10">
+        <a href="{{ route('league.index') }}" class="">Leagues</a>
+    </p>
     <p class="p30">
         <a href="/logout" class="btn btn-primary pl30 pr30">Log out</a>
     </p>

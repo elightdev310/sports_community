@@ -1,79 +1,87 @@
 <?php
+require __DIR__.'/sc_routes_league.php';
+
+
+
 
 Route::group(['middleware' => ['auth']], 
             function () {
     Route::get('dashboard', [
         'as' => 'dashboard', 'uses' => 'HomeController@dashboard' ]);
 
+
     /***************************************************************************/
     /* Profile
     /***************************************************************************/
+    $as_profile = 'profile.';
     Route::get('profile/avatar', [
-        'as' => 'profile.avatar', 'uses' => 'SC\Comm\ProfileController@avatarPage' ]);
+        'as' => $as_profile.'avatar', 'uses' => 'SC\Comm\ProfileController@avatarPage' ]);
     Route::post('profile/avatar/upload', [
-        'as' => 'profile.avatar.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadAvatar' ]);
+        'as' => $as_profile.'avatar.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadAvatar' ]);
 
     Route::get('profile/cover-photo', [
-        'as' => 'profile.cover_photo', 'uses' => 'SC\Comm\ProfileController@coverPhotoPage' ]);
+        'as' => $as_profile.'cover_photo', 'uses' => 'SC\Comm\ProfileController@coverPhotoPage' ]);
     Route::post('profile/cover-photo/upload', [
-        'as' => 'profile.cover_photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadCoverPhoto' ]);
+        'as' => $as_profile.'cover_photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadCoverPhoto' ]);
     Route::post('profile/cover-photo/choose', [
-        'as' => 'profile.cover_photo.choose_picture.post', 'uses' => 'SC\Comm\ProfileController@chooseCoverPhoto' ]);
+        'as' => $as_profile.'cover_photo.choose_picture.post', 'uses' => 'SC\Comm\ProfileController@chooseCoverPhoto' ]);
 
-    // User Timeline
-    Route::get('profile/{user}', [
-        'as' => 'profile.index', 'uses' => 'SC\Comm\ProfileController@profilePage' ]);
-    
-    // Photos
-    Route::get('profile/{user}/photos', [
-        'as' => 'profile.photo', 'uses' => 'SC\Comm\ProfileController@photoPage' ]);
-    Route::post('profile/{user}/photo/upload', [
-        'as' => 'profile.photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadPhoto' ]);
-    Route::post('profile/{user}/photo/delete', [
-        'as' => 'profile.photo.delete_picture.post', 'uses' => 'SC\Comm\ProfileController@deletePhoto' ]);
+    Route::group(['prefix' => 'profile/{user}'], function () {
+        $as_profile = 'profile.';
+        // User Timeline
+        Route::get('/', [
+            'as' => $as_profile.'index', 'uses' => 'SC\Comm\ProfileController@profilePage' ]);
+        
+        // Photos
+        Route::get('photos', [
+            'as' => $as_profile.'photo', 'uses' => 'SC\Comm\ProfileController@photoPage' ]);
+        Route::post('photo/upload', [
+            'as' => $as_profile.'photo.upload_picture.post', 'uses' => 'SC\Comm\ProfileController@uploadPhoto' ]);
+        Route::post('photo/delete', [
+            'as' => $as_profile.'photo.delete_picture.post', 'uses' => 'SC\Comm\ProfileController@deletePhoto' ]);
 
-    // Friends
-    Route::get('profile/{user}/friends', [
-        'as' => 'profile.friends', 'uses' => 'SC\Comm\ProfileController@friendsPage' ]);
+        // Friends
+        Route::get('friends', [
+            'as' => $as_profile.'friends', 'uses' => 'SC\Comm\ProfileController@friendsPage' ]);
 
-    Route::post('profile/{user}/friends/send-request', [
-        'as' => 'profile.friends.send_request.post', 'uses' => 'SC\Comm\ProfileController@sendFriendReuqest' ]);
-    Route::post('profile/{user}/friends/cancel-request', [
-        'as' => 'profile.friends.cancel_request.post', 'uses' => 'SC\Comm\ProfileController@cancelFriendReuqest' ]);
+        Route::post('friends/send-request', [
+            'as' => $as_profile.'friends.send_request.post', 'uses' => 'SC\Comm\ProfileController@sendFriendReuqest' ]);
+        Route::post('friends/cancel-request', [
+            'as' => $as_profile.'friends.cancel_request.post', 'uses' => 'SC\Comm\ProfileController@cancelFriendReuqest' ]);
 
-    Route::post('profile/{user}/friends/confirm-request', [
-        'as' => 'profile.friends.confirm_request.post', 'uses' => 'SC\Comm\ProfileController@confirmFriendReuqest' ]);
-    Route::post('profile/{user}/friends/reject-request', [
-        'as' => 'profile.friends.reject_request.post', 'uses' => 'SC\Comm\ProfileController@rejectFriendReuqest' ]);
-    Route::post('profile/{user}/friends/close-friendship', [
-        'as' => 'profile.friends.close_friendship.post', 'uses' => 'SC\Comm\ProfileController@closeFriendShip' ]);
-    
+        Route::post('friends/confirm-request', [
+            'as' => $as_profile.'friends.confirm_request.post', 'uses' => 'SC\Comm\ProfileController@confirmFriendReuqest' ]);
+        Route::post('friends/reject-request', [
+            'as' => $as_profile.'friends.reject_request.post', 'uses' => 'SC\Comm\ProfileController@rejectFriendReuqest' ]);
+        Route::post('friends/close-friendship', [
+            'as' => $as_profile.'friends.close_friendship.post', 'uses' => 'SC\Comm\ProfileController@closeFriendShip' ]);
+        
 
-    // About
-    Route::get('profile/{user}/about', [
-        'as' => 'profile.about', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
-    Route::get('profile/{user}/about/contact', [
-        'as' => 'profile.about.contact', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
-    Route::post('profile/{user}/about/contact', [
-        'as' => 'profile.about.save_contact.post', 'uses' => 'SC\Comm\ProfileController@saveContact' ]);
-    Route::get('profile/{user}/about/basic', [
-        'as' => 'profile.about.basic', 'uses' => 'SC\Comm\ProfileController@aboutBasicPage' ]);
-    Route::post('profile/{user}/about/basic', [
-        'as' => 'profile.about.save_basic.post', 'uses' => 'SC\Comm\ProfileController@saveBasic' ]);
+        // About
+        Route::get('about', [
+            'as' => $as_profile.'about', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
+        Route::get('about/contact', [
+            'as' => $as_profile.'about.contact', 'uses' => 'SC\Comm\ProfileController@aboutContactPage' ]);
+        Route::post('about/contact', [
+            'as' => $as_profile.'about.save_contact.post', 'uses' => 'SC\Comm\ProfileController@saveContact' ]);
+        Route::get('about/basic', [
+            'as' => $as_profile.'about.basic', 'uses' => 'SC\Comm\ProfileController@aboutBasicPage' ]);
+        Route::post('about/basic', [
+            'as' => $as_profile.'about.save_basic.post', 'uses' => 'SC\Comm\ProfileController@saveBasic' ]);
 
-    Route::get('profile/{user}/about/education', [
-        'as' => 'profile.about.education', 'uses' => 'SC\Comm\ProfileController@aboutEducationPage' ]);
-    Route::get('profile/{user}/about/education/add', [
-        'as' => 'profile.about.education.add', 'uses' => 'SC\Comm\ProfileController@addEducationPage' ]);
-    Route::post('profile/{user}/about/education/add', [
-        'as' => 'profile.about.education.add.post', 'uses' => 'SC\Comm\ProfileController@addEducation' ]);
-    Route::get('profile/{user}/about/education/{edu}/edit', [
-        'as' => 'profile.about.education.edit', 'uses' => 'SC\Comm\ProfileController@editEducationPage' ]);
-    Route::post('profile/{user}/about/education/{edu}/edit', [
-        'as' => 'profile.about.education.edit.post', 'uses' => 'SC\Comm\ProfileController@editEducation' ]);
-    Route::post('profile/{user}/about/education/delete', [
-        'as' => 'profile.about.education.delete.post', 'uses' => 'SC\Comm\ProfileController@deleteEducation' ]);
-
+        Route::get('about/education', [
+            'as' => $as_profile.'about.education', 'uses' => 'SC\Comm\ProfileController@aboutEducationPage' ]);
+        Route::get('about/education/add', [
+            'as' => $as_profile.'about.education.add', 'uses' => 'SC\Comm\ProfileController@addEducationPage' ]);
+        Route::post('about/education/add', [
+            'as' => $as_profile.'about.education.add.post', 'uses' => 'SC\Comm\ProfileController@addEducation' ]);
+        Route::get('about/education/{edu}/edit', [
+            'as' => $as_profile.'about.education.edit', 'uses' => 'SC\Comm\ProfileController@editEducationPage' ]);
+        Route::post('about/education/{edu}/edit', [
+            'as' => $as_profile.'about.education.edit.post', 'uses' => 'SC\Comm\ProfileController@editEducation' ]);
+        Route::post('about/education/delete', [
+            'as' => $as_profile.'about.education.delete.post', 'uses' => 'SC\Comm\ProfileController@deleteEducation' ]);
+    });
 
     /***************************************************************************/
     /* Timeline

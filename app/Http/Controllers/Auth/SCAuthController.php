@@ -137,13 +137,17 @@ class SCAuthController extends Controller
      * @return Response
      */
     public function handleProviderCallback(Request $request, $provider)
-    {
-        $user = Socialite::driver($provider)->user();
+    {   
+        try {
+            $user = Socialite::driver($provider)->user();
 
-        $authUser = SCUserLib::socialFindOrCreateUser((array)$user, $provider);
-        Auth::login($authUser, true);
-        $request->session()->flash('redirect', '_opener');
-        return view('sc.commons.reload_parent');
+            $authUser = SCUserLib::socialFindOrCreateUser((array)$user, $provider);
+            Auth::login($authUser, true);
+            $request->session()->flash('redirect', '_opener');
+            return view('sc.commons.reload_parent');
+        } catch(\Exception $e) {
+            dd($e->getMessage());
+        }
     }
 
     /**
@@ -152,7 +156,7 @@ class SCAuthController extends Controller
      */
     public function setPasswordPage(Request $request)
     {
-        $current_user = SCUserLib::currentUser();
+        $current_user = SCUserLib::currentAuthUser();
         $check = $this->checkBlankPassword($current_user);
         if ($check === true) {
             return view('sc.auth.passwords.set', ['email'=>$current_user->email]);
@@ -161,7 +165,7 @@ class SCAuthController extends Controller
     }
     public function setPasswordPost(Request $request)
     {
-        $current_user = SCUserLib::currentUser();
+        $current_user = SCUserLib::currentAuthUser();
         if ($this->checkBlankPassword($current_user)) {
             $_req = $request->all();
             $validator = Validator::make($request->all(), [

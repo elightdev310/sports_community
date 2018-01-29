@@ -19,6 +19,13 @@ Trait UserLib_Helper
      */
     public function currentUser() {
         $user = Auth::user();
+        if ($user) {
+            return User::find($user->id);
+        }
+        return false;
+    }
+    public function currentAuthUser() {
+        $user = Auth::user();
         return $user;
     }
 

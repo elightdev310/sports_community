@@ -11,5 +11,11 @@ use App\Models\Season as SeasonModule;
 
 class Season extends SeasonModule
 {
-    
+  protected $node_type = 'season';
+
+  public function initialize($data=array()) {
+    $this->slug = SCHelper::createSlug('seasons');
+
+    return $this;
+  }
 }

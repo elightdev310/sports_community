@@ -32,4 +32,5 @@
 
   <!-- MIC style -->
   <link href="{{ asset('assets/css/sc.css') }}?ts={{date('U')}}" rel="stylesheet" type="text/css" />
+  <link href="{{ asset('assets/css/league.css') }}?ts={{date('U')}}" rel="stylesheet" type="text/css" />
 </head>
