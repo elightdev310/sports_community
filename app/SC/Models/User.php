@@ -53,11 +53,18 @@ class User extends UserModule
     return $data;
   }
 
-    /**
+  /**
    * Get managed Leagues
    */
   public function getManagedLeagues() {
     $leagues = League::where('creator_uid', $this->id)->orderBy('name', 'ASC')->get();
+    return $leagues;
+  }
+  /**
+   * Get managed Teams
+   */
+  public function getManagedTeams() {
+    $leagues = Team::where('creator_uid', $this->id)->orderBy('name', 'ASC')->get();
     return $leagues;
   }
 }

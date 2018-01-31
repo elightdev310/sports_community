@@ -23,8 +23,8 @@ use SCHelper;
 use Exception;
 
 /**
- * Class ProfileController
- * @package App\Http\Controllers\SC\Comm
+ * Class LeagueController
+ * @package App\Http\Controllers\SC\Comm\League
  */
 class LeagueController extends Controller
 {
@@ -41,7 +41,7 @@ class LeagueController extends Controller
   /**
    * URL (/leagues)
    * 
-   * My League Page
+   * My Leagues Page
    */
   public function myLeaguesPage(Request $request)
   {

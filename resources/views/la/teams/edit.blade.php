@@ -34,6 +34,8 @@
 					
 					{{--
 					@la_input($module, 'name')
+					@la_input($module, 'creator_uid')
+					@la_input($module, 'slug')
 					--}}
                     <br>
 					<div class="form-group">

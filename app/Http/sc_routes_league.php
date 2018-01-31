@@ -4,7 +4,7 @@ Route::group(['middleware' => ['auth']],
             function () {
 
   Route::get('leagues', [
-        'as' => 'league.index', 'uses' => 'SC\Comm\League\LeagueController@myLeaguesPage' ]);
+        'as' => 'league.my_leagues', 'uses' => 'SC\Comm\League\LeagueController@myLeaguesPage' ]);
   Route::get('leagues/create', [
         'as' => 'league.create', 'uses' => 'SC\Comm\League\LeagueController@createLeaguePage' ]);
   Route::post('leagues/create', [
@@ -12,4 +12,15 @@ Route::group(['middleware' => ['auth']],
 
   Route::get('leagues/{slug}', [
         'as' => 'league.page', 'uses' => 'SC\Comm\League\LeagueController@leaguePage' ]);
+
+
+  Route::get('teams', [
+        'as' => 'team.my_teams', 'uses' => 'SC\Comm\Team\TeamController@myTeamsPage' ]);
+  Route::get('teams/create', [
+        'as' => 'team.create', 'uses' => 'SC\Comm\Team\TeamController@createTeamPage' ]);
+  Route::post('teams/create', [
+        'as' => 'team.create.post', 'uses' => 'SC\Comm\Team\TeamController@createTeamAction' ]);
+
+  Route::get('teams/{slug}', [
+        'as' => 'team.page', 'uses' => 'SC\Comm\Team\TeamController@teamPage' ]);
 });

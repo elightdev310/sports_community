@@ -60,6 +60,8 @@
 					
 					{{--
 					@la_input($module, 'name')
+					@la_input($module, 'creator_uid')
+					@la_input($module, 'slug')
 					--}}
 				</div>
 			</div>

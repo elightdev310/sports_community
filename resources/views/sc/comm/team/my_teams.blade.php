@@ -1,0 +1,58 @@
+@extends('sc.layouts.app')
+
+@section('htmlheader_title')
+My Teams
+@endsection
+
+@section('page_id')my-teams @endsection
+@section('page_classes')my-teams-page team-page @endsection
+
+@section('content')
+<div class="my-teams-header-section header-section pt10">
+  <div class="headline clearfix">
+    <ul class="headline-tab nav nav-pills">
+    </ul>
+    <div class="pull-right">
+      <a class="create-team-link btn btn-primary emodal-iframe" href="#" data-url="{{ route('team.create') }}" data-title="Create team" data-size="md">
+        <i class="fa fa-plus mr5" aria-hidden="true"></i><span>Create Team</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="page-panel managed-teams-section mt10">
+  <div class="panel-header">
+    <div class="row">
+      <div class="col-xs-6"><div class="panel-title">Teams I Manage</div></div>
+      <div class="col-xs-6 text-right">
+        
+      </div>
+    </div>
+  </div>
+  <div class="panel-content">
+    @if( !count($m_teams) )
+      <div class="text-center p20 empty-data-message">No team you manage</div>
+    @else
+      <div class="row no-margin">
+        @foreach( $m_teams as $m_team )
+        <div class="col-sm-6 no-padding">
+          <div class="m-team-item m10">
+            <table>
+              <tr>
+                <td>
+                  <div class="cover-photo-thumb">
+                    &nbsp;
+                  </div>
+                </td>
+                <td class="team-title">
+                  <a href="{{ route('team.page', ['slug'=>$m_team->slug]) }}">{{ $m_team->name }}</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        @endforeach
+      </div>
+    @endif
+  </div>
+</div>
+@endsection

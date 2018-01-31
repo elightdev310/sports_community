@@ -5,7 +5,7 @@ My Leagues
 @endsection
 
 @section('page_id')my-leagues @endsection
-@section('page_classes')my-league-page league-page @endsection
+@section('page_classes')my-leagues-page league-page @endsection
 
 @section('content')
 <div class="my-leagues-header-section header-section pt10">
@@ -34,7 +34,7 @@ My Leagues
       <div class="text-center p20 empty-data-message">No League you manage</div>
     @else
       <div class="row no-margin">
-        @foreach( $m_leagues as $m_league)
+        @foreach( $m_leagues as $m_league )
         <div class="col-sm-6 no-padding">
           <div class="m-league-item m10">
             <table>
