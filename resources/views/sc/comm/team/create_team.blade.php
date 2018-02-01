@@ -12,7 +12,7 @@ Create team
     <div class="form-group has-feedback row">
         {!! Form::label('name', 'Name', ['class' => 'form-label col-xs-3']) !!}
         <div class="col-xs-9">
-          {!! Form::text('name', null, ['class'=>'form-control']) !!}
+          {!! Form::text('name', null, ['class'=>'form-control', 'autofocus'=>'']) !!}
         </div>
     </div>
     <div class="row">

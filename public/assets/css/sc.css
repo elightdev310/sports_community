@@ -243,6 +243,31 @@ iframe.embed-responsive-item {
 .border-selected {
   border-color: #69ff0d !important;
 }
+.page-header-tabs > li > a {
+  border: none;
+  border-bottom: 3px solid transparent;
+}
+.page-header-tabs > li > a:hover,
+.page-header-tabs > li > a:focus,
+.page-header-tabs > li.active > a:hover,
+.page-header-tabs > li.active > a:focus,
+.page-header-tabs > li.active > a {
+  background: transparent;
+  border-bottom-color: #337ab7;
+  color: inherit;
+}
+.search-box-section .stylish-input-group .input-group-addon {
+  background: white !important;
+}
+.search-box-section .stylish-input-group .form-control {
+  border-right: 0;
+  box-shadow: 0 0 0;
+  border-color: #ccc;
+}
+.search-box-section .stylish-input-group button {
+  border: 0;
+  background: transparent;
+}
 html,
 body {
   height: 100%;

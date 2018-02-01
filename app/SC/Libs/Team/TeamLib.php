@@ -61,4 +61,12 @@ class TeamLib
     if ($count) { return true; }
     return false;
   }
+
+  /**
+   * search team
+   */
+  public function searchTeam($term) {
+    $teams = Team::where('name', 'LIKE', '%'.$term.'%')->get();
+    return $teams;
+  }
 }

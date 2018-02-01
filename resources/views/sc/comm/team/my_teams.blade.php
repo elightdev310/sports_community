@@ -10,10 +10,11 @@ My Teams
 @section('content')
 <div class="my-teams-header-section header-section pt10">
   <div class="headline clearfix">
-    <ul class="headline-tab nav nav-pills">
-    </ul>
+    <div class="pull-left">
+      @include ('sc.comm.partials.team.team_header_tabs')
+    </div>
     <div class="pull-right">
-      <a class="create-team-link btn btn-primary emodal-iframe" href="#" data-url="{{ route('team.create') }}" data-title="Create team" data-size="md">
+      <a class="create-team-link btn btn-primary emodal-iframe mt5" href="#" data-url="{{ route('team.create') }}" data-title="Create team" data-size="md">
         <i class="fa fa-plus mr5" aria-hidden="true"></i><span>Create Team</span>
       </a>
     </div>
@@ -33,10 +34,10 @@ My Teams
     @if( !count($m_teams) )
       <div class="text-center p20 empty-data-message">No team you manage</div>
     @else
-      <div class="row no-margin">
+      <div class="team-list row no-margin">
         @foreach( $m_teams as $m_team )
         <div class="col-sm-6 no-padding">
-          <div class="m-team-item m10">
+          <div class="team-item m10">
             <table>
               <tr>
                 <td>

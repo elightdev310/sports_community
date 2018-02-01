@@ -10,10 +10,11 @@ My Leagues
 @section('content')
 <div class="my-leagues-header-section header-section pt10">
   <div class="headline clearfix">
-    <ul class="headline-tab nav nav-pills">
-    </ul>
+    <div class="pull-left">
+      @include ('sc.comm.partials.league.league_header_tabs')
+    </div>
     <div class="pull-right">
-      <a class="create-league-link btn btn-primary emodal-iframe" href="#" data-url="{{ route('league.create') }}" data-title="Create league" data-size="md">
+      <a class="create-league-link btn btn-primary emodal-iframe mt5" href="#" data-url="{{ route('league.create') }}" data-title="Create league" data-size="md">
         <i class="fa fa-plus mr5" aria-hidden="true"></i><span>Create League</span>
       </a>
     </div>
@@ -33,10 +34,10 @@ My Leagues
     @if( !count($m_leagues) )
       <div class="text-center p20 empty-data-message">No League you manage</div>
     @else
-      <div class="row no-margin">
+      <div class="league-list row no-margin">
         @foreach( $m_leagues as $m_league )
         <div class="col-sm-6 no-padding">
-          <div class="m-league-item m10">
+          <div class="league-item m10">
             <table>
               <tr>
                 <td>

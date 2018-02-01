@@ -49,6 +49,7 @@ class TeamController extends Controller
     $m_teams = $currentUser->getManagedTeams();
 
     $params = array();
+    $params['tab'] = 'my_teams';
     $params['m_teams'] = $m_teams;
 
     return view('sc.comm.team.my_teams', $params);
@@ -89,6 +90,25 @@ class TeamController extends Controller
       return redirect()->back()->withErrors("Failed to create team.")->withInput();
     }
     return redirect()->back()->withInput()->with('redirect', '_parent');
+  }
+
+  /**
+   * URL (/teams/search)
+   * 
+   * search team
+   */
+  public function searchTeamPage(Request $request)
+  {
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['tab'] = 'search';
+
+    if ($term = $request->input('term')) {
+      $params['teams'] = SCTeamLib::searchTeam($term);
+    }
+
+    return view('sc.comm.team.search_team', $params);
   }
 
   /**

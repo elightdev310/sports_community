@@ -61,4 +61,12 @@ class LeagueLib
     if ($count) { return true; }
     return false;
   }
+
+  /**
+   * search league
+   */
+  public function searchLeague($term) {
+    $teams = League::where('name', 'LIKE', '%'.$term.'%')->get();
+    return $teams;
+  }
 }

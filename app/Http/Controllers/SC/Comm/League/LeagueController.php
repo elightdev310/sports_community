@@ -49,6 +49,7 @@ class LeagueController extends Controller
     $m_leagues = $currentUser->getManagedLeagues();
 
     $params = array();
+    $params['tab'] = 'my_leagues';
     $params['m_leagues'] = $m_leagues;
 
     return view('sc.comm.league.my_leagues', $params);
@@ -89,6 +90,25 @@ class LeagueController extends Controller
       return redirect()->back()->withErrors("Failed to create league.")->withInput();
     }
     return redirect()->back()->withInput()->with('redirect', '_parent');
+  }
+
+  /**
+   * URL (/leagues/search)
+   * 
+   * search league
+   */
+  public function searchLeaguePage(Request $request)
+  {
+    $currentUser = SCUserLib::currentUser();
+
+    $params = array();
+    $params['tab'] = 'search';
+
+    if ($term = $request->input('term')) {
+      $params['leagues'] = SCLeagueLib::searchLeague($term);
+    }
+
+    return view('sc.comm.league.search_league', $params);
   }
 
   /**
