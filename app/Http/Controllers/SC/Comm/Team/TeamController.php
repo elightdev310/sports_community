@@ -112,6 +112,50 @@ class TeamController extends Controller
   }
 
   /**
+   * URL (/teams/{team}/member-relationship)
+   * 
+   * Team-Member Relationship Action
+   */
+  public function memberRelationshipAction(Request $request, Team $team)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $action = $request->input('action');
+
+    $json = array(
+        "status" => "success",
+      );
+
+    switch ($action) {
+      case 'send': 
+        $result = SCTeamLib::sentRequestTeamMember($currentUser->id, $team->id);
+        if ($result) {
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+          } else {
+
+          }
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to send request.';
+        }
+        break;
+
+      case 'cancel': 
+        $result = SCTeamLib::cancelRequestTeamMember($currentUser->id, $team->id);
+        if ($result) {
+          
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to cancel request.';
+        }
+        break;
+    }
+
+    return response()->json($json);
+  }
+
+  /**
    * URL (/teams/{slug})
    * 
    * Individual team Page

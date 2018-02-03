@@ -38,7 +38,7 @@ Search League
     @else
       <div class="league-list row no-margin">
         @foreach($leagues as $league)
-        <div class="col-sm-6 no-padding">
+        <div class="col-md-6 no-padding">
           <div class="league-item m10">
             <table>
               <tr>
@@ -66,4 +66,5 @@ Search League
 $(function () {
   
 });
+</script>
 @endpush

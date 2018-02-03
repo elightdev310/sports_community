@@ -25,6 +25,10 @@ Route::group(['middleware' => ['auth']],
   Route::get('teams/search', [
         'as' => 'team.search',          'uses' => 'SC\Comm\Team\TeamController@searchTeamPage' ]);
 
+
   Route::get('teams/{slug}', [
         'as' => 'team.page', 'uses' => 'SC\Comm\Team\TeamController@teamPage' ]);
+
+  Route::post('teams/{team}/member-relationship', [
+        'as' => 'team.member.relationship.post', 'uses' => 'SC\Comm\Team\TeamController@memberRelationshipAction' ]);
 });

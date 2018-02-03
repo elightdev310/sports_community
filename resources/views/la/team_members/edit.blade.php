@@ -35,6 +35,8 @@
 					{{--
 					@la_input($module, 'team_id')
 					@la_input($module, 'user_id')
+					@la_input($module, 'active')
+					@la_input($module, 'status')
 					--}}
                     <br>
 					<div class="form-group">

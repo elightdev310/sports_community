@@ -23,7 +23,7 @@ class Team_MembersController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'user_id';
-	public $listing_cols = ['id', 'team_id', 'user_id'];
+	public $listing_cols = ['id', 'team_id', 'user_id', 'active', 'status'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

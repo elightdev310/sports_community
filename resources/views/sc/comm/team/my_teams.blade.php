@@ -36,17 +36,23 @@ My Teams
     @else
       <div class="team-list row no-margin">
         @foreach( $m_teams as $m_team )
-        <div class="col-sm-6 no-padding">
+        <div class="col-md-6 no-padding">
           <div class="team-item m10">
-            <table>
+            <table class="table">
               <tr>
                 <td>
-                  <div class="cover-photo-thumb">
+                  <div class="cover-photo-thumb pull-left">
                     &nbsp;
                   </div>
+                  <div class="">
+                    <div class="mt5">
+                      <a href="{{ route('team.page', ['slug'=>$m_team->slug]) }}" class="team-title">{{ $m_team->name }}</a>
+                    </div>
+                  </div>
                 </td>
-                <td class="team-title">
-                  <a href="{{ route('team.page', ['slug'=>$m_team->slug]) }}">{{ $m_team->name }}</a></td>
+                <td class="team-action pull-right">
+                  
+                </td>
               </tr>
             </table>
           </div>

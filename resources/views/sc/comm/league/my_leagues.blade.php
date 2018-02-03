@@ -36,7 +36,7 @@ My Leagues
     @else
       <div class="league-list row no-margin">
         @foreach( $m_leagues as $m_league )
-        <div class="col-sm-6 no-padding">
+        <div class="col-md-6 no-padding">
           <div class="league-item m10">
             <table>
               <tr>

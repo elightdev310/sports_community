@@ -109,6 +109,8 @@
 					<div class="panel-body">
 						@la_display($module, 'team_id')
 						@la_display($module, 'user_id')
+						@la_display($module, 'active')
+						@la_display($module, 'status')
 					</div>
 				</div>
 			</div>

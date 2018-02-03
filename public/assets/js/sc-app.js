@@ -108,7 +108,8 @@ SCApp.UI = {
     }
 
     var default_options = { 
-      message: '<span class="fa fa-circle-o-notch fa-spin fa-3x text-primary"></span><div class="h4">Loading</div>', 
+      message: '<span class="fa fa-circle-o-notch fa-spin fa-2x text-primary"></span><div class="h5">Loading</div>', 
+      //message: '<span class="fa fa-circle-o-notch fa-spin fa-2x text-primary"></span>', 
       css: { 
         border: 'none', 
         backgroundColor: 'transparent', 
@@ -116,7 +117,7 @@ SCApp.UI = {
         color: '#222' 
       }, 
       overlayCSS: {
-        backgroundColor: 'transparent', 
+        backgroundColor: '#eee', 
       }
     };
 
