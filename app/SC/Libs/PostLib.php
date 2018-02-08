@@ -15,6 +15,7 @@ use App\SC\Models\Post;
 use App\SC\Models\PostComment;
 
 use App\SC\Models\Node;
+use App\SC\Models\Node_Post;
 
 use Exception;
 use SCUserLib;
@@ -38,21 +39,6 @@ class PostLib
   public function __construct($app)
   {
     $this->app = $app;
-  }
-
-  public function getPosts($group) 
-  {
-    $posts = Post::where('group_nid', '=', $group->id)
-                 ->orderBy('created_at', 'DESC')
-                 ->get();
-    $data = array();
-    foreach ($posts as $post) {
-      $data[$post->id] = array(
-        'post' => $post, 
-        'comments' => $this->getPostComments($post), 
-      );
-    }
-    return $data;
   }
 
   public function getPostComments(Post $post)
@@ -80,9 +66,15 @@ class PostLib
 
     $post = Post::create([
                 'text'      => $status, 
-                'group_nid' => $group->id, 
+                //'group_nid' => $group->id, 
                 'author_uid'=> $currentUser->id
             ]);
+    if ($post) {
+      $node_post = Node_Post::create([
+          'node_id'   => $group->id,
+          'post_id'   => $post->id, 
+        ]);
+    }
     return $post;
   }
 
@@ -160,7 +152,8 @@ class PostLib
 
     $query = "SELECT p.* 
               FROM posts AS p 
-              WHERE group_nid IN ($str_follow_fids) 
+              LEFT JOIN node_posts AS np ON np.post_id=p.id 
+              WHERE np.node_id IN ($str_follow_fids) 
               ORDER BY p.updated_at DESC 
               LIMIT $offset, $perPage";
     $results = DB::select($query);

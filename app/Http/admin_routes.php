@@ -152,4 +152,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== NodeFields ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/nodefields', 'LA\NodeFieldsController');
 	Route::get(config('laraadmin.adminRoute') . '/nodefield_dt_ajax', 'LA\NodeFieldsController@dtajax');
+
+	/* ================== Node_Posts ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/node_posts', 'LA\Node_PostsController');
+	Route::get(config('laraadmin.adminRoute') . '/node_post_dt_ajax', 'LA\Node_PostsController@dtajax');
 });
