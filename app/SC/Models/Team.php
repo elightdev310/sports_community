@@ -41,4 +41,20 @@ class Team extends TeamModule
     }
     return null;
   }
+
+  /**
+   * get URL of cover photo
+   */
+  public function coverPhotoPath() {
+    $node = $this->getNode();
+    if ($node) {
+      $cover_photo_id = $node->getField(NodeField::FIELD_COVER_PHOTO_ID, 0);
+      if ($cover_photo_id) {
+        if ($cover_photo = Photo::find($cover_photo_id)) {
+          return $cover_photo->path();
+        }
+      }
+    }
+    return false;
+  }
 }

@@ -1,5 +1,5 @@
 <div class="timeline-section">
-  @if (isset($editable) && !empty($editable))
+  @if (isset($postable) && !empty($postable))
   @include('sc.comm.partials.timeline.add_post_panel')
   @endif
 

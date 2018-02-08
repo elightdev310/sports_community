@@ -256,4 +256,15 @@ class PhotoLib
                     ->orderBy('id', 'DESC')
                     ->get();
     }
+
+    /**
+     * Get User Photos
+     */
+    public function getUserPhotos($user)
+    {
+        return Photo::where('user_id', '=', $user->id)
+                    ->where('used', '=', 1)
+                    ->orderBy('id', 'DESC')
+                    ->get();
+    }
 }

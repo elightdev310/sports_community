@@ -148,4 +148,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Division_Team_Members ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/division_team_members', 'LA\Division_Team_MembersController');
 	Route::get(config('laraadmin.adminRoute') . '/division_team_member_dt_ajax', 'LA\Division_Team_MembersController@dtajax');
+
+	/* ================== NodeFields ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/nodefields', 'LA\NodeFieldsController');
+	Route::get(config('laraadmin.adminRoute') . '/nodefield_dt_ajax', 'LA\NodeFieldsController@dtajax');
 });

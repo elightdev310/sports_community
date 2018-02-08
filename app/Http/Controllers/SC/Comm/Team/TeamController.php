@@ -167,8 +167,37 @@ class TeamController extends Controller
     $team = Team::getTeam($slug);
 
     $params = array();
+    $params['active_page'] = '';
     $params['team'] = $team;
+    $params['node'] = $team->getNode();
+    $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
 
     return view('sc.comm.team.team', $params);
   }
+
+  /**
+   * URL (/teams/{slug}/discussion)
+   * 
+   * Individual team Page
+   */
+  public function teamDiscussionPage(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+
+    $team = Team::getTeam($slug);
+
+    $params = array();
+    $params['active_page'] = 'team_discussion';
+    $params['team'] = $team;
+    $params['node'] = $team->getNode();
+    $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
+
+    $params['posts_url'] = route('timeline.load_post', 
+                                 ['group'=>$params['node'], 'type'=>'timeline']);
+
+    $params['postable'] = 1;
+
+    return view('sc.comm.team.discussion', $params);
+  }
 }
+

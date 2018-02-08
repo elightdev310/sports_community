@@ -157,4 +157,11 @@ class TeamLib
     return false;
   }
 
+  public function isTeamManager($user_id, Team $team) {
+    if ($team->creator_uid == $user_id) {
+      return true;
+    }
+    return false;
+  }
+
 }

@@ -84,6 +84,18 @@ Route::group(['middleware' => ['auth']],
     });
 
     /***************************************************************************/
+    /* Node
+    /***************************************************************************/
+    Route::group(['prefix' => 'node/{node}'], function () {
+        $as_node = 'node.';
+        Route::get('cover-photo', [
+            'as' => $as_node.'cover_photo', 'uses' => 'SC\Comm\NodeController@coverPhotoPage' ]);
+        Route::post('cover-photo/upload', [
+            'as' => $as_node.'cover_photo.upload_picture.post', 'uses' => 'SC\Comm\NodeController@uploadCoverPhoto' ]);
+        Route::post('cover-photo/choose', [
+            'as' => $as_node.'cover_photo.choose_picture.post', 'uses' => 'SC\Comm\NodeController@chooseCoverPhoto' ]);
+    });
+    /***************************************************************************/
     /* Timeline
     /***************************************************************************/
     Route::post('timeline/{group}/post/add', [

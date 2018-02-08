@@ -129,6 +129,12 @@ class PostLib
           $posts = $this->getUserTimelinePosts($group, $params);
         }
         break;
+      case 'team':
+      case 'league':
+        if ($type == 'timeline') {
+          $posts = $this->getNodeTimelinePosts($group, $params);
+        }
+        break;
     }
 
     $data = array();
@@ -176,5 +182,13 @@ class PostLib
     return $posts;
   }
 
+  /**
+   * Get Timeline Posts
+   */
+  public function getNodeTimelinePosts(Node $group, $params) {
+    $follow_fids = array($group->id => $group->id);
+    $posts = $this->getPostsInFeeds($follow_fids, $params);
+    return $posts;
+  }
 
 }

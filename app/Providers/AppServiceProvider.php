@@ -8,6 +8,8 @@ use Illuminate\Foundation\AliasLoader;
 use App\SC\Libs\UserLib;
 use App\SC\Libs\PhotoLib;
 use App\SC\Libs\PostLib;
+use App\SC\Libs\NodeLib;
+
 use App\SC\Libs\Team\TeamLib;
 use App\SC\Libs\League\LeagueLib;
 use App\SC\Libs\League\SeasonLib;
@@ -47,6 +49,11 @@ class AppServiceProvider extends ServiceProvider
             return new PostLib($app);
         });
 
+        // Node
+        $this->app->bind('scnode', function ($app) {
+            return new NodeLib($app);
+        });
+
         // Team
         $this->app->bind('scteam_team', function ($app) {
             return new TeamLib($app);
@@ -75,6 +82,9 @@ class AppServiceProvider extends ServiceProvider
         $loader->alias('SCUserLib',   \App\SC\Facades\UserFacade::class);
         $loader->alias('SCPhotoLib',  \App\SC\Facades\PhotoFacade::class);
         $loader->alias('SCPostLib',   \App\SC\Facades\PostFacade::class);
+
+        // Node
+        $loader->alias('SCNodeLib',   \App\SC\Facades\NodeFacade::class);
 
         // Team
         $loader->alias('SCTeamLib',   \App\SC\Facades\Team\TeamFacade::class);

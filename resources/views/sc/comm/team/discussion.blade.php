@@ -4,8 +4,8 @@
 {{ $team->name }}
 @endsection
 
-@section('page_id')individual-team @endsection
-@section('page_classes')individual-team-page team-page @endsection
+@section('page_id')team-discussion @endsection
+@section('page_classes')team-discussion-page team-page @endsection
 
 @section('content')
 
@@ -15,6 +15,10 @@
   </div>
   <div class="col-sm-9">
     @include ('sc.comm.partials.team.team_page_header')
+
+    <div class="team-timeline-section mt10">
+      @include('sc.comm.partials.timeline.timeline')
+    </div>
   </div>
 </div>
 @endsection

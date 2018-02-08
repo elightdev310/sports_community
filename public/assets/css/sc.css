@@ -256,6 +256,26 @@ iframe.embed-responsive-item {
   border-bottom-color: #337ab7;
   color: inherit;
 }
+.sidebar-menu-section {
+  margin-bottom: 10px;
+}
+.sidebar-menu-section .menu-label {
+  padding: 10px 0px;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.sidebar-menu-section .menu-label .navbar-toggle {
+  padding: 0px 10px;
+  color: #222;
+  line-height: 20px;
+}
+.sidebar-menu-section .menu-label .navbar-toggle .caret {
+  border-top-width: 6px;
+}
+.sidebar-menu-section ul.nav li.active {
+  background: #f7f7f7;
+  border: solid 1px #ddd;
+}
 .search-box-section .stylish-input-group .input-group-addon {
   background: white !important;
 }

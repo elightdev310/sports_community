@@ -68,11 +68,13 @@ class ProfileController extends Controller
 
     $params['user'] = $user;
     $params['profile'] = $user->profile;
+    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
 
     $params['node'] = $user->getNode();
     $params['posts_url'] = route('timeline.load_post', 
                                  ['group'=>$params['node'], 'type'=>'timeline']);
-    $params['editable'] = ($currentUser->id == $user->id)? 1 : 0;
+
+    $params['postable'] = ($currentUser->id == $user->id)? 1 : 0;
 
     return view('sc.comm.profile.timeline', $params);
   }
