@@ -108,7 +108,6 @@
 					</div>
 					<div class="panel-body">
 						@la_display($module, 'text')
-						@la_display($module, 'group_nid')
 						@la_display($module, 'author_uid')
 					</div>
 				</div>

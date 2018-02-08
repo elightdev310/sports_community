@@ -23,7 +23,7 @@ class PostsController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'text';
-	public $listing_cols = ['id', 'text', 'group_nid', 'author_uid'];
+	public $listing_cols = ['id', 'text', 'author_uid'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

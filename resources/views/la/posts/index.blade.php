@@ -60,7 +60,6 @@
 					
 					{{--
 					@la_input($module, 'text')
-					@la_input($module, 'group_nid')
 					@la_input($module, 'author_uid')
 					--}}
 				</div>
