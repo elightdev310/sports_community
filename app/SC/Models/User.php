@@ -11,7 +11,7 @@ use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User as UserModule;
-use App\SC\Models\Node;
+
 use SCPostLib;
 
 class User extends UserModule
@@ -64,7 +64,21 @@ class User extends UserModule
    * Get managed Teams
    */
   public function getManagedTeams() {
-    $leagues = Team::where('creator_uid', $this->id)->orderBy('name', 'ASC')->get();
-    return $leagues;
+    $teams = Team::where('creator_uid', $this->id)->orderBy('name', 'ASC')->get();
+    return $teams;
+  }
+
+  /**
+   * Get Teams that you sent request
+   */
+  public function getRequestTeams() {
+    $teams = DB::table('teams')
+              ->rightJoin('team_members AS tm', 'teams.id', '=', 'tm.team_id')
+              ->where('tm.user_id', $this->id)
+              ->where('tm.active', 0)
+              ->where('tm.status', '<>', '')
+              ->orderBy('teams.name', 'ASC')
+              ->get();
+    return $teams;
   }
 }

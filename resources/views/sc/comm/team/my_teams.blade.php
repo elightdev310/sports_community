@@ -62,4 +62,30 @@ My Teams
     @endif
   </div>
 </div>
+
+@if( count($r_teams) )
+<div class="page-panel request-teams-section team-list-section mt10">
+  <div class="panel-header">
+    <div class="row">
+      <div class="col-xs-6"><div class="panel-title">Teams You sent request to</div></div>
+      <div class="col-xs-6 text-right">
+        
+      </div>
+    </div>
+  </div>
+  <div class="panel-content">
+    <div class="team-list row no-margin">
+      @foreach( $r_teams as $team )
+      <div class="col-md-6 no-padding">
+        @include('sc.comm.partials.team.team_list_item')
+      </div>
+      @endforeach
+    </div>
+  </div>
+</div>
+@endif
 @endsection
+
+@push('scripts')
+  @include('sc.comm.partials.team.team_list_js')
+@endpush

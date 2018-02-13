@@ -47,10 +47,13 @@ class TeamController extends Controller
   {
     $currentUser = SCUserLib::currentUser();
     $m_teams = $currentUser->getManagedTeams();
+    $r_teams = $currentUser->getRequestTeams();
 
     $params = array();
     $params['tab'] = 'my_teams';
     $params['m_teams'] = $m_teams;
+    $params['r_teams'] = $r_teams;
+
 
     return view('sc.comm.team.my_teams', $params);
   }
