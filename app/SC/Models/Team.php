@@ -6,6 +6,8 @@
 
 namespace App\SC\Models;
 
+use DB;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Team as TeamModule;
@@ -56,5 +58,35 @@ class Team extends TeamModule
       }
     }
     return false;
+  }
+
+  /**
+   * Get Members
+   */
+  public function members() {
+    $members = DB::table('users')
+              ->select('users.*')
+              ->rightJoin('team_members AS tm', 'users.id', '=', 'tm.user_id')
+              ->where('tm.team_id', $this->id)
+              ->where('tm.active', 1)
+              ->orderBy('tm.created_at', 'ASC')
+              ->get();
+    return $members;
+  }
+
+  /**
+   * Get Join Requests
+   */
+  public function getJoinRequests() {
+    $requests = DB::table('users')
+              ->select('users.*')
+              ->addSelect('tm.status AS status')
+              ->rightJoin('team_members AS tm', 'users.id', '=', 'tm.user_id')
+              ->where('tm.team_id', $this->id)
+              ->where('tm.active', 0)
+              ->where('tm.status', '<>', '')
+              ->orderBy('tm.created_at', 'ASC')
+              ->get();
+    return $requests;
   }
 }

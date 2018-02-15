@@ -104,11 +104,6 @@ Route::group(['middleware' => ['auth']],
         'as' => 'timeline.post.comment.add.post', 'uses' => 'SC\Comm\TimelineController@addComment' ]);
     Route::post('timeline/post/comment/{comment}/reply', [
         'as' => 'timeline.post.comment.reply.post', 'uses' => 'SC\Comm\TimelineController@replyComment' ]);
-    Route::get('timeline/post/{post}/refresh', [
-        'as' => 'timeline.post.refresh', 'uses' => 'SC\Comm\TimelineController@refreshPost' ]);
-
-    Route::post('timeline/load-post/{group}/{type}', [
-        'as' => 'timeline.load_post', 'uses' => 'SC\Comm\TimelineController@load_next_posts' ]);
 
     /***************************************************************************/
     /* Search
@@ -117,3 +112,10 @@ Route::group(['middleware' => ['auth']],
         'as' => 'search.people', 'uses' => 'SC\Comm\SearchController@people' ]);
 });
 
+/***************************************************************************/
+/* Timeline
+/***************************************************************************/
+Route::get('timeline/post/{post}/refresh', [
+    'as' => 'timeline.post.refresh', 'uses' => 'SC\Comm\TimelineController@refreshPost' ]);
+Route::post('timeline/load-post/{group}/{type}', [
+    'as' => 'timeline.load_post', 'uses' => 'SC\Comm\TimelineController@load_next_posts' ]);

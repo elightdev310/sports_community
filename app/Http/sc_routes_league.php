@@ -25,16 +25,16 @@ Route::group(['middleware' => ['auth']],
   Route::get('teams/search', [
         'as' => 'team.search',          'uses' => 'SC\Comm\Team\TeamController@searchTeamPage' ]);
 
-  Route::group(['prefix' => 'teams/{slug}'], function () {
-    $as_team = 'team.';
-    Route::get('/', [
-      'as' => $as_team.'page',        'uses' => 'SC\Comm\Team\TeamController@teamPage' ]);
-    Route::get('/discussion', [
-      'as' => $as_team.'discussion',  'uses' => 'SC\Comm\Team\TeamController@teamDiscussionPage' ]);
-  });
-
-  
-
   Route::post('teams/{team}/member-relationship', [
         'as' => 'team.member.relationship.post', 'uses' => 'SC\Comm\Team\TeamController@memberRelationshipAction' ]);
+});
+
+Route::group(['prefix' => 'teams/{slug}'], function () {
+  $as_team = 'team.';
+  Route::get('/', [
+    'as' => $as_team.'page',        'uses' => 'SC\Comm\Team\TeamController@teamPage' ]);
+  Route::get('/discussion', [
+    'as' => $as_team.'discussion',  'uses' => 'SC\Comm\Team\TeamController@teamDiscussionPage' ]);
+  Route::get('/members', [
+    'as' => $as_team.'members',     'uses' => 'SC\Comm\Team\TeamController@teamMembersPage' ]);
 });

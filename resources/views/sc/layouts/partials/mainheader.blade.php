@@ -11,6 +11,7 @@
       <a class="navbar-brand" href="/">Tobesports</a>
     </div>
 
+    @if ($currentUser)
     <div class="collapse navbar-collapse" id="header-menu">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{{ route('profile.index', [$currentUser->id]) }}">{{$currentUser->name}}</a></li>
@@ -29,5 +30,7 @@
         </li>
       </ul>
     </div><!-- /.navbar-collapse -->
+    @endif
+    
   </div>
 </nav>

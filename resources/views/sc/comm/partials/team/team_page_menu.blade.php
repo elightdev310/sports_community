@@ -8,9 +8,17 @@
 
   <div id="team-page-menu" class="collapse navbar-collapse sidebar-menu">
     <ul class="nav">
-      <li class="@if ($active_page=='team_discussion') active @endif"><a href="{{ route('team.discussion', ['slug'=>$team->slug]) }}">Discussion</a></li>
-      <li><a href="#">Members</a></li>
-      <li><a href="#">Team Settings</a></li>
+      <li class="@if ($active_page=='team_discussion') active @endif">
+        <a href="{{ route('team.discussion', ['slug'=>$team->slug]) }}">Discussion</a>
+      </li>
+      <li class="@if ($active_page=='team_members') active @endif">
+        <a href="{{ route('team.members', ['slug'=>$team->slug]) }}">Members</a>
+      </li>
+      @if ($currentUser && SCTeamLib::isTeamManager($currentUser->id, $team))
+        <li class="@if ($active_page=='team_settings') active @endif">
+          <a href="#">Team Settings</a>
+        </li>
+      @endif
     </ul>
   </div>
 </div>

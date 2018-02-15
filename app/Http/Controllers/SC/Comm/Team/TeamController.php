@@ -8,6 +8,8 @@ namespace App\Http\Controllers\SC\Comm\Team;
 use Auth;
 use Validator;
 use Mail;
+use DB;
+
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
@@ -16,6 +18,7 @@ use Illuminate\Support\Facades\Input;
 
 use App\SC\Models\User;
 use App\SC\Models\Team;
+use App\SC\Models\Team_Member;
 
 use SCTeamLib;
 use SCUserLib;
@@ -173,7 +176,7 @@ class TeamController extends Controller
     $params['active_page'] = '';
     $params['team'] = $team;
     $params['node'] = $team->getNode();
-    $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
+    $this->setTeamPageParam($team, $params);
 
     return view('sc.comm.team.team', $params);
   }
@@ -181,26 +184,63 @@ class TeamController extends Controller
   /**
    * URL (/teams/{slug}/discussion)
    * 
-   * Individual team Page
+   * Team discussion page
    */
   public function teamDiscussionPage(Request $request, $slug)
   {
     $currentUser = SCUserLib::currentUser();
-
     $team = Team::getTeam($slug);
 
     $params = array();
     $params['active_page'] = 'team_discussion';
     $params['team'] = $team;
     $params['node'] = $team->getNode();
-    $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
+    $this->setTeamPageParam($team, $params);
+    if ($currentUser) {
+      $params['postable'] = 1;
+    } else {
+      $params['postable'] = 0;
+    }
 
     $params['posts_url'] = route('timeline.load_post', 
                                  ['group'=>$params['node'], 'type'=>'timeline']);
 
-    $params['postable'] = 1;
+
+    
 
     return view('sc.comm.team.discussion', $params);
+  }
+
+  /**
+   * URL (/teams/{slug}/members)
+   * 
+   * Team members page
+   */
+  public function teamMembersPage(Request $request, $slug)
+  {
+    $team = Team::getTeam($slug);
+
+    $params = array();
+    $params['active_page'] = 'team_members';
+    $params['team'] = $team;
+    $params['members'] = $team->members();
+    $params['requests']= $team->getJoinRequests();
+    $this->setTeamPageParam($team, $params);
+
+    return view('sc.comm.team.members', $params);
+  }
+
+  protected function setTeamPageParam($team, &$params) {
+    $currentUser = SCUserLib::currentUser();
+
+    if ($currentUser) {
+      $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
+      $params['is_team_member'] = SCTeamLib::isTeamMember($currentUser->id, $team);
+      $params['tm_record'] = Team_Member::getRecord($team->id, $currentUser->id);
+    } else {
+      $params['is_team_manager'] = false;
+      $params['is_team_member'] = false;
+    }
   }
 }
 
