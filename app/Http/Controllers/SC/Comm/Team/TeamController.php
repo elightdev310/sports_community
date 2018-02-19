@@ -156,6 +156,41 @@ class TeamController extends Controller
           $json['message']= 'Failed to cancel request.';
         }
         break;
+
+      case 'allow': 
+        $user_id= $request->input('user_id');
+        if ($user=User::find($user_id)) {
+          $result = SCTeamLib::allowTeamMember($user_id, $team->id);
+        } else {
+          $result = false;
+        }
+        if ($result) {
+          $json['action'] = 'reload';
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to allow member.';
+        }
+        break;
+
+      case 'leave': 
+        if (Input::has('user_id')) {
+          $user_id = $request->input('user_id');
+        } else {
+          $user_id = $currentUser->id;
+        }
+        if ($user=User::find($user_id)) {
+          $result = SCTeamLib::leaveTeamMember($user_id, $team->id);
+        } else {
+          $result = false;
+        }
+        if ($result) {
+          $json['action'] = 'reload';
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to leave member.';
+        }
+        
+        break;
     }
 
     return response()->json($json);
@@ -235,7 +270,7 @@ class TeamController extends Controller
 
     if ($currentUser) {
       $params['is_team_manager'] = SCTeamLib::isTeamManager($currentUser->id, $team);
-      $params['is_team_member'] = SCTeamLib::isTeamMember($currentUser->id, $team);
+      $params['is_team_member'] = SCTeamLib::isTeamMember($currentUser->id, $team->id);
       $params['tm_record'] = Team_Member::getRecord($team->id, $currentUser->id);
     } else {
       $params['is_team_manager'] = false;

@@ -157,6 +157,19 @@ class TeamLib
     return false;
   }
 
+  public function leaveTeamMember($user_id, $team_id) {
+    $tm_record = Team_Member::getRecord($team_id, $user_id);
+    if ($tm_record) {
+      if ($tm_record->active) {
+        $tm_record->status = '';
+        $tm_record->active = 0;
+        $tm_record->save();
+        return true;
+      }
+    }
+    return false;
+  }
+
   public function isTeamManager($user_id, $team) {
     if ($team->creator_uid == $user_id) {
       return true;

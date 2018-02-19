@@ -33,5 +33,29 @@ $(function () {
       SCApp.UI.unblockUI($item);
     });
   });
+
+  $('.team-list-section').on('click', '.btn-leave-team', function() {
+    var $btn = $(this);
+    var $item= $(this).closest('.team-item');
+    var team_id = $item.data('team');
+    var action = 'leave';
+
+    eModal.confirm('Are you sure to leave team?', 'Leave Team')
+      .then(function() {
+        SCApp.UI.blockUI('body');
+        SCApp.ajaxSetup();
+        $.ajax({
+          url: "/teams/"+team_id+"/member-relationship",
+          type: "POST",
+          data: {'action':action},
+        })
+        .done(function( json, textStatus, jqXHR ) {
+          SCApp.doAjaxAction(json); //Refresh
+        })
+        .always(function( data, textStatus, errorThrown ) {
+          SCApp.UI.unblockUI('body');
+        });
+      });
+  });
 });
 </script>

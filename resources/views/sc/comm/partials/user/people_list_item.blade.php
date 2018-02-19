@@ -5,7 +5,7 @@
         <div class="cover-photo-thumb pull-left">
           {!! SCUserLib::avatarImage($people, 72) !!}
         </div>
-        <div class="user-name">
+        <div class="user-name pull-left">
           <div class="mt5">
             <a href="{{ route('profile.index', ['user'=>$people->id]) }}">{{ $people->name }}</a>
           </div>
@@ -27,7 +27,7 @@
         @elseif (SCUserLib::isFriendRequest($currentUser->id, $people->id)<0)
           <div class="dropdown">
             <button class="btn btn-info dropdown-toggle" type="button" id="dropdown-new-respond-fr" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Respond to Friend Request
+              Accept Friendship
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdown-new-respond-fr">
               <li><a href="#" data-url="{{ route('profile.friends.confirm_request.post', ['user'=>$people->id]) }}" class="confirm-ifr-request">Confirm</a></li>

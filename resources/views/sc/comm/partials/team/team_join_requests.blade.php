@@ -9,7 +9,27 @@
       <div class="team-member-list people-list-section row no-margin">
       @foreach ($requests as $people) 
       <div class="col-md-6 no-padding">
-        @include('sc.comm.partials.user.people_list_item')
+        <div class="people-item m10" data-member="{{ $people->id }}">
+          <table class="table">
+            <tr>
+              <td>
+                <div class="cover-photo-thumb pull-left">
+                  {!! SCUserLib::avatarImage($people, 72) !!}
+                </div>
+                <div class="user-name pull-left">
+                  <div class="mt5">
+                    <a href="{{ route('profile.index', ['user'=>$people->id]) }}">{{ $people->name }}</a>
+                  </div>
+                </div>
+              </td>
+              <td class="people-action pull-right">
+                <a href="#" data-url="{{ route('team.member.relationship.post', ['team'=>$team->id]) }}" class="btn btn-primary btn-allow-member">
+                  Allow
+                </a>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
       @endforeach 
       </div>
@@ -18,3 +38,33 @@
     @endif
   </div>
 </div>
+
+@push('scripts')
+<script>
+$(function () {
+  $('.team-member-list').on('click', '.btn-allow-member', function() {
+    var $item = $(this).closest('.people-item');
+    var action= 'allow';
+    var user_id = $item.data('member');
+
+    // Allow Member
+    var action_url = $(this).data('url');
+
+    SCApp.UI.blockUI($item);
+    SCApp.ajaxSetup();
+    $.ajax({
+      url: action_url,
+      type: "POST", 
+      data: {'action':action, 'user_id':user_id },
+    })
+    .done(function( json, textStatus, jqXHR ) {
+      SCApp.doAjaxAction(json); //Refresh
+    })
+    .always(function( data, textStatus, errorThrown ) {
+      SCApp.UI.unblockUI($item);
+    });
+    return false;
+  });
+});
+</script>
+@endpush

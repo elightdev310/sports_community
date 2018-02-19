@@ -17,13 +17,13 @@
 
 @if ($currentUser)
 @if (empty($is_team_manager))
-<div class="team-page-header team-list-section team-item @if ($tm_record->status) {{ "status-{$tm_record->status}" }} @endif" data-team="{{ $team->id }}">
+<div class="team-page-header team-list-section team-item @if ($tm_record&&$tm_record->status) {{ "status-{$tm_record->status}" }} @endif" data-team="{{ $team->id }}">
   @if (!empty($is_team_member))
-    <button class="btn-team-leave btn btn-primary">Leave Team</button>
+    <button class="btn-leave-team btn btn-gray">Leave Team</button>
   @else
     @if (!SCTeamLib::isTeamManager($currentUser->id, $team))
       <button class="btn-team-join btn btn-primary btn-small">
-        @if ($tm_record->status=='send') Request Sent
+        @if ($tm_record&&$tm_record->status=='send') Request Sent
         @else Join Team
         @endif
       </button>
