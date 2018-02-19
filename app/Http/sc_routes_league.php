@@ -12,9 +12,8 @@ Route::group(['middleware' => ['auth']],
   Route::get('leagues/search', [
         'as' => 'league.search',        'uses' => 'SC\Comm\League\LeagueController@searchLeaguePage' ]);
 
-  Route::get('leagues/{slug}', [
-        'as' => 'league.page', 'uses' => 'SC\Comm\League\LeagueController@leaguePage' ]);
-
+  Route::post('leagues/{league}/member-relationship', [
+        'as' => 'league.member.relationship.post', 'uses' => 'SC\Comm\League\LeagueController@memberRelationshipAction' ]);
 
   Route::get('teams', [
         'as' => 'team.my_teams',        'uses' => 'SC\Comm\Team\TeamController@myTeamsPage' ]);
@@ -27,6 +26,16 @@ Route::group(['middleware' => ['auth']],
 
   Route::post('teams/{team}/member-relationship', [
         'as' => 'team.member.relationship.post', 'uses' => 'SC\Comm\Team\TeamController@memberRelationshipAction' ]);
+});
+
+Route::group(['prefix' => 'leagues/{slug}'], function () {
+  $as_league = 'league.';
+  Route::get('/', [
+    'as' => $as_league.'page',        'uses' => 'SC\Comm\League\LeagueController@leaguePage' ]);
+  Route::get('/discussion', [
+    'as' => $as_league.'discussion',  'uses' => 'SC\Comm\League\LeagueController@leagueDiscussionPage' ]);
+  Route::get('/members', [
+    'as' => $as_league.'members',     'uses' => 'SC\Comm\League\LeagueController@leagueMembersPage' ]);
 });
 
 Route::group(['prefix' => 'teams/{slug}'], function () {

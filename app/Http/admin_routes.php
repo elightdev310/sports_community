@@ -156,4 +156,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== Node_Posts ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/node_posts', 'LA\Node_PostsController');
 	Route::get(config('laraadmin.adminRoute') . '/node_post_dt_ajax', 'LA\Node_PostsController@dtajax');
+
+	/* ================== League_Members ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/league_members', 'LA\League_MembersController');
+	Route::get(config('laraadmin.adminRoute') . '/league_member_dt_ajax', 'LA\League_MembersController@dtajax');
 });
