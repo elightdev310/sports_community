@@ -21,6 +21,8 @@ My Teams
   </div>
 </div>
 
+{{-- Managed Teams --}}
+@if( count($m_teams) )
 <div class="page-panel managed-teams-section mt10">
   <div class="panel-header">
     <div class="row">
@@ -31,9 +33,6 @@ My Teams
     </div>
   </div>
   <div class="panel-content">
-    @if( !count($m_teams) )
-      <div class="text-center p20 empty-data-message">No team you manage</div>
-    @else
       <div class="team-list row no-margin">
         @foreach( $m_teams as $m_team )
         <div class="col-md-6 no-padding">
@@ -59,10 +58,11 @@ My Teams
         </div>
         @endforeach
       </div>
-    @endif
   </div>
 </div>
+@endif
 
+{{-- Requested Teams --}}
 @if( count($r_teams) )
 <div class="page-panel request-teams-section team-list-section mt10">
   <div class="panel-header">
@@ -76,6 +76,29 @@ My Teams
   <div class="panel-content">
     <div class="team-list row no-margin">
       @foreach( $r_teams as $team )
+      <div class="col-md-6 no-padding">
+        @include('sc.comm.partials.team.team_list_item')
+      </div>
+      @endforeach
+    </div>
+  </div>
+</div>
+@endif
+
+{{-- Joined Teams --}}
+@if( count($j_teams) )
+<div class="page-panel joined-teams-section team-list-section mt10">
+  <div class="panel-header">
+    <div class="row">
+      <div class="col-xs-6"><div class="panel-title">Teams You joined</div></div>
+      <div class="col-xs-6 text-right">
+        
+      </div>
+    </div>
+  </div>
+  <div class="panel-content">
+    <div class="team-list row no-margin">
+      @foreach( $j_teams as $team )
       <div class="col-md-6 no-padding">
         @include('sc.comm.partials.team.team_list_item')
       </div>

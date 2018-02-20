@@ -74,11 +74,61 @@ class User extends UserModule
   public function getRequestTeams() {
     $teams = DB::table('teams')
               ->rightJoin('team_members AS tm', 'teams.id', '=', 'tm.team_id')
+              ->select('teams.*')
+              ->addSelect('tm.active')
+              ->addSelect('tm.status')
               ->where('tm.user_id', $this->id)
               ->where('tm.active', 0)
               ->where('tm.status', '<>', '')
               ->orderBy('teams.name', 'ASC')
               ->get();
     return $teams;
+  }
+  /**
+   * Get Teams that you sent request
+   */
+  public function getRequestLeagueMembers() {
+    $leagues = DB::table('leagues')
+              ->rightJoin('league_members AS lm', 'leagues.id', '=', 'lm.league_id')
+              ->select('leagues.*')
+              ->addSelect('lm.active')
+              ->addSelect('lm.status')
+              ->where('lm.user_id', $this->id)
+              ->where('lm.active', 0)
+              ->where('lm.status', '<>', '')
+              ->orderBy('leagues.name', 'ASC')
+              ->get();
+    return $leagues;
+  }
+
+  /**
+   * Get joined Teams
+   */
+  public function getJoinedTeams() {
+    $teams = DB::table('teams')
+              ->rightJoin('team_members AS tm', 'teams.id', '=', 'tm.team_id')
+              ->select('teams.*')
+              ->addSelect('tm.active')
+              ->addSelect('tm.status')
+              ->where('tm.user_id', $this->id)
+              ->where('tm.active', 1)   //
+              ->orderBy('teams.name', 'ASC')
+              ->get();
+    return $teams;
+  }
+  /**
+   * Get joined Leagues
+   */
+  public function getJoinedLeagues() {
+    $leagues = DB::table('leagues')
+              ->rightJoin('league_members AS lm', 'leagues.id', '=', 'lm.league_id')
+              ->select('leagues.*')
+              ->addSelect('lm.active')
+              ->addSelect('lm.status')
+              ->where('lm.user_id', $this->id)
+              ->where('lm.active', 1) //
+              ->orderBy('leagues.name', 'ASC')
+              ->get();
+    return $leagues;
   }
 }

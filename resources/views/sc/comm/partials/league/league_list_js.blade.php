@@ -21,12 +21,15 @@ $(function () {
       data: {'action':action},
     })
     .done(function( json, textStatus, jqXHR ) {
-      if (action == 'send') {
-        $item.addClass('status-send');
-        $btn.html('Request Sent');
-      } else if (action == 'cancel') {
-        $item.removeClass('status-send');
-        $btn.html('Join');
+      SCApp.doAjaxAction(json);
+      if (json.status == 'success') {
+        if (action == 'send') {
+          $item.addClass('status-send');
+          $btn.html('Request Sent');
+        } else if (action == 'cancel') {
+          $item.removeClass('status-send');
+          $btn.html('Join');
+        }
       }
     })
     .always(function( data, textStatus, errorThrown ) {

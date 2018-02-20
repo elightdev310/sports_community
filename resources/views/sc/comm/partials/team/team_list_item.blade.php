@@ -14,11 +14,15 @@
       </td>
       <td class="team-action pull-right">
         @if (!SCTeamLib::isTeamManager($currentUser->id, $team))
-        <button class="btn-team-join btn btn-default btn-small">
-          @if ($team->status=='send') Request Sent
-          @else Join 
+          @if (!$team->active)
+            <button class="btn-team-join btn btn-default btn-small">
+              @if ($team->status=='send') Request Sent
+              @else Join 
+              @endif
+            </button>
+          @else
+          
           @endif
-        </button>
         @endif
       </td>
     </tr>

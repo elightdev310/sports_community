@@ -18,6 +18,7 @@ use App\SC\Models\League;
 use App\SC\Models\League_Member;
 
 use SCHelper;
+use SCUserLib;
 
 class LeagueLib 
 {
@@ -67,8 +68,16 @@ class LeagueLib
    * search league
    */
   public function searchLeague($term) {
-    $teams = League::where('name', 'LIKE', '%'.$term.'%')->get();
-    return $teams;
+    $currentUser = SCUserLib::currentUser();
+
+    //$leagues = League::where('name', 'LIKE', '%'.$term.'%')->get();
+    $query = "SELECT t.*, lm.active, lm.status 
+              FROM leagues AS t 
+              LEFT JOIN league_members AS lm 
+                    ON t.id=lm.league_id AND lm.user_id=? 
+              WHERE t.name LIKE ?";
+    $leagues = DB::select($query, array($currentUser->id, '%'.$term.'%'));
+    return $leagues;
   }
 
   //////////////////////////////////////////////////////////////////////////////
@@ -132,11 +141,13 @@ class LeagueLib
     if ($lm_record) {
       if ($lm_record->active) {
         return 10;    // Already Member
-      } else {
+      } else if($lm_record->status==League_Member::STATUS_SEND) {
         $lm_record->status = League_Member::STATUS_ACTIVE;
         $lm_record->active = 1;
         $lm_record->save();
         return 1;   // OK
+      } else {
+        return 11;
       }
     } else {
       $lm_record = League_Member::create(array(
@@ -162,6 +173,6 @@ class LeagueLib
         return true;
       }
     }
-    return false;
+    return true;
   }
 }

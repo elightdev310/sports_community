@@ -16,7 +16,7 @@ Search League
   </div>
 </div>
 
-<div class="page-panel managed-leagues-section mt10">
+<div class="page-panel managed-leagues-section league-list-section mt10">
   <div class="panel-header">
     {!! Form::open(['route'=>'league.search', 'method'=>'get', 'class'=>'search-box-section' ]) !!}
         <div class="input-group stylish-input-group">
@@ -39,19 +39,7 @@ Search League
       <div class="league-list row no-margin">
         @foreach($leagues as $league)
         <div class="col-md-6 no-padding">
-          <div class="league-item m10">
-            <table>
-              <tr>
-                <td>
-                  <div class="cover-photo-thumb">
-                    &nbsp;
-                  </div>
-                </td>
-                <td class="league-title">
-                  <a href="{{ route('league.page', ['slug'=>$league->slug]) }}">{{ $league->name }}</a></td>
-              </tr>
-            </table>
-          </div>
+          @include('sc.comm.partials.league.league_list_item')
         </div>
         @endforeach
       </div>
@@ -62,9 +50,5 @@ Search League
 @endsection
 
 @push('scripts')
-<script>
-$(function () {
-  
-});
-</script>
+  @include('sc.comm.partials.league.league_list_js')
 @endpush

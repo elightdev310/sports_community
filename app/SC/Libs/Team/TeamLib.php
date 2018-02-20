@@ -137,11 +137,13 @@ class TeamLib
     if ($tm_record) {
       if ($tm_record->active) {
         return 10;    // Already Member
-      } else {
+      } else if ($tm_record->status==Team_Member::STATUS_SEND) {
         $tm_record->status = Team_Member::STATUS_ACTIVE;
         $tm_record->active = 1;
         $tm_record->save();
         return 1;   // OK
+      } else {
+        return 11;  
       }
     } else {
       $tm_record = Team_Member::create(array(
@@ -167,7 +169,7 @@ class TeamLib
         return true;
       }
     }
-    return false;
+    return true;
   }
 
   public function isTeamManager($user_id, $team) {

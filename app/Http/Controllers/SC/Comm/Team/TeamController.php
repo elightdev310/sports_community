@@ -51,11 +51,14 @@ class TeamController extends Controller
     $currentUser = SCUserLib::currentUser();
     $m_teams = $currentUser->getManagedTeams();
     $r_teams = $currentUser->getRequestTeams();
+    $j_teams = $currentUser->getJoinedTeams();
+
 
     $params = array();
     $params['tab'] = 'my_teams';
     $params['m_teams'] = $m_teams;
     $params['r_teams'] = $r_teams;
+    $params['j_teams'] = $j_teams;
 
 
     return view('sc.comm.team.my_teams', $params);
@@ -126,6 +129,7 @@ class TeamController extends Controller
   {
     $currentUser = SCUserLib::currentUser();
     $action = $request->input('action');
+    $tm_record = Team_Member::getRecord($team->id, $currentUser->id);
 
     $json = array(
         "status" => "success",
@@ -138,6 +142,7 @@ class TeamController extends Controller
           if ($result == 10) {
             $json['status'] = 'warning';
             $json['code']   = $result;
+            $json['action'] = 'reload';
           } else {
 
           }
@@ -150,7 +155,13 @@ class TeamController extends Controller
       case 'cancel': 
         $result = SCTeamLib::cancelRequestTeamMember($currentUser->id, $team->id);
         if ($result) {
-          
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+
+          }
         } else {
           $json['status'] = 'error';
           $json['message']= 'Failed to cancel request.';

@@ -48,10 +48,15 @@ class LeagueController extends Controller
   {
     $currentUser = SCUserLib::currentUser();
     $m_leagues = $currentUser->getManagedLeagues();
+    $r_leagues = $currentUser->getRequestLeagueMembers();
+    $j_leagues = $currentUser->getJoinedLeagues();
 
     $params = array();
     $params['tab'] = 'my_leagues';
     $params['m_leagues'] = $m_leagues;
+    $params['r_leagues'] = $r_leagues;
+    $params['j_leagues'] = $j_leagues;
+
 
     return view('sc.comm.league.my_leagues', $params);
   }
@@ -133,6 +138,7 @@ class LeagueController extends Controller
           if ($result == 10) {
             $json['status'] = 'warning';
             $json['code']   = $result;
+            $json['action'] = 'reload';
           } else {
 
           }
@@ -145,7 +151,13 @@ class LeagueController extends Controller
       case 'cancel': 
         $result = SCLeagueLib::cancelRequestLeagueMember($currentUser->id, $league->id);
         if ($result) {
-          
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+
+          }
         } else {
           $json['status'] = 'error';
           $json['message']= 'Failed to cancel request.';

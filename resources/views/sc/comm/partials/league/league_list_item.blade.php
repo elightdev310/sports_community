@@ -14,11 +14,15 @@
       </td>
       <td class="league-action pull-right">
         @if (!SCLeagueLib::isLeagueManager($currentUser->id, $league))
-        <button class="btn-league-join btn btn-default btn-small">
-          @if ($league->status=='send') Request Sent
-          @else Join 
+          @if (!$league->active)
+          <button class="btn-league-join btn btn-default btn-small">
+            @if ($league->status=='send') Request Sent
+            @else Join 
+            @endif
+          </button>
+          @else
+          <button class="btn-leave-league btn btn-gray">Leave League</button>
           @endif
-        </button>
         @endif
       </td>
     </tr>
