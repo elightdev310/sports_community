@@ -6,6 +6,8 @@
 /vendor
 /node_modules
 /storage
+/.vscode
+
 Homestead.yaml
 Homestead.json
 .env
