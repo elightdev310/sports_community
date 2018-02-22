@@ -160,4 +160,8 @@ Route::group(['as' => $as, 'middleware' => ['auth', 'permission:ADMIN_PANEL']], 
 	/* ================== League_Members ================== */
 	Route::resource(config('laraadmin.adminRoute') . '/league_members', 'LA\League_MembersController');
 	Route::get(config('laraadmin.adminRoute') . '/league_member_dt_ajax', 'LA\League_MembersController@dtajax');
+
+	/* ================== League_Teams ================== */
+	Route::resource(config('laraadmin.adminRoute') . '/league_teams', 'LA\League_TeamsController');
+	Route::get(config('laraadmin.adminRoute') . '/league_team_dt_ajax', 'LA\League_TeamsController@dtajax');
 });
