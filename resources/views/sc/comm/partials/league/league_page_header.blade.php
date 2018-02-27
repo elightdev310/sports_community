@@ -34,5 +34,11 @@
 @endif
 
 @push('scripts')
-  @include('sc.comm.partials.league.league_list_js')
+<script>
+$(function () {
+  $(document).ready(function() {
+    SCApp.League.bindLeagueList();
+  });
+});
+</script>
 @endpush

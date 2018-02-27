@@ -1,24 +1,17 @@
-@extends('sc.layouts.app')
+@extends('sc.layouts.modal')
 
 @section('htmlheader_title')
 Search League
 @endsection
 
-@section('page_id')search-league @endsection
-@section('page_classes')search-league-page league-page @endsection
+@section('page_id')search-league-team @endsection
+@section('page_classes')search-league-team-page search-league-page team-page @endsection
 
 @section('content')
-<div class="search-league-header-section header-section pt10">
-  <div class="headline clearfix">
-    <div class="">
-      @include ('sc.comm.partials.league.league_header_tabs')
-    </div>
-  </div>
-</div>
-
-<div class="page-panel managed-leagues-section league-list-section mt10">
+<div class="p10">
+<div class="page-panel managed-leagues-section league-list-section" data-teamslug="{{ $team->slug }}">
   <div class="panel-header">
-    {!! Form::open(['route'=>'league.search', 'method'=>'get', 'class'=>'search-box-section' ]) !!}
+    {!! Form::open(['route'=>['team.league.search', $team->slug], 'method'=>'get', 'class'=>'search-box-section' ]) !!}
         <div class="input-group stylish-input-group">
             {!! Form::text('term', null, ['class'=>'form-control', 'placeholder'=>'Search league', 'autofocus'=>'']) !!}
             <span class="input-group-addon">
@@ -39,7 +32,7 @@ Search League
       <div class="league-list row no-margin">
         @foreach($leagues as $league)
         <div class="col-md-6 no-padding">
-          @include('sc.comm.partials.league.league_list_item')
+          @include('sc.comm.partials.team.league.team_league_list_item')
         </div>
         @endforeach
       </div>
@@ -47,13 +40,14 @@ Search League
   </div>
   @endif
 </div>
+</div>
 @endsection
 
 @push('scripts')
 <script>
 $(function () {
   $(document).ready(function() {
-    SCApp.League.bindLeagueList();
+    SCApp.Team.bindTeamLeagueList();
   });
 });
 </script>

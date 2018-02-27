@@ -4,7 +4,7 @@
     <tr>
       <td>
         <div class="cover-photo-thumb pull-left">
-          &nbsp;
+          {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($team->id, 'team' )) !!}
         </div>
         <div class="">
           <div class="mt5">

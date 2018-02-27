@@ -21,6 +21,7 @@ use App\SC\Models\Team;
 use App\SC\Models\Team_Member;
 
 use SCTeamLib;
+use SCLeagueLib;
 use SCUserLib;
 use SCHelper;
 use Exception;
@@ -31,6 +32,7 @@ use Exception;
  */
 class TeamController extends Controller
 {
+  use TeamLeagueController;
   /**
    * Create a new controller instance.
    *
@@ -275,6 +277,8 @@ class TeamController extends Controller
 
     return view('sc.comm.team.members', $params);
   }
+
+  /////////////////////////////////////////////////////////////////////////////
 
   protected function setTeamPageParam($team, &$params) {
     $currentUser = SCUserLib::currentUser();

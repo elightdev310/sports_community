@@ -32,6 +32,7 @@
 <script src="{{ asset('assets/plugins/blazy.min.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/js/sc-app.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/js/sc-league.js') }}" type="text/javascript"></script>
 
 @if (!empty(session('redirect')))
 <script>

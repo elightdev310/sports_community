@@ -50,5 +50,11 @@ Search Team
 @endsection
 
 @push('scripts')
-  @include('sc.comm.partials.team.team_list_js')
+<script>
+$(function () {
+  $(document).ready(function() {
+    SCApp.Team.bindTeamList();
+  });
+});
+</script>
 @endpush

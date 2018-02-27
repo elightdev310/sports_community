@@ -26,7 +26,7 @@ My Leagues
 <div class="page-panel managed-leagues-section mt10">
   <div class="panel-header">
     <div class="row">
-      <div class="col-xs-6"><div class="panel-title">Leagues I Manage</div></div>
+      <div class="col-xs-6"><div class="panel-title">Managed Leagues</div></div>
       <div class="col-xs-6 text-right">
         
       </div>
@@ -41,7 +41,7 @@ My Leagues
               <tr>
                 <td>
                   <div class="cover-photo-thumb">
-                    &nbsp;
+                    {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($m_league->id, 'league' )) !!}
                   </div>
                 </td>
                 <td class="league-title">
@@ -84,7 +84,7 @@ My Leagues
 <div class="page-panel joined-leagues-section league-list-section mt10">
   <div class="panel-header">
     <div class="row">
-      <div class="col-xs-6"><div class="panel-title">Leagues You joined</div></div>
+      <div class="col-xs-6"><div class="panel-title">Joined Leagues</div></div>
       <div class="col-xs-6 text-right">
         
       </div>
@@ -105,5 +105,11 @@ My Leagues
 @endsection
 
 @push('scripts')
-  @include('sc.comm.partials.league.league_list_js')
+<script>
+$(function () {
+  $(document).ready(function() {
+    SCApp.League.bindLeagueList();
+  });
+});
+</script>
 @endpush

@@ -1,29 +1,30 @@
-{{--  Join Requests  --}}
-{{--  TO DO: Change Peopele Actions  --}}
+<!-- Join Team Requests -->
+<!-- TO DO: Change Team Actions -->
+@if (count($requests))
 <div class="page-panel mt10">
   <div class="panel-header">
     <div class="panel-title">Join Requests</div>
   </div>
   <div class="panel-content">
-    @if (count($requests))
-      <div class="team-member-list people-list-section row no-margin">
-      @foreach ($requests as $people) 
+      <div class="league-team-list team-list-section row no-margin">
+      @foreach ($requests as $team) 
       <div class="col-md-6 no-padding">
-        <div class="people-item m10" data-member="{{ $people->id }}">
+        <div class="team-item m10" data-team="{{ $team->id }}">
           <table class="table">
             <tr>
               <td>
                 <div class="cover-photo-thumb pull-left">
-                  {!! SCUserLib::avatarImage($people, 72) !!}
+                  {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($team->id, 'team' )) !!}
                 </div>
                 <div class="user-name pull-left">
                   <div class="mt5">
-                    <a href="{{ route('profile.index', ['user'=>$people->id]) }}">{{ $people->name }}</a>
+                    <a href="{{ route('profile.index', ['user'=>$team->id]) }}">{{ $team->name }}</a>
                   </div>
                 </div>
               </td>
-              <td class="people-action pull-right">
-                <a href="#" data-url="{{ route('team.member.relationship.post', ['team'=>$team->id]) }}" class="btn btn-primary btn-allow-member">
+              <td class="team-action pull-right">
+                <a href="#" class="btn btn-primary btn-allow-team" 
+                    data-url="{{ route('team.league.relationshiop.post', ['slug'=>$team->slug, 'league'=>$league->id]) }}">
                   Allow
                 </a>
               </td>
@@ -33,21 +34,20 @@
       </div>
       @endforeach 
       </div>
-    @else
-      <div class="text-center p10">No member</div>
-    @endif
+    
   </div>
 </div>
+@endif
 
 @push('scripts')
 <script>
 $(function () {
-  $('.team-member-list').on('click', '.btn-allow-member', function() {
-    var $item = $(this).closest('.people-item');
+  $('.league-team-list').on('click', '.btn-allow-team', function() {
+    var $item = $(this).closest('.team-item');
     var action= 'allow';
-    var user_id = $item.data('member');
+    var user_id = $item.data('team');
 
-    // Allow Member
+    // Allow team
     var action_url = $(this).data('url');
 
     SCApp.UI.blockUI($item);

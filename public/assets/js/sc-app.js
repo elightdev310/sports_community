@@ -1,5 +1,5 @@
 
-var SCApp = {
+var SCApp = SCApp || {
   ajaxSetup: function() {
     var csrf_token = $('meta[name="csrf-token"]').attr('content');
     if (csrf_token) {
@@ -91,6 +91,8 @@ SCApp.UI = {
   fitModalWindow: function() {
     var m_height = $('.modal-wrapper').height();
     var iframe = window.parent.$('.embed-responsive-item');
+
+    console.log(m_height);
     if (iframe.length) {
       iframe.height(m_height);
       // iframe.animate({

@@ -11,6 +11,9 @@
       <li class="@if ($active_page=='team_discussion') active @endif">
         <a href="{{ route('team.discussion', ['slug'=>$team->slug]) }}">Discussion</a>
       </li>
+      <li class="@if ($active_page=='team_leagues') active @endif">
+        <a href="{{ route('team.leagues', ['slug'=>$team->slug]) }}">Leagues</a>
+      </li>
       <li class="@if ($active_page=='team_members') active @endif">
         <a href="{{ route('team.members', ['slug'=>$team->slug]) }}">Members</a>
       </li>

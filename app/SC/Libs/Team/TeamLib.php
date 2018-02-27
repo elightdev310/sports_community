@@ -16,6 +16,7 @@ use App\Role;
 use App\SC\Models\User;
 use App\SC\Models\Team;
 use App\SC\Models\Team_Member;
+use App\SC\Models\League_Team;
 
 use SCUserLib;
 use SCHelper;
@@ -179,4 +180,84 @@ class TeamLib
     return false;
   }
 
+  /////////////////////////////////////////////////////////////////////////////
+
+  /**
+   * Sent Request to League Team
+   */
+  public function sentRequestLeagueTeam($team_id, $league_id) {
+    $lt_record = League_Team::getRecord($league_id, $team_id);
+    if ($lt_record) {
+      if ($lt_record->active) {
+        return 10;    // Already League Team
+      } else {
+        $lt_record->status = League_Team::STATUS_SEND;
+        $lt_record->save();
+        return 1;   // OK
+      }
+    } else {
+      $lt_record = League_Team::create(array(
+        'league_id' => $league_id, 
+        'team_id'   => $team_id,
+        'active'    => 0,
+        'status'    => League_Team::STATUS_SEND
+      ));
+      if ($lt_record) {
+        return 1;   // OK
+      }
+    }
+    return false;
+  }
+  public function cancelRequestLeagueTeam($team_id, $league_id) {
+    $lt_record = League_Team::getRecord($league_id, $team_id);
+    if ($lt_record) {
+      if ($lt_record->active) {
+        return 10;    // Already Member
+      } else {
+        $lt_record->status = '';
+        $lt_record->save();
+        return 1;   // OK
+      }
+    }
+    return 1;
+  }
+  public function allowLeagueTeam($team_id, $league_id) {
+    $lt_record = League_Team::getRecord($league_id, $team_id);
+    if ($lt_record) {
+      if ($lt_record->active) {
+        return 10;    // Already Member
+      } else if ($lt_record->status==League_Team::STATUS_SEND) {
+        $lt_record->status = League_Team::STATUS_ACTIVE;
+        $lt_record->active = 1;
+        $lt_record->save();
+        return 1;   // OK
+      } else {
+        return 11;  
+      }
+    } else {
+      $lt_record = League_Team::create(array(
+        'league_id' => $league_id,
+        'team_id'   => $team_id,
+        'active'    => 1,
+        'status'    => League_Team::STATUS_ACTIVE
+      ));
+      if ($lt_record) {
+        return 1;   // OK
+      }
+    }
+    return false;
+  }
+
+  public function leaveLeagueTeam($team_id, $league_id) {
+    $lt_record = League_Team::getRecord($league_id, $team_id);
+    if ($lt_record) {
+      if ($lt_record->active) {
+        $lt_record->status = '';
+        $lt_record->active = 0;
+        $lt_record->save();
+        return true;
+      }
+    }
+    return true;
+  }
 }

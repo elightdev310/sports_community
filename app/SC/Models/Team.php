@@ -19,7 +19,8 @@ class Team extends TeamModule
   const TABLE_NAME = 'teams';
   const NODE_TYPE  = 'team';
 
-  public function initialize($data=array()) {
+  public function initialize($data=array()) 
+  {
     $this->slug = SCHelper::createSlug($this->name, self::TABLE_NAME);
     $this->save();
     
@@ -30,13 +31,15 @@ class Team extends TeamModule
     ]);
     return $this;
   }
-  public function getNode() {
+  public function getNode() 
+  {
     $node = Node::where('object_id', '=', $this->id)
                 ->where('type', '=', self::NODE_TYPE)
                 ->first();
     return $node;
   }
-  public static function getTeam($slug) {
+  public static function getTeam($slug) 
+  {
     $league_id = SCHelper::getObjectIDBySlug($slug, self::TABLE_NAME);
     if ($league_id) {
       return self::find($league_id);
@@ -47,15 +50,11 @@ class Team extends TeamModule
   /**
    * get URL of cover photo
    */
-  public function coverPhotoPath() {
+  public function coverPhotoPath() 
+  {
     $node = $this->getNode();
     if ($node) {
-      $cover_photo_id = $node->getField(NodeField::FIELD_COVER_PHOTO_ID, 0);
-      if ($cover_photo_id) {
-        if ($cover_photo = Photo::find($cover_photo_id)) {
-          return $cover_photo->path();
-        }
-      }
+      return $node->coverPhotoPath();
     }
     return false;
   }
@@ -63,7 +62,8 @@ class Team extends TeamModule
   /**
    * Get Members
    */
-  public function members() {
+  public function members() 
+  {
     $members = DB::table('users')
               ->select('users.*')
               ->rightJoin('team_members AS tm', 'users.id', '=', 'tm.user_id')
@@ -77,7 +77,8 @@ class Team extends TeamModule
   /**
    * Get Join Requests
    */
-  public function getJoinRequests() {
+  public function getJoinRequests() 
+  {
     $requests = DB::table('users')
               ->select('users.*')
               ->addSelect('tm.status AS status')
@@ -86,6 +87,41 @@ class Team extends TeamModule
               ->where('tm.active', 0)
               ->where('tm.status', '<>', '')
               ->orderBy('tm.created_at', 'ASC')
+              ->get();
+    return $requests;
+  }
+
+  /**
+   * Get Joined Leagues of Team
+   */
+  public function getJoinedLeagues()
+  {
+    $leagues = DB::table('leagues AS l')
+                ->rightJoin('league_teams AS lt', 'l.id', '=', 'lt.league_id')
+                ->select('l.*')
+                ->addSelect('lt.status')
+                ->addSelect('lt.active')
+                ->where('lt.team_id', $this->id)
+                ->where('lt.active', 1)
+                ->orderBy('lt.created_at', 'ASC')
+                ->get();
+    return $leagues;
+  }
+
+  /**
+   * Get Join League Requests
+   */
+  public function getJoinLeagueRequests() 
+  {
+    $requests = DB::table('leagues AS l')
+              ->rightJoin('league_teams AS lt', 'l.id', '=', 'lt.league_id')
+              ->select('l.*')
+              ->addSelect('lt.status')
+              ->addSelect('lt.active')
+              ->where('lt.team_id', $this->id)
+              ->where('lt.active', 0)
+              ->where('lt.status', '<>', '')
+              ->orderBy('lt.created_at', 'ASC')
               ->get();
     return $requests;
   }

@@ -41,6 +41,21 @@ class NodeLib
   }
 
   /**
+   * Get Node object
+   *
+   * @param integer $object_id
+   * @param string $node_type
+   * @return Node
+   */
+  public function getNode($object_id, $node_type)
+  {
+    $node = Node::where('object_id', $object_id)
+                ->where('type', $node_type)
+                ->first();
+    return $node;
+  }
+
+  /**
    * Get Node Field - Value
    */
   public function getNodeField($node_id, $field, $default_value='')
@@ -79,6 +94,28 @@ class NodeLib
     }
 
     return false;
+  }
+
+  /**
+   * Cover Photo Image of Node
+   *
+   * @param Node $node
+   * @param integer $size
+   * @param string $classes: html class attributes
+   */
+  public function coverPhotoImage($node, $classes="") 
+  {
+    $bg_style = '';
+    if ($node) {
+      $path = $node->coverPhotoPath(200);    
+      if ($path) {
+        $bg_style = "background-image: url('$path')";
+      }
+    }
+    
+    $html = sprintf('<div style="%s" class="%s img cover-photo-thumb-image">&nbsp;</div>', 
+                     $bg_style, $classes);
+    return $html;
   }
 }
 

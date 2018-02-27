@@ -1,4 +1,4 @@
-{{-- $league --}}
+{{-- $team, $league --}}
 <div class="league-item m10 @if ($league->status) {{ "status-{$league->status}" }} @endif" data-league="{{ $league->id }}">
   <table class="table">
     <tr>
@@ -13,7 +13,7 @@
         </div>
       </td>
       <td class="league-action pull-right">
-        @if (!SCLeagueLib::isLeagueManager($currentUser->id, $league))
+        @if (SCTeamLib::isTeamManager($currentUser->id, $team))
           @if (!$league->active)
           <button class="btn-league-join btn btn-default btn-small">
             @if ($league->status=='send') Request Sent

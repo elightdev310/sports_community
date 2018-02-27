@@ -16,6 +16,8 @@ use App\Role;
 use App\SC\Models\User;
 use App\SC\Models\League;
 use App\SC\Models\League_Member;
+use App\SC\Models\Team;
+use App\SC\Models\League_Team;
 
 use SCHelper;
 use SCUserLib;
@@ -77,6 +79,17 @@ class LeagueLib
                     ON t.id=lm.league_id AND lm.user_id=? 
               WHERE t.name LIKE ?";
     $leagues = DB::select($query, array($currentUser->id, '%'.$term.'%'));
+    return $leagues;
+  }
+
+  public function searchLeagueWithTeam(Team $team, $term) {
+    $query = "SELECT l.*, lt.active, lt.status 
+              FROM leagues AS l 
+              LEFT JOIN league_teams AS lt 
+                    ON l.id=lt.league_id 
+              WHERE (lt.team_id = ? OR lt.team_id is NULL) 
+                AND l.name LIKE ?";
+    $leagues = DB::select($query, array($team->id, '%'.$term.'%'));
     return $leagues;
   }
 
@@ -175,4 +188,5 @@ class LeagueLib
     }
     return true;
   }
+  
 }

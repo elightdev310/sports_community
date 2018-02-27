@@ -26,7 +26,7 @@ My Teams
 <div class="page-panel managed-teams-section mt10">
   <div class="panel-header">
     <div class="row">
-      <div class="col-xs-6"><div class="panel-title">Teams I Manage</div></div>
+      <div class="col-xs-6"><div class="panel-title">Managed Teams</div></div>
       <div class="col-xs-6 text-right">
         
       </div>
@@ -41,7 +41,7 @@ My Teams
               <tr>
                 <td>
                   <div class="cover-photo-thumb pull-left">
-                    &nbsp;
+                    {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($m_team->id, 'team' )) !!}
                   </div>
                   <div class="">
                     <div class="mt5">
@@ -90,7 +90,7 @@ My Teams
 <div class="page-panel joined-teams-section team-list-section mt10">
   <div class="panel-header">
     <div class="row">
-      <div class="col-xs-6"><div class="panel-title">Teams You joined</div></div>
+      <div class="col-xs-6"><div class="panel-title">Joined Teams</div></div>
       <div class="col-xs-6 text-right">
         
       </div>
@@ -110,5 +110,11 @@ My Teams
 @endsection
 
 @push('scripts')
-  @include('sc.comm.partials.team.team_list_js')
+<script>
+$(function () {
+  $(document).ready(function() {
+    SCApp.Team.bindTeamList();
+  });
+});
+</script>
 @endpush

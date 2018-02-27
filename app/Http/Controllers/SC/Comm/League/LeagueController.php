@@ -271,6 +271,29 @@ class LeagueController extends Controller
     return view('sc.comm.league.members', $params);
   }
 
+  /**
+   * URL (/leagues/{slug}/teams)
+   * 
+   * league teams page
+   */
+  public function leagueTeamsPage(Request $request, $slug)
+  {
+    $league = League::getLeague($slug);
+
+    $params = array();
+    $params['active_page'] = 'league_teams';
+    $params['league'] = $league;
+    $params['teams'] = $league->teams();
+    $params['requests']= $league->getJoinTeamRequests();
+    $this->setLeaguePageParam($league, $params);
+
+    return view('sc.comm.league.teams', $params);
+  }
+
+
+
+
+
   protected function setLeaguePageParam($league, &$params) {
     $currentUser = SCUserLib::currentUser();
 
