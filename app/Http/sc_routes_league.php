@@ -41,6 +41,9 @@ Route::group(['prefix' => 'leagues/{slug}'], function () {
     'as' => $as_league.'members',     'uses' => 'SC\Comm\League\LeagueController@leagueMembersPage' ]);
   Route::get('/teams', [
     'as' => $as_league.'teams',       'uses' => 'SC\Comm\League\LeagueController@leagueTeamsPage' ]);
+
+  Route::get('/seasons', [
+    'as' => $as_league.'seasons',     'uses' => 'SC\Comm\League\LeagueController@leagueSeasonsPage' ]);
 });
 
 /**
@@ -59,6 +62,6 @@ Route::group(['prefix' => 'teams/{slug}'], function () {
   Route::get('/leagues/search', [
     'as' => $as_team.'league.search', 	'uses' => 'SC\Comm\Team\TeamController@teamSearchLeaguePage' ]);
 
-	Route::post('/leagues/{league}/relationship', [
-		'as' => $as_team.'league.relationshiop.post', 	'uses' => 'SC\Comm\Team\TeamController@teamLeagueRelationshipAction']);
+  Route::post('/leagues/{league}/relationship', [
+        'as' => $as_team.'league.relationshiop.post', 	'uses' => 'SC\Comm\Team\TeamController@teamLeagueRelationshipAction']);
 });

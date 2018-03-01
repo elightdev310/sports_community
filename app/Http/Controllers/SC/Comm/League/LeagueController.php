@@ -29,6 +29,7 @@ use Exception;
  */
 class LeagueController extends Controller
 {
+  use SeasonController;
   /**
    * Create a new controller instance.
    *

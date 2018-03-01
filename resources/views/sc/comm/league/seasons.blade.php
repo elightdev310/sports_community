@@ -4,11 +4,11 @@
 {{ $league->name }}
 @endsection
 
-@section('page_id')league-discussion @endsection
-@section('page_classes')league-discussion-page @endsection
+@section('page_id')league-seasons @endsection
+@section('page_classes')league-seasons-page @endsection
 
 @section('content')
   <div class="league-timeline-section mt10">
-    @include('sc.comm.partials.timeline.timeline')
+    Seasons Page - Coming Soon...
   </div>
 @endsection
