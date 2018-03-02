@@ -86,7 +86,7 @@ trait TeamLeagueController
 
     switch ($action) {
       case 'send': 
-        $result = SCTeamLib::sentRequestLeagueTeam($league->id, $team->id);
+        $result = SCTeamLib::sentRequestLeagueTeam($team->id, $league->id);
         if ($result) {
           if ($result == 10) {
             $json['status'] = 'warning';
@@ -102,7 +102,7 @@ trait TeamLeagueController
         break;
 
       case 'cancel': 
-        $result = SCTeamLib::cancelRequestLeagueTeam($league->id, $team->id);
+        $result = SCTeamLib::cancelRequestLeagueTeam($team->id, $league->id);
         if ($result) {
           if ($result == 10) {
             $json['status'] = 'warning';
@@ -118,7 +118,7 @@ trait TeamLeagueController
         break;
 
       case 'allow': 
-        $result = SCTeamLib::allowLeagueTeam($league->id, $team->id);
+        $result = SCTeamLib::allowLeagueTeam($team->id, $league->id);
         if ($result) {
           $json['action'] = 'reload';
         } else {
@@ -128,7 +128,7 @@ trait TeamLeagueController
         break;
 
       case 'leave': 
-        $result = SCTeamLib::leaveLeagueTeam($league->id, $team->id);
+        $result = SCTeamLib::leaveLeagueTeam($team->id, $league->id);
         if ($result) {
           $json['action'] = 'reload';
         } else {
