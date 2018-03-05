@@ -30,6 +30,7 @@
 <script src="{{ asset('assets/plugins/jquery.blockUI/jquery.blockUI.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/jquery.scrollTo.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/plugins/blazy.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/js/sc-app.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/js/sc-league.js') }}" type="text/javascript"></script>

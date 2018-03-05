@@ -12,11 +12,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\User as UserModule;
 
+use SCNodeLib;
 use SCPostLib;
 
 class User extends UserModule
 {
   use SoftDeletes;
+
+  const TABLE_NAME = 'users';
+  const NODE_TYPE  = 'user';
 
   public function profile() {
     return $this->hasOne('App\SC\Models\UserProfile');
@@ -29,13 +33,11 @@ class User extends UserModule
   }
 
   public function getNode() {
-    $node = Node::where('object_id', '=', $this->id)
-                ->where('type', '=', 'user')
-                ->first();
+    $node = SCNodeLib::getNode($this->id, self::NODE_TYPE);
     if (!$node) {
       $node = Node::create([
           'object_id'   => $this->id, 
-          'type'        => 'user', 
+          'type'        => self::NODE_TYPE, 
           'user_id'     => $this->id
       ]);
     }

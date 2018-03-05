@@ -8,7 +8,20 @@
 @section('page_classes')league-seasons-page @endsection
 
 @section('content')
-  <div class="league-timeline-section mt10">
-    Seasons Page - Coming Soon...
+  <div class="page-panel mt10">
+    <div class="panel-content">
+
+      @if ($currentUser)
+      @if (!empty($is_league_manager))
+      <div class="p10">
+        <button class="btn-add-season btn btn-primary emodal-iframe"
+            data-url="{{ route('league.season.add', ['slug'=>$league->slug]) }}" data-title="Add Season" data-size="md">
+          + Add Season
+        </button>
+      </div>
+      @endif
+
+      @endif
+    </div>
   </div>
 @endsection

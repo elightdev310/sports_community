@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Input;
 
 use App\SC\Models\User;
 use App\SC\Models\League;
-use App\SC\Models\League_Member;
+use App\SC\Models\Season;
 
 use SCLeagueLib;
+use SCSeasonLib;
 use SCUserLib;
 use SCHelper;
 use Exception;
@@ -38,10 +39,59 @@ trait SeasonController
     $params = array();
     $params['active_page'] = 'league_seasons';
     $params['league'] = $league;
-    $params['node'] = $league->getNode();
+    $params['node']   = $league->getNode();
+    $params['seasons']= $league->seasons();
+    
     $this->setLeaguePageParam($league, $params);
 
     return view('sc.comm.league.seasons', $params);
+  }
+
+  /**
+   * URL (/leagues/{slug}/seasons/add)
+   * 
+   * add season page
+   */
+  public function addSeasonPage(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+
+    $params = array();
+    $params['league'] = $league;
+    $params['node'] = $league->getNode();
+    $this->setLeaguePageParam($league, $params);
+
+    return view('sc.comm.league.season.add_season', $params);
+  }
+  public function addSeasonAction(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+
+    $validator = Validator::make($request->all(), [
+        'name'        => 'required', 
+        'start_date'  => 'required', 
+        'end_date'    => 'required', 
+      ]);
+    
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+    } 
+    
+    $start = strtotime($request->input('start_date'));
+    $end   = strtotime($request->input('end_date'));
+
+    $season = SCSeasonLib::createSeason(array(
+      'name'        => $request->input('name'), 
+      'start_date'  => $start, 
+      'end_date'    => $end, 
+      'league'      => $league
+    ));
+    
+    if ($season) {
+      return redirect()->back()->withInput()->with('redirect', '_parent');
+    }
   }
 
 }

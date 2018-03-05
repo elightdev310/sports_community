@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\League as LeagueModule;
 
+use SCNodeLib;
 use SCHelper;
 
 class League extends LeagueModule
@@ -31,10 +32,7 @@ class League extends LeagueModule
     return $this;
   }
   public function getNode() {
-    $node = Node::where('object_id', '=', $this->id)
-                ->where('type', '=', self::NODE_TYPE)
-                ->first();
-    return $node;
+    return SCNodeLib::getNode($this->id, self::NODE_TYPE);
   }
   public static function getLeague($slug) {
     $league_id = SCHelper::getObjectIDBySlug($slug, self::TABLE_NAME);
@@ -108,6 +106,23 @@ class League extends LeagueModule
    * Get Join Team Requests
    */
   public function getJoinTeamRequests() {
+    $requests = DB::table('teams')
+              ->rightJoin('league_teams AS lt', 'teams.id', '=', 'lt.team_id')
+              ->select('teams.*')
+              ->addSelect('lt.active AS active')
+              ->addSelect('lt.status AS status')
+              ->where('lt.league_id', $this->id)
+              ->where('lt.active', 0)
+              ->where('lt.status', '<>', '')
+              ->orderBy('lt.created_at', 'ASC')
+              ->get();
+    return $requests;
+  }
+
+  /**
+   * Get Seasons
+   */
+  public function seasons() {
     $requests = DB::table('teams')
               ->rightJoin('league_teams AS lt', 'teams.id', '=', 'lt.team_id')
               ->select('teams.*')

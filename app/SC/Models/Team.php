@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Team as TeamModule;
 
+use SCNodeLib;
 use SCHelper;
 
 class Team extends TeamModule
@@ -31,12 +32,8 @@ class Team extends TeamModule
     ]);
     return $this;
   }
-  public function getNode() 
-  {
-    $node = Node::where('object_id', '=', $this->id)
-                ->where('type', '=', self::NODE_TYPE)
-                ->first();
-    return $node;
+  public function getNode() {
+    return SCNodeLib::getNode($this->id, self::NODE_TYPE);
   }
   public static function getTeam($slug) 
   {

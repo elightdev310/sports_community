@@ -30,6 +30,9 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  
+  <link href="{{ asset('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" type="text/css" />
+
   <!-- MIC style -->
   <link href="{{ asset('assets/css/sc.css') }}?ts={{date('U')}}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('assets/css/league.css') }}?ts={{date('U')}}" rel="stylesheet" type="text/css" />

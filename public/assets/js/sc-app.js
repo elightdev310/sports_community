@@ -197,6 +197,7 @@ $(function () {
             radioClass: 'iradio_square-blue',
             increaseArea: '20%' // optional
         });
+    $('input.datepicker').datepicker({autoclose: true});
 
     eModal.setEModalOptions({
         loadingHtml: '<div class="emodal-loading"><span class="fa fa-circle-o-notch fa-spin fa-3x text-primary"></span><div class="h4">Loading</div></div>',
