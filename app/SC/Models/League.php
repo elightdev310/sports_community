@@ -123,16 +123,17 @@ class League extends LeagueModule
    * Get Seasons
    */
   public function seasons() {
-    $requests = DB::table('teams')
-              ->rightJoin('league_teams AS lt', 'teams.id', '=', 'lt.team_id')
-              ->select('teams.*')
-              ->addSelect('lt.active AS active')
-              ->addSelect('lt.status AS status')
-              ->where('lt.league_id', $this->id)
-              ->where('lt.active', 0)
-              ->where('lt.status', '<>', '')
-              ->orderBy('lt.created_at', 'ASC')
+    $seasons = Season::where('league_id', $this->id)
+              ->where('end_date', '>=', date('Y-m-d'))
+              ->orderBy('start_date', 'ASC')
               ->get();
-    return $requests;
+    return $seasons;
+  }
+  public function archivedSeasons() {
+    $seasons = Season::where('league_id', $this->id)
+              ->where('end_date', '<', date('Y-m-d'))
+              ->orderBy('start_date', 'ASC')
+              ->get();
+    return $seasons;
   }
 }

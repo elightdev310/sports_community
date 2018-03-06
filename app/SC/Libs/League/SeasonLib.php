@@ -53,9 +53,25 @@ class SeasonLib
     ]);
 
     if ($season) {
+      $season->initialize();
       // TODO: notification of new season
     }
 
+    return $season;
+  }
+
+  /**
+   * Update Season 
+   * @param  $data: array(name)
+   */
+  public function updateSeason(Season $season, $data=array()) {
+    // TODO: check duplication of season name
+
+    $season->name = $data['name'];
+    $season->start_date = date('Y-m-d', $data['start_date']);
+    $season->end_date = date('Y-m-d', $data['end_date']);
+
+    $season->save();
     return $season;
   }
 }

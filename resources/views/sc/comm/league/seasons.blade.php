@@ -20,7 +20,24 @@
         </button>
       </div>
       @endif
+      @endif
 
+      @if (count($seasons))
+        <div class="active-season-list season-list-section row no-margin">
+          @foreach($seasons as $season)
+            <div class="no-padding">
+              @include('sc.comm.partials.league.season.season_list_item')
+            </div>
+          @endforeach
+        </div>
+      @elseif (count($archived))
+        <div class="archived-season-list season-list-section row no-margin">
+          @foreach($archived as $season)
+
+          @endforeach
+        </div>
+      @else
+        <div class="text-center p10">No season</div>
       @endif
     </div>
   </div>

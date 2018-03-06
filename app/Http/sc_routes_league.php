@@ -45,9 +45,15 @@ Route::group(['prefix' => 'leagues/{slug}'], function () {
   Route::get('/seasons', [
     'as' => $as_league.'seasons',     'uses' => 'SC\Comm\League\LeagueController@leagueSeasonsPage' ]);
   Route::get('/seasons/add', [
-    'as' => $as_league.'season.add',  'uses' => 'SC\Comm\League\LeagueController@addSeasonPage' ]);
+    'as' => $as_league.'season.add',      'uses' => 'SC\Comm\League\LeagueController@addSeasonPage' ]);
   Route::post('/seasons/add', [
-    'as' => $as_league.'season.add.post',  'uses' => 'SC\Comm\League\LeagueController@addSeasonAction' ]);
+    'as' => $as_league.'season.add.post', 'uses' => 'SC\Comm\League\LeagueController@addSeasonAction' ]);
+  Route::get('/seasons/{season}', [
+      'as' => $as_league.'season.page',   'uses' => 'SC\Comm\League\LeagueController@seasonPage' ]);
+  Route::get('/seasons/{season}/edit', [
+    'as' => $as_league.'season.edit',     'uses' => 'SC\Comm\League\LeagueController@editSeasonPage' ]);
+  Route::post('/seasons/{season}/edit', [
+    'as' => $as_league.'season.edit.post', 'uses' => 'SC\Comm\League\LeagueController@editSeasonAction' ]);
 });
 
 /**
