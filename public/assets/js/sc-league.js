@@ -199,32 +199,18 @@ SCApp.Team = {
 
 SCApp.Season = {
   bindDivisionTeamList: function() {
-    $('.division-team-list-section').on('click', '.btn-join-season', function() {
+    $('.division-team-list-section').on('click', '.btn-join-season, .btn-cancel-request, .btn-allow-request, .btn-reject-request', function() {
       var $btn = $(this);
       var $item= $(this).closest('.dt-item');
       var url = $btn.data('url');
       var action = 'send';
-
-      SCApp.UI.blockUI($item);
-      SCApp.ajaxSetup();
-      $.ajax({
-        url: url,
-        type: "POST",
-        data: {'action':action},
-      })
-      .done(function( json, textStatus, jqXHR ) {
-        SCApp.doAjaxAction(json);
-      })
-      .always(function( data, textStatus, errorThrown ) {
-        //SCApp.UI.unblockUI($item);
-      });
-    });
-  
-    $('.division-team-list-section').on('click', '.btn-cancel-request', function() {
-      var $btn = $(this);
-      var $item= $(this).closest('.dt-item');
-      var url = $btn.data('url');
-      var action = 'cancel';
+      if ($btn.hasClass('btn-cancel-request')) {
+        action = 'cancel';
+      } else if ($btn.hasClass('btn-allow-request')) {
+        action = 'allow';
+      } else if ($btn.hasClass('btn-reject-request')) {
+        action = 'reject';
+      }
 
       SCApp.UI.blockUI($item);
       SCApp.ajaxSetup();

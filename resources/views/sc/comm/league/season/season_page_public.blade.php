@@ -25,21 +25,27 @@
                 </td>
                 <td class="td-action text-right">
                   <div class="dropdown pull-right">
-                    @if ($dt_team->status == 'send')
+                    @if ($dt_team->active)
+                      <button class="btn btn-info btn-small dropdown-toggle" type="button" id="dropdown-joined-dt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Joined
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdown-joined-dt">
+                        <li>
+                          <a href="#" class="btn-leave-season" 
+                              data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                            Leave Season
+                          </a>
+                        </li>
+                      </ul>
+                    @elseif ($dt_team->status)
                       <button class="btn btn-info btn-small dropdown-toggle" type="button" id="dropdown-sent-respond-dt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Waiting Approval
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="dropdown-sent-respond-dt">
                         <li>
-                            <a href="#" class="btn-allow-request" 
-                                data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
-                              Allow
-                            </a>
-                          </li>
-                        <li>
-                          <a href="#" class="btn-reject-request" 
+                          <a href="#" class="btn-cancel-request" 
                               data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
-                            Reject
+                            Cancel Request
                           </a>
                         </li>
                       </ul>
@@ -75,9 +81,6 @@
                     </div>
                   </div>
                 </td>
-                <td class="team-action pull-right">
-                  
-                </td>
               </tr>
             </table>
           </div>
@@ -85,6 +88,7 @@
       </div>
     </div>
   @endif
+
 @endsection
 
 @push('scripts')

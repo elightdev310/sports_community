@@ -120,15 +120,17 @@ trait SeasonController
     $params['season'] = $season;
     $params['node']   = $season->getNode();
 
-    $params['dt_teams'] = SCDivision_TeamLib::getDivisionTeamsByUser($currentUser->id, $season->id);
-    
-    if ($currentUser && !$season->isArchived()) {
-      //$params['division_teams'] = $currentUser->getDivisionTeamsRecord($season);
-    }
+    $params['division_teams'] = $season->getDivisionTeams();
 
     $this->setLeaguePageParam($league, $params);
-
-    return view('sc.comm.league.season.season_page', $params);
+    
+    if ($params['is_league_manager']) {
+      $params['dt_teams'] = $season->getDivisionTeamRequests();
+      return view('sc.comm.league.season.season_page', $params);
+    } else {
+      $params['dt_teams'] = SCDivision_TeamLib::getDivisionTeamsByUser($currentUser->id, $season->id);
+      return view('sc.comm.league.season.season_page_public', $params);
+    }    
   }
 
   /**
@@ -256,6 +258,39 @@ trait SeasonController
           $json['message']= 'Failed to cancel request.';
         }
         break;
+      case 'allow': 
+        $result = SCDivision_TeamLib::allowRequestDivisionTeam($team, $season);
+        if ($result) {
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+            $json['action'] = 'reload';
+          }
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to allow request.';
+          $json['action'] = 'reload';
+        }
+        break;
+      case 'reject': 
+        $result = SCDivision_TeamLib::rejectRequestDivisionTeam($team, $season);
+        if ($result) {
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+            $json['action'] = 'reload';
+          }
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to cancel request.';
+          $json['action'] = 'reload';
+        }
+        break;
+        
       case 'leave': 
         $result = SCDivision_TeamLib::leaveDivisionTeam($team, $season);
         if ($result) {

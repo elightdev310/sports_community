@@ -53,8 +53,8 @@ class Division_TeamLib
                     ON (t.id=dt.team_id) 
               WHERE t.creator_uid = ? AND 
                     (dt.season_id = ? OR dt.season_id IS NULL)";
-    $leagues = DB::select($query, array($user_id, $season_id));
-    return $leagues;
+    $dt_teams = DB::select($query, array($user_id, $season_id));
+    return $dt_teams;
   }
   public function getDivisionTeamsByUser($user_id, $season_id) {
     $query = "SELECT t.*, dt.active, dt.status 
@@ -63,8 +63,8 @@ class Division_TeamLib
                     ON (t.id=dt.team_id) 
               WHERE t.creator_uid = ? AND 
                     (dt.season_id = ? AND dt.status<>'')";
-    $leagues = DB::select($query, array($user_id, $season_id));
-    return $leagues;
+    $dt_teams = DB::select($query, array($user_id, $season_id));
+    return $dt_teams;
   }
 
   /**
@@ -108,7 +108,7 @@ class Division_TeamLib
     } 
     return 0;
   }
-  public function allowDivisionTeam(Team $team, Season $season) {
+  public function allowRequestDivisionTeam(Team $team, Season $season) {
     $dt_record = Division_Team::getRecord($team->id, $season->id);
     if ($dt_record) {
       if ($dt_record->active) {
@@ -121,21 +121,23 @@ class Division_TeamLib
       } else {
         return 11;
       }
-    } else {
-      $dt_record = Division_Team::create(array(
-        'team_name'   => $team->name, 
-        'division_id' => 0, 
-        'team_id'     => $team->id, 
-        'season_id'   => $season->id, 
-        'active'  => 1,
-        'status'  => Division_Team::STATUS_ACTIVE
-      ));
-      if ($dt_record) {
-        return 1;   // OK
-      }
     }
     return false;
   }
+  public function rejectRequestDivisionTeam(Team $team, Season $season) {
+    $dt_record = Division_Team::getRecord($team->id, $season->id);
+    if ($dt_record) {
+      if ($dt_record->active) {
+        return 10;    // Already Joined
+      } else {
+        $dt_record->status = '';
+        $dt_record->save();
+        return 1;   // OK
+      }
+    } 
+    return 0;
+  }
+
   public function leaveDivisionTeam(Team $team, Season $season) {
     $dt_record = Division_Team::getRecord($team->id, $season->id);
     if ($dt_record) {

@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Season as SeasonModule;
 
+use DB;
+
 use SCNodeLib;
 use SCUserLib;
 use SCHelper;
@@ -53,5 +55,25 @@ class Season extends SeasonModule
 
   public function isArchived() {
     return $this->end_date >= date(SCHelper::DB_DATE_FORMAT);
+  }
+
+  public function getDivisionTeamRequests() {
+    $query = "SELECT t.*, dt.active, dt.status 
+              FROM teams AS t 
+              LEFT JOIN division_teams AS dt 
+                    ON (t.id=dt.team_id) 
+              WHERE dt.season_id = ? AND dt.active = 0 AND dt.status<>'' ";
+    $r_teams = DB::select($query, array($this->id));
+    return $r_teams;
+  }
+
+  public function getDivisionTeams() {
+    $query = "SELECT t.*, dt.active, dt.status, dt.division_id  
+              FROM teams AS t 
+              LEFT JOIN division_teams AS dt 
+                    ON (t.id=dt.team_id) 
+              WHERE dt.season_id = ? AND dt.active = 1";
+    $teams = DB::select($query, array($this->id));
+    return $teams;
   }
 }
