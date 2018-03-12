@@ -36,7 +36,22 @@ class Season extends SeasonModule
     return SCNodeLib::getNode($this->id, self::NODE_TYPE);
   }
 
+  /**
+   * get URL of cover photo
+   */
+  public function coverPhotoPath() {
+    $node = $this->getNode();
+    if ($node) {
+      return $node->coverPhotoPath();
+    }
+    return false;
+  }
+
   public function league() {
     return $this->belongsTo('App\SC\Models\League');
+  }
+
+  public function isArchived() {
+    return $this->end_date >= date(SCHelper::DB_DATE_FORMAT);
   }
 }

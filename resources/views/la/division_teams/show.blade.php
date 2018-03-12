@@ -110,6 +110,9 @@
 						@la_display($module, 'team_name')
 						@la_display($module, 'division_id')
 						@la_display($module, 'team_id')
+						@la_display($module, 'season_id')
+						@la_display($module, 'active')
+						@la_display($module, 'status')
 					</div>
 				</div>
 			</div>

@@ -19,6 +19,7 @@ use App\SC\Models\League;
 use App\SC\Models\League_Member;
 
 use SCLeagueLib;
+use SCDivisionLib;
 use SCUserLib;
 use SCHelper;
 use Exception;
@@ -107,14 +108,13 @@ class LeagueController extends Controller
   public function searchLeaguePage(Request $request)
   {
     $currentUser = SCUserLib::currentUser();
-
+    
     $params = array();
     $params['tab'] = 'search';
 
     if ($term = $request->input('term')) {
       $params['leagues'] = SCLeagueLib::searchLeague($term);
     }
-
     return view('sc.comm.league.search_league', $params);
   }
 
@@ -291,7 +291,54 @@ class LeagueController extends Controller
     return view('sc.comm.league.teams', $params);
   }
 
+  /**
+   * URL (/leagues/{slug}/divisions/add)
+   * 
+   * add division page
+   */
+  public function addDivisionPage(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+  
+    $params = array();
+    $params['league'] = $league;
+    $params['node']   = $league->getNode();
 
+    $params['divisions'] = $league->divisions();
+
+    $this->setLeaguePageParam($league, $params);
+
+    return view('sc.comm.league.division.add_division', $params);
+  }
+  public function addDivisionAction(Request $request, $slug)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+
+    $validator = Validator::make($request->all(), [
+        'name'        => 'required', 
+      ]);
+    
+    if ($validator->fails()) {
+      return redirect()->back()->withErrors($validator)->withInput();
+    } 
+
+
+    $division = SCDivisionLib::createDivision(array(
+      'name'        => $request->input('name'), 
+      'league'      => $league
+    ));
+    
+    if ($division) {
+      if ($division == 'exist') {
+        return redirect()->back()->withErrors('Duplicated Division Name. Please try another name')->withInput();
+      }
+      return redirect()->back()->withInput()->with('redirect', '_parent');
+    }
+
+    return redirect()->back()->withErrors('Failed to add division.')->withInput();
+  }
 
 
 

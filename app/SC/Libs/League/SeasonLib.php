@@ -74,4 +74,12 @@ class SeasonLib
     $season->save();
     return $season;
   }
+
+  public function isArchived($season_id) {
+    $season = Season::find($season_id);
+    if ($season) {
+      return $season->isArchived();
+    }
+    return false;
+  }
 }

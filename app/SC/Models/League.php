@@ -124,16 +124,26 @@ class League extends LeagueModule
    */
   public function seasons() {
     $seasons = Season::where('league_id', $this->id)
-              ->where('end_date', '>=', date('Y-m-d'))
+              ->where('end_date', '>=', date(SCHelper::DB_DATE_FORMAT))
               ->orderBy('start_date', 'ASC')
               ->get();
     return $seasons;
   }
   public function archivedSeasons() {
     $seasons = Season::where('league_id', $this->id)
-              ->where('end_date', '<', date('Y-m-d'))
+              ->where('end_date', '<', date(SCHelper::DB_DATE_FORMAT))
               ->orderBy('start_date', 'ASC')
               ->get();
     return $seasons;
+  }
+
+  /**
+   * Get Divisions
+   */
+  public function divisions() {
+    $divisions = Division::where('league_id', $this->id)
+                  ->orderBy('name', 'ASC')
+                  ->get();
+    return $divisions;
   }
 }

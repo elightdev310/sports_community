@@ -324,7 +324,7 @@ body {
 .wrapper > .content-wrapper {
   margin-top: 50px;
 }
-.table > tbody > tr > td {
+.table.no-border > tbody > tr > td {
   border-top: none;
 }
 .cover-image-section {

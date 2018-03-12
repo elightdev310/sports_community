@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-sm-9">
                   @section('league_page_header')
-                    @include ('sc.comm.partials.league.league_page_header')
+                    @include('sc.comm.partials.league.season.season_page_header')
                   @show
 
                   @if(!isset($sub_message))

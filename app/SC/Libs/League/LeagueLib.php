@@ -18,6 +18,7 @@ use App\SC\Models\League;
 use App\SC\Models\League_Member;
 use App\SC\Models\Team;
 use App\SC\Models\League_Team;
+use App\SC\Models\Division;
 
 use SCHelper;
 use SCUserLib;
@@ -71,7 +72,7 @@ class LeagueLib
    */
   public function searchLeague($term) {
     $currentUser = SCUserLib::currentUser();
-
+    
     //$leagues = League::where('name', 'LIKE', '%'.$term.'%')->get();
     $query = "SELECT t.*, lm.active, lm.status 
               FROM leagues AS t 
@@ -189,4 +190,11 @@ class LeagueLib
     return true;
   }
   
+  public function getSeasons($league_id) {
+    $league = League::find($league_id);
+    if ($league) {
+      return $league->seasons();
+    }
+    return false;
+  }
 }

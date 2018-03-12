@@ -46,7 +46,7 @@
       @if (count($leagues))
         <div class="team-league-list league-list-section row no-margin" data-teamslug="{{ $team->slug }}">
           @foreach ($leagues as $league) 
-            <div class="col-md-6 no-padding">
+            <div class="col-md-12 no-padding">
               @include('sc.comm.partials.team.league.team_league_list_item')
             </div>
           @endforeach 

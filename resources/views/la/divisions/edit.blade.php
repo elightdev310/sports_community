@@ -34,7 +34,6 @@
 					
 					{{--
 					@la_input($module, 'name')
-					@la_input($module, 'season_id')
 					@la_input($module, 'league_id')
 					--}}
                     <br>

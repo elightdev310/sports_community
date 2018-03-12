@@ -22,20 +22,28 @@
       @endif
       @endif
 
-      @if (count($seasons))
-        <div class="active-season-list season-list-section row no-margin">
-          @foreach($seasons as $season)
-            <div class="no-padding">
-              @include('sc.comm.partials.league.season.season_list_item')
+      @if (count($seasons) || count($archived))
+        @if (count($seasons))
+          <div class="active-season-list season-list-section row no-margin">
+            @foreach($seasons as $season)
+              <div class="no-padding">
+                @include('sc.comm.partials.league.season.season_list_item')
+              </div>
+            @endforeach
+          </div>
+        @endif
+        @if (count($archived))
+          <div class="archived-season-list season-list-section row no-margin">
+            <div class="pl20">
+              <h4><strong>Archived Seasons</strong></h4>
             </div>
-          @endforeach
-        </div>
-      @elseif (count($archived))
-        <div class="archived-season-list season-list-section row no-margin">
-          @foreach($archived as $season)
-
-          @endforeach
-        </div>
+            @foreach($archived as $season)
+              <div class="no-padding">
+                @include('sc.comm.partials.league.season.season_list_item')
+              </div>
+            @endforeach
+          </div>
+        @endif
       @else
         <div class="text-center p10">No season</div>
       @endif

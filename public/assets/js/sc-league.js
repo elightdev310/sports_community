@@ -195,3 +195,74 @@ SCApp.Team = {
     });
   }
 };
+
+
+SCApp.Season = {
+  bindDivisionTeamList: function() {
+    $('.division-team-list-section').on('click', '.btn-join-season', function() {
+      var $btn = $(this);
+      var $item= $(this).closest('.dt-item');
+      var url = $btn.data('url');
+      var action = 'send';
+
+      SCApp.UI.blockUI($item);
+      SCApp.ajaxSetup();
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {'action':action},
+      })
+      .done(function( json, textStatus, jqXHR ) {
+        SCApp.doAjaxAction(json);
+      })
+      .always(function( data, textStatus, errorThrown ) {
+        //SCApp.UI.unblockUI($item);
+      });
+    });
+  
+    $('.division-team-list-section').on('click', '.btn-cancel-request', function() {
+      var $btn = $(this);
+      var $item= $(this).closest('.dt-item');
+      var url = $btn.data('url');
+      var action = 'cancel';
+
+      SCApp.UI.blockUI($item);
+      SCApp.ajaxSetup();
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {'action':action},
+      })
+      .done(function( json, textStatus, jqXHR ) {
+        SCApp.doAjaxAction(json);
+      })
+      .always(function( data, textStatus, errorThrown ) {
+        //SCApp.UI.unblockUI($item);
+      });
+    });
+
+    $('.division-team-list-section').on('click', '.btn-leave-season', function() {
+      var $btn = $(this);
+      var $item= $(this).closest('.dt-item');
+      var url = $btn.data('url');
+      var action = 'leave';
+  
+      eModal.confirm('Are you sure to leave season?', 'Leave Season')
+        .then(function() {
+          SCApp.UI.blockUI($item);
+          SCApp.ajaxSetup();
+          $.ajax({
+            url: url,
+            type: "POST",
+            data: {'action':action},
+          })
+          .done(function( json, textStatus, jqXHR ) {
+            SCApp.doAjaxAction(json); //Refresh
+          })
+          .always(function( data, textStatus, errorThrown ) {
+            SCApp.UI.unblockUI($item);
+          });
+        });
+    });
+  }
+};

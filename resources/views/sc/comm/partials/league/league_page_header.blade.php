@@ -17,7 +17,8 @@
 
 @if ($currentUser)
 @if (empty($is_league_manager))
-<div class="league-page-header league-list-section league-item @if ($lm_record&&$lm_record->status) {{ "status-{$lm_record->status}" }} @endif" data-league="{{ $league->id }}">
+<div class="league-page-header league-list-section league-item cover-photo-page-header @if ($lm_record&&$lm_record->status) {{ "status-{$lm_record->status}" }} @endif" 
+      data-league="{{ $league->id }}">
   @if (!empty($is_league_member))
     <button class="btn-leave-league btn btn-gray">Leave League</button>
   @else

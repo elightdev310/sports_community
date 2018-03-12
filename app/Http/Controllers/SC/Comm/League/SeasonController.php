@@ -17,9 +17,12 @@ use Illuminate\Support\Facades\Input;
 use App\SC\Models\User;
 use App\SC\Models\League;
 use App\SC\Models\Season;
+use App\SC\Models\Team;
 
 use SCLeagueLib;
 use SCSeasonLib;
+use SCDivision_TeamLib;
+
 use SCUserLib;
 use SCHelper;
 use Exception;
@@ -117,6 +120,12 @@ trait SeasonController
     $params['season'] = $season;
     $params['node']   = $season->getNode();
 
+    $params['dt_teams'] = SCDivision_TeamLib::getDivisionTeamsByUser($currentUser->id, $season->id);
+    
+    if ($currentUser && !$season->isArchived()) {
+      //$params['division_teams'] = $currentUser->getDivisionTeamsRecord($season);
+    }
+
     $this->setLeaguePageParam($league, $params);
 
     return view('sc.comm.league.season.season_page', $params);
@@ -178,5 +187,87 @@ trait SeasonController
     }
     
     return redirect()->back()->withErrors('Failed to update season.')->withInput();
+  }
+
+  /**
+   * User Team Join
+   */
+  public function userTeamJoinPage(Request $request, $slug, Season $season)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+    if ($league->id != $season->league_id) {
+      return redirect()->back()->with('redirect', '_parent');
+    }
+    $params = array();
+    $params['active_page'] = 'user_team_join';
+    $params['league'] = $league;
+    $params['season'] = $season;
+    $params['node']   = $season->getNode();
+
+    $params['dt_teams'] = SCDivision_TeamLib::getDivisionTeamsByUserTeams($currentUser->id, $season->id);
+
+    $this->setLeaguePageParam($league, $params);
+
+    return view('sc.comm.league.season.user_team_join', $params);
+  }
+  public function userTeamJoinAction(Request $request, $slug, Season $season, Team $team)
+  {
+    $currentUser = SCUserLib::currentUser();
+    $league = League::getLeague($slug);
+    if ($league->id != $season->league_id) {
+      return redirect()->back()->with('redirect', '_parent');
+    }
+
+    $action = $request->input('action');
+
+    $json = array(
+        "status" => "success",
+      );
+
+    switch ($action) {
+      case 'send': 
+        $result = SCDivision_TeamLib::sendRequestDivisionTeam($team, $season);
+        if ($result) {
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+            $json['action'] = 'reload_parent';
+          }
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to send request.';
+        }
+        break;
+      case 'cancel': 
+        $result = SCDivision_TeamLib::cancelRequestDivisionTeam($team, $season);
+        if ($result) {
+          if ($result == 10) {
+            $json['status'] = 'warning';
+            $json['code']   = $result;
+            $json['action'] = 'reload';
+          } else {
+            $json['action'] = 'reload';
+          }
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to cancel request.';
+        }
+        break;
+      case 'leave': 
+        $result = SCDivision_TeamLib::leaveDivisionTeam($team, $season);
+        if ($result) {
+          $json['action'] = 'reload';
+        } else {
+          $json['status'] = 'error';
+          $json['message']= 'Failed to leave member.';
+        }
+        
+        break;
+    }
+
+    return response()->json($json);
   }
 }

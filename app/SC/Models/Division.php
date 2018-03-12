@@ -11,5 +11,7 @@ use App\Models\Division as DivisionModule;
 
 class Division extends DivisionModule
 {
-    
+  public function league() {
+    return $this->belongsTo('App\SC\Models\League');
+  }
 }

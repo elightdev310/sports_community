@@ -23,7 +23,7 @@ class Division_TeamsController extends Controller
 {
 	public $show_action = true;
 	public $view_col = 'team_name';
-	public $listing_cols = ['id', 'team_name', 'division_id', 'team_id'];
+	public $listing_cols = ['id', 'team_name', 'division_id', 'team_id', 'season_id', 'active', 'status'];
 	
 	public function __construct() {
 		// Field Access of Listing Columns

@@ -9,6 +9,7 @@ use App\SC\Models\User;
 
 class SCHelper
 {
+    const DB_DATE_FORMAT = 'Y-m-d';
     /**
      * Formatted Error Message
      */

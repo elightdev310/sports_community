@@ -1,6 +1,6 @@
 {{-- $team, $league --}}
 <div class="league-item m10 @if ($league->status) {{ "status-{$league->status}" }} @endif" data-league="{{ $league->id }}">
-  <table class="table">
+  <table class="table no-border mb0">
     <tr>
       <td>
         <div class="cover-photo-thumb pull-left">
@@ -27,4 +27,14 @@
       </td>
     </tr>
   </table>
+
+  @if ( count(SCLeagueLib::getSeasons($league->id)) )
+    <div class="season-list-section ml20">
+      @foreach (SCLeagueLib::getSeasons($league->id) as $season)
+        <div class="no-padding">
+          @include('sc.comm.partials.league.season.season_list_item')
+        </div>
+      @endforeach
+    </div>
+  @endif
 </div>

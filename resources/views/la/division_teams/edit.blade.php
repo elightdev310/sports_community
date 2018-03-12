@@ -36,6 +36,9 @@
 					@la_input($module, 'team_name')
 					@la_input($module, 'division_id')
 					@la_input($module, 'team_id')
+					@la_input($module, 'season_id')
+					@la_input($module, 'active')
+					@la_input($module, 'status')
 					--}}
                     <br>
 					<div class="form-group">

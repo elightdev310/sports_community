@@ -17,7 +17,8 @@
 
 @if ($currentUser)
 @if (empty($is_team_manager))
-<div class="team-page-header team-list-section team-item @if ($tm_record&&$tm_record->status) {{ "status-{$tm_record->status}" }} @endif" data-team="{{ $team->id }}">
+<div class="team-page-header team-list-section team-item cover-photo-page-header @if ($tm_record&&$tm_record->status) {{ "status-{$tm_record->status}" }} @endif" 
+      data-team="{{ $team->id }}">
   @if (!empty($is_team_member))
     <button class="btn-leave-team btn btn-gray">Leave Team</button>
   @else
