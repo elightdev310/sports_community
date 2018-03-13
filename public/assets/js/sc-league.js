@@ -250,5 +250,45 @@ SCApp.Season = {
           });
         });
     });
+  }, 
+  bindDivisionTeamsPanel: function() {
+    $('.division-teams-panel').on('change', 'select.division-select', function() {
+      var $select = $(this);
+      var $item   = $(this).closest('.team-item');
+      var $section= $(this).closest('.division-teams-panel-section');
+
+      var season_id = $section.data('season');
+      var team_id   = $item.data('team');
+
+      var url = '/seasons/'+season_id+'/team/'+team_id+'/change-division';
+      var division = $select.val();
+
+      SCApp.UI.blockUI($section);
+      SCApp.ajaxSetup();
+      $.ajax({
+        url: url,
+        type: "POST",
+        data: {'division':division},
+      })
+      .done(function( json, textStatus, jqXHR ) {
+        SCApp.doAjaxAction(json); //Refresh
+      })
+      .always(function( data, textStatus, errorThrown ) {
+        //SCApp.UI.unblockUI($section);
+        //Reload Frame
+        $.ajax({
+          url: '/seasons/'+season_id+'/reload-division-team-panel',
+          type: "GET",
+        })
+        .done(function( json, textStatus, jqXHR ) {
+          if (json.status == 'success') {
+            $('.division-teams-panel .panel-content').html(json.panel_html);
+          } else {
+            SCApp.UI.unblockUI($section);
+          }
+        });
+      });
+      //
+    });
   }
 };

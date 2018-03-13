@@ -58,9 +58,9 @@ class Season extends SeasonModule
   }
 
   public function getDivisionTeamRequests() {
-    $query = "SELECT t.*, dt.active, dt.status 
-              FROM teams AS t 
-              LEFT JOIN division_teams AS dt 
+    $query = "SELECT dt.*, t.slug
+              FROM division_teams AS dt 
+              LEFT JOIN teams AS t 
                     ON (t.id=dt.team_id) 
               WHERE dt.season_id = ? AND dt.active = 0 AND dt.status<>'' ";
     $r_teams = DB::select($query, array($this->id));
@@ -68,12 +68,14 @@ class Season extends SeasonModule
   }
 
   public function getDivisionTeams() {
-    $query = "SELECT t.*, dt.active, dt.status, dt.division_id  
-              FROM teams AS t 
-              LEFT JOIN division_teams AS dt 
+    $query = "SELECT dt.*, t.slug  
+              FROM division_teams AS dt 
+              LEFT JOIN teams AS t 
                     ON (t.id=dt.team_id) 
+              LEFT JOIN divisions AS d 
+                    ON (d.id=dt.division_id) 
               WHERE dt.season_id = ? AND dt.active = 1 
-              ORDER BY dt.division_id ASC";
+              ORDER BY d.name ASC, dt.team_name ASC";
     $teams = DB::select($query, array($this->id));
     $data = array();
     foreach ($teams as $team) {

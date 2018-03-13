@@ -17,10 +17,10 @@
               <tr>
                 <td>
                   <div class="cover-photo-thumb pull-left">
-                    {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($dt_team->id, 'team' )) !!}
+                    {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($dt_team->team_id, 'team' )) !!}
                   </div>
                   <div>
-                    <a href="{{ route('team.page', ['slug'=>$dt_team->slug]) }}" class="team-title">{{ $dt_team->name }}</a>
+                    <a href="{{ route('team.page', ['slug'=>$dt_team->slug]) }}" class="team-title">{{ $dt_team->team_name }}</a>
                   </div>
                 </td>
                 <td class="td-action text-right">
@@ -32,13 +32,13 @@
                       <ul class="dropdown-menu" aria-labelledby="dropdown-sent-respond-dt">
                         <li>
                             <a href="#" class="btn-allow-request" 
-                                data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                                data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->team_id]) }}">
                               Allow
                             </a>
                           </li>
                         <li>
                           <a href="#" class="btn-reject-request" 
-                              data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                              data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->team_id]) }}">
                             Reject
                           </a>
                         </li>
@@ -72,6 +72,7 @@
 $(function () {
   $(document).ready(function() {
     SCApp.Season.bindDivisionTeamList();
+    SCApp.Season.bindDivisionTeamsPanel();
   });
 });
 </script>

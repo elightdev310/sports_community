@@ -2,7 +2,8 @@
 
 Route::group(['middleware' => ['auth']], 
             function () {
-
+  
+  // Leagues
   Route::get('leagues', [
         'as' => 'league.my_leagues',    'uses' => 'SC\Comm\League\LeagueController@myLeaguesPage' ]);
   Route::get('leagues/create', [
@@ -14,7 +15,8 @@ Route::group(['middleware' => ['auth']],
 
   Route::post('leagues/{league}/member-relationship', [
         'as' => 'league.member.relationship.post', 'uses' => 'SC\Comm\League\LeagueController@memberRelationshipAction' ]);
-
+  
+  // Teams
   Route::get('teams', [
         'as' => 'team.my_teams',        'uses' => 'SC\Comm\Team\TeamController@myTeamsPage' ]);
   Route::get('teams/create', [
@@ -26,6 +28,12 @@ Route::group(['middleware' => ['auth']],
 
   Route::post('teams/{team}/member-relationship', [
         'as' => 'team.member.relationship.post', 'uses' => 'SC\Comm\Team\TeamController@memberRelationshipAction' ]);
+  
+  // Seasons
+  Route::post('seasons/{season}/team/{team}/change-division', [
+    'as' => 'season.team.change_division.post', 'uses' => 'SC\Comm\League\LeagueController@changeDivisionOfTeamAction' ]);
+  Route::get('seasons/{season}/reload-division-team-panel', [
+    'as' => 'season.reload_division_team_panel','uses' => 'SC\Comm\League\LeagueController@reloadDivisionTeamPanel' ]);
 });
 
 /**

@@ -13,11 +13,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller as Controller;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
 
 use App\SC\Models\User;
 use App\SC\Models\League;
 use App\SC\Models\Season;
 use App\SC\Models\Team;
+use App\SC\Models\Division_Team;
 
 use SCLeagueLib;
 use SCSeasonLib;
@@ -303,6 +305,51 @@ trait SeasonController
         break;
     }
 
+    return response()->json($json);
+  }
+
+  /**
+   * POST (/seasons/{season}/team/{team}/change-division)
+   * 
+   * Change Division of Team in Season Page
+   */
+  public function changeDivisionOfTeamAction(Request $request, Season $season, Team $team)
+  {
+    $json = array(
+      "status" => "success",
+    );
+
+    $division_id = $request->input('division');
+
+    $dt_record = Division_Team::getRecord($team->id, $season->id);
+    if ($dt_record) {
+      $dt_record->division_id = $division_id;
+      $dt_record->save();
+    } else {
+      $json['status'] = 'error';
+      $json['message']= 'Failed to change division.';
+    }
+
+    return response()->json($json);
+  }
+
+  public function reloadDivisionTeamPanel(Request $request, Season $season)
+  {
+    $params = array();
+    $league = $season->league;
+    $params['league'] = $league;
+    $params['season'] = $season;
+    $params['node']   = $season->getNode();
+
+    $this->setLeaguePageParam($league, $params);
+
+    $params['division_teams'] = $season->getDivisionTeams();
+    $view = View::make('sc.comm.partials.league.season.division_teams_panel', $params);
+
+    $json = array(
+      "status"    => "success",
+      'panel_html'=> $view->render()
+    );
     return response()->json($json);
   }
 }

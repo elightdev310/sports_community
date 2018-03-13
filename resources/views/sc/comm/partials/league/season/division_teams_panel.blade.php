@@ -1,3 +1,4 @@
+<div class="division-teams-panel-section" data-season="{{ $season->id }}">
 @foreach ($division_teams as $group)
   <div class="division m10">
     <div class="division-title text-bold">
@@ -9,26 +10,26 @@
     </div>
     
     <div class="division-teams ml10">
-      @foreach ($group['teams'] as $team)
-        <div class="team-item m5">
+      @foreach ($group['teams'] as $dt_team)
+        <div class="team-item m5" data-team="{{ $dt_team->team_id }}">
           <table class="table no-margin">
             <tr>
               <td>
                 <div class="cover-photo-thumb pull-left">
-                  {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($team->id, 'team' )) !!}
+                  {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($dt_team->team_id, 'team' )) !!}
                 </div>
                 <div class="">
                   <div class="mt5">
-                    <a href="{{ route('team.page', ['slug'=>$team->slug]) }}" class="team-title">{{ $team->name }}</a>
+                    <a href="{{ route('team.page', ['slug'=>$dt_team->slug]) }}" class="team-title">{{ $dt_team->team_name }}</a>
                   </div>
                 </div>
               </td>
               <td class="team-action pull-right">
                 @if (!empty($is_league_manager))
-                  <select class="form-control">
-                      <option value="0" @if($team->division_id == 0) SELECTED @endif>- Unassigned -</option>
+                  <select class="division-select form-control">
+                      <option value="0" @if($dt_team->division_id == 0) SELECTED @endif>- Unassigned -</option>
                     @foreach ($league->divisions() as $division)
-                      <option value="{{ $division->id }}" @if($team->division_id == $division->id) SELECTED @endif>
+                      <option value="{{ $division->id }}" @if($dt_team->division_id == $division->id) SELECTED @endif>
                         {{ $division->name }}
                       </option>
                     @endforeach
@@ -42,3 +43,4 @@
     </div>
   </div>
 @endforeach
+</div>
