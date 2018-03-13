@@ -236,7 +236,7 @@ trait SeasonController
             $json['code']   = $result;
             $json['action'] = 'reload';
           } else {
-            $json['action'] = 'reload_parent';
+            $json['action'] = 'reload';
           }
         } else {
           $json['status'] = 'error';
@@ -290,7 +290,7 @@ trait SeasonController
           $json['action'] = 'reload';
         }
         break;
-        
+
       case 'leave': 
         $result = SCDivision_TeamLib::leaveDivisionTeam($team, $season);
         if ($result) {

@@ -72,8 +72,16 @@ class Season extends SeasonModule
               FROM teams AS t 
               LEFT JOIN division_teams AS dt 
                     ON (t.id=dt.team_id) 
-              WHERE dt.season_id = ? AND dt.active = 1";
+              WHERE dt.season_id = ? AND dt.active = 1 
+              ORDER BY dt.division_id ASC";
     $teams = DB::select($query, array($this->id));
-    return $teams;
+    $data = array();
+    foreach ($teams as $team) {
+      if ($team->division_id && !isset($data[$team->division_id]['division'])) {
+        $data[$team->division_id]['division'] = Division::find($team->division_id);
+      }
+      $data[$team->division_id]['teams'][] = $team;
+    }
+    return $data;
   }
 }

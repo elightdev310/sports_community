@@ -56,32 +56,12 @@
   
   {{-- Division Teams --}}
   @if (count($division_teams))
-    <div class="page-panel mt10">
+    <div class="division-teams-panel page-panel mt10">
       <div class="panel-header">
         <div class="panel-title">Division & Teams</div>
       </div>
       <div class="panel-content">
-        @foreach ($division_teams as $team)
-          <div class="team-item m5">
-            <table class="table no-margin">
-              <tr>
-                <td>
-                  <div class="cover-photo-thumb pull-left">
-                    {!! SCNodeLib::coverPhotoImage( SCNodeLib::getNode($team->id, 'team' )) !!}
-                  </div>
-                  <div class="">
-                    <div class="mt5">
-                      <a href="{{ route('team.page', ['slug'=>$team->slug]) }}" class="team-title">{{ $team->name }}</a>
-                    </div>
-                  </div>
-                </td>
-                <td class="team-action pull-right">
-                  
-                </td>
-              </tr>
-            </table>
-          </div>
-        @endforeach
+        @include('sc.comm.partials.league.season.division_teams_panel')
       </div>
     </div>
   @endif

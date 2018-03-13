@@ -24,20 +24,38 @@ User Team Join
                   </div>
                 </td>
                 <td class="td-action text-right">
-                  @if ($dt_team->active)
-                    <button class="btn btn-disabled btn-small" disabled>
-                      Joined
-                    </button>
-                  @elseif ($dt_team->status)
-                    <button class="btn btn-info btn-small" disabled>
-                      Waiting approval
-                    </button>
-                  @else
-                    <button class="btn-join-season btn btn-primary btn-small"
-                        data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
-                      Join Season
-                    </button>
-                  @endif
+                  <div class="dropdown pull-right">
+                    @if ($dt_team->active)
+                      <button class="btn btn-success btn-small dropdown-toggle" type="button" id="dropdown-joined-dt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Joined
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdown-joined-dt">
+                        <li>
+                          <a href="#" class="btn-leave-season" 
+                              data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                            Leave Season
+                          </a>
+                        </li>
+                      </ul>
+                    @elseif ($dt_team->status)
+                      <button class="btn btn-info btn-small dropdown-toggle" type="button" id="dropdown-sent-respond-dt" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Waiting Approval
+                      </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdown-sent-respond-dt">
+                        <li>
+                          <a href="#" class="btn-cancel-request" 
+                              data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                            Cancel Request
+                          </a>
+                        </li>
+                      </ul>
+                    @else
+                      <button class="btn-join-season btn btn-primary btn-small"
+                          data-url="{{ route('league.season.user_team_join.post', [$league->slug, $season->id, $dt_team->id]) }}">
+                        Join Season
+                      </button>
+                    @endif
+                  </div>
                 </td>
               </tr>
             @endforeach
